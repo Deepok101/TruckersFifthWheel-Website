@@ -1,0 +1,29 @@
+.posts{
+    border-radius: 0.3em;
+    padding: 1em;
+    border: 1px solid rgb(172, 172, 172);
+    margin: 2em 0 2em 0;
+    box-shadow: 4px 6px 10px;
+
+}
+
+#woym{
+    font-size: 2em;
+}
+
+.post_acc_name{
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+.p-posts{
+    margin-right: 3.5em;
+    margin-left: 3.5em;
+}
+
+.reaction{
+    margin: auto;
+    display: block;
+    text-align: center;
+}
+
