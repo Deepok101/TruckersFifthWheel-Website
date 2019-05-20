@@ -9,7 +9,7 @@ class Posts extends React.Component{
   render(){
     
     return(
-      <div className="container">
+      <div className="">
         <div className="border border-secondary mt-5 posts">
         <header>
             <div class="p-2 post_acc_name">

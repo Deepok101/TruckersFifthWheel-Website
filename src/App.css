@@ -31,3 +31,11 @@
     transform: rotate(360deg);
   }
 }
+
+
+html, body {
+  max-width: 1920px;
+  min-width: 1080;
+  margin-left: auto;
+  margin-right: auto;
+}
