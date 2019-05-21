@@ -34,16 +34,7 @@ class NewsFeed extends React.Component{
               <RightSideBar/>
             </div>
             <div className="col-8">
-              <div class='border border-secondary mt-5 posts'>
-                <header>
-                  <div class="p-2">
-                    <p id="woym">What's on your mind?</p>
-                  </div>
-                </header>
-                <div class="pt-3 p-2">
-                  <FormPost changeText={this.changeText} value={this.state.value}/>
-                </div>
-              </div>
+              <FormPost changeText={this.changeText} value={this.state.value}/>
               <Posts accountName="Deepak Singh" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam dapibus maximus iaculis. Phasellus iaculis augue nulla, eu fringilla nisi scelerisque eu. Ut nec nunc rhoncus, auctor sem malesuada, condimentum mi. Sed id urna vestibulum, varius enim eget, congue nisl. Nulla facilisi. Praesent iaculis justo sed commodo venenatis. Duis mauris ante, accumsan et sapien a, mattis aliquam urna. Donec ornare nisl ex, ut vulputate sapien vehicula non. Pellentesque cursus pharetra condimentum."/>
               <Posts accountName="Deepak Singh" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam dapibus maximus iaculis. Phasellus iaculis augue nulla, eu fringilla nisi scelerisque eu. Ut nec nunc rhoncus, auctor sem malesuada, condimentum mi. Sed id urna vestibulum, varius enim eget, congue nisl. Nulla facilisi. Praesent iaculis justo sed commodo venenatis. Duis mauris ante, accumsan et sapien a, mattis aliquam urna. Donec ornare nisl ex, ut vulputate sapien vehicula non. Pellentesque cursus pharetra condimentum."/>
               <Posts accountName="Deepak Singh" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam dapibus maximus iaculis. Phasellus iaculis augue nulla, eu fringilla nisi scelerisque eu. Ut nec nunc rhoncus, auctor sem malesuada, condimentum mi. Sed id urna vestibulum, varius enim eget, congue nisl. Nulla facilisi. Praesent iaculis justo sed commodo venenatis. Duis mauris ante, accumsan et sapien a, mattis aliquam urna. Donec ornare nisl ex, ut vulputate sapien vehicula non. Pellentesque cursus pharetra condimentum."/>

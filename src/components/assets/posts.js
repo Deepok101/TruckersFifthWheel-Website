@@ -20,9 +20,9 @@ class Posts extends React.Component{
             <p class="p-posts">{this.props.text}</p>
           </div>
           <div class="reaction">
-            <button class="btn btn-primary button">Love</button>
-            <button class="btn btn-primary button">Comment</button>
-            <button class="btn btn-primary button">Share</button>
+            <button class="btn btn-primary button reaction-btn">Love</button>
+            <button class="btn btn-primary button reaction-btn">Comment</button>
+            <button class="btn btn-primary button reaction-btn">Share</button>
           </div>
         </div>
      </div> 

@@ -1,6 +1,5 @@
 .posts{
     border-radius: 0.3em;
-
     border: 1px solid rgb(172, 172, 172);
     margin: 2em 0 2em 0;
     box-shadow: 4px 6px 10px;
@@ -11,6 +10,14 @@
 
 #woym{
     font-size: 2em;
+}
+
+.reaction-btn{
+    margin-right: 0.5em;
+}
+
+.form-input{
+    
 }
 
 .post_acc_name{
@@ -52,3 +59,8 @@ li{
 }
 
 
+@media only screen and (max-width: 1020px) {
+    .sidebar-nav, .SideBar-Options {
+        display: none;
+    }
+}
