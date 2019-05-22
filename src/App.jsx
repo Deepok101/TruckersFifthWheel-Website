@@ -1,8 +1,6 @@
 import React from 'react';
-import './App.css';
-import Main from './main';
+import './style/App.css';
 import NavBar from "./components/navbar";
-import Posts from "./components/assets/posts";
 import NewsFeed from './components/newsfeed'
 
 function App() {

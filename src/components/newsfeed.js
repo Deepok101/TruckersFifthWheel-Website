@@ -3,42 +3,54 @@ import "./assets/feed.css"
 import Posts from "./assets/posts";
 import FormPost from './assets/form'
 import RightSideBar from './rightsidebar'
+import { CSSTransition } from 'react-transition-group';
+
 
 class NewsFeed extends React.Component{
   constructor(props){
     super(props);
-    this.state = {value: ''}
-    this.handleNewPost = this.handleNewPost.bind(this);
+    this.state = {value: '', 
+                  dbposts: [],
+                  appeared: false
+    }
     this.changeText = this.changeText.bind(this);
+  }
+
+  componentDidMount(){
+    this.setState({appeared: true});
+    console.log(this.state.appeared)
+    fetch('/api/posts')
+      .then(res => res.json())
+      .then(data => this.setState({dbposts: data}, () => console.log('Text fetched ', data)));
   }
 
   changeText(newValue){
     this.setState({value: newValue})
   }
 
-
-  handleNewPost(){
-    return (<h1>{this.state.value}</h1>)
-  }
-
-  clickResponse(){
-    return(<Posts accountName="###" text={this.state.value}/>)
-  }
-
   render(){
+    let posts = this.state.dbposts.map((data)=>
+        <Posts accountName={data.author} text={data.text} date={data.date}/>
+    );
+
+
     return(
       <div id='wrapper'>
         <div class="container-fluid">
+          <div class='col-2' id=''>
+            <RightSideBar/>
+          </div>
           <div class='row'>
-            <div class='col-2' id=''>
-              <RightSideBar/>
-            </div>
-            <div className="col-8">
+          <CSSTransition
+            in={this.state.appeared}
+            timeout={600}
+            classNames="fade"
+          >
+            <div className="col-6 col-centered">
               <FormPost changeText={this.changeText} value={this.state.value}/>
-              <Posts accountName="Deepak Singh" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam dapibus maximus iaculis. Phasellus iaculis augue nulla, eu fringilla nisi scelerisque eu. Ut nec nunc rhoncus, auctor sem malesuada, condimentum mi. Sed id urna vestibulum, varius enim eget, congue nisl. Nulla facilisi. Praesent iaculis justo sed commodo venenatis. Duis mauris ante, accumsan et sapien a, mattis aliquam urna. Donec ornare nisl ex, ut vulputate sapien vehicula non. Pellentesque cursus pharetra condimentum."/>
-              <Posts accountName="Deepak Singh" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam dapibus maximus iaculis. Phasellus iaculis augue nulla, eu fringilla nisi scelerisque eu. Ut nec nunc rhoncus, auctor sem malesuada, condimentum mi. Sed id urna vestibulum, varius enim eget, congue nisl. Nulla facilisi. Praesent iaculis justo sed commodo venenatis. Duis mauris ante, accumsan et sapien a, mattis aliquam urna. Donec ornare nisl ex, ut vulputate sapien vehicula non. Pellentesque cursus pharetra condimentum."/>
-              <Posts accountName="Deepak Singh" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam dapibus maximus iaculis. Phasellus iaculis augue nulla, eu fringilla nisi scelerisque eu. Ut nec nunc rhoncus, auctor sem malesuada, condimentum mi. Sed id urna vestibulum, varius enim eget, congue nisl. Nulla facilisi. Praesent iaculis justo sed commodo venenatis. Duis mauris ante, accumsan et sapien a, mattis aliquam urna. Donec ornare nisl ex, ut vulputate sapien vehicula non. Pellentesque cursus pharetra condimentum."/>
+              {posts}
             </div>
+          </CSSTransition>
           </div>
         </div>
       </div> 
