@@ -14,6 +14,14 @@ const db = mongoURI;
 
 mongoose.connect(db).then(() => console.log('Connected to MongoDB')).catch(err => console.log(err))
 
-app.use('/api/posts', posts)
+app.use('/api/posts', posts);
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/index.html'), function(err) {
+      if (err) {
+        res.status(500).send(err)
+      }
+    })
+  })
 
 app.listen(port, () => console.log('Listening to port 5000'))
