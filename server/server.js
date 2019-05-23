@@ -17,7 +17,7 @@ mongoose.connect(db).then(() => console.log('Connected to MongoDB')).catch(err =
 app.use('/api/posts', posts);
 
 if (process.env.NODE_ENV == "production"){
-    app.use(express.static("../"))
+    app.use(express.static(path.join(__dirname, "../")))
 }
 
 
