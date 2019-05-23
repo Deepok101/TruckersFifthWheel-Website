@@ -24,7 +24,7 @@
     "eject": "react-scripts eject",
     "client": "cd server && node server.js",
     "dev": "concurrently \"npm start\" \"npm run client\"",
-    "heroku-postbuild": "npm install && npm run build"
+    "heroku-postbuild": "npm run client"
   },
   "proxy": "http://localhost:5000",
   "eslintConfig": {
