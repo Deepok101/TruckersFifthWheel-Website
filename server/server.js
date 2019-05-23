@@ -20,7 +20,13 @@ if (process.env.NODE_ENV == "production"){
     app.use(express.static('../build'))
 }
 
-
+app.get('/*', function(req, res) {
+    res.sendFile(path.join(__dirname, '../public/index.html'), function(err) {
+      if (err) {
+        res.status(500).send(err)
+      }
+    })
+  })
 
 
 app.listen(port, () => console.log('Listening to port 5000'))
