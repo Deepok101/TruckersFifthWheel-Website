@@ -5,7 +5,7 @@ const app = express()
 
 const posts = require('./routes/api/posts')
 const mongoURI = 'mongodb+srv://deepok:deepu7700@deepakcluster-eiyyp.mongodb.net/test?retryWrites=true'
-const port = process.env.PORT || 5000;
+const port = 5000;
 
 
 app.use(express.json());
