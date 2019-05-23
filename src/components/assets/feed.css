@@ -47,12 +47,12 @@
 .post_btn{
     color: #494949 !important;
     background: #ffffff;
-    padding: 0 1em 0 1em;
+    padding: 0 0.9em 0 0.9em;
     border: 3px solid #494949 !important;
     border-radius: 6px;
     display: inline-block;
     font-family: 'Roboto';
-    font-size: 1.4em;
+    font-size: 1.25em;
 }
 .post_btn:hover{
     color: #ffffff !important;
@@ -89,7 +89,7 @@
 }
 
 .p-posts{
- 
+    font-size: 1.2rem;
 }
 
 .reaction{
