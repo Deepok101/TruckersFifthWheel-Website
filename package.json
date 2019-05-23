@@ -10,6 +10,7 @@
     "express": "^4.17.0",
     "mongodb": "^3.2.5",
     "mongoose": "^5.5.10",
+    "path": "^0.12.7",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0",
