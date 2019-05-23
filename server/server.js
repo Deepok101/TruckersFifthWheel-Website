@@ -15,6 +15,8 @@ const db = mongoURI;
 mongoose.connect(db).then(() => console.log('Connected to MongoDB')).catch(err => console.log(err))
 
 app.use('/api/posts', posts);
+app.use(express.static(path.join(__dirname, '../public')));
+
 
 app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/index.html'), function(err) {
