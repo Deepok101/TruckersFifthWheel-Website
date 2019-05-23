@@ -19,7 +19,9 @@ class NewsFeed extends React.Component{
   componentDidMount(){
     this.setState({appeared: true});
     console.log(this.state.appeared)
-    fetch('/api/posts')
+    fetch('/api/posts', {
+      method: 'GET'
+    })
       .then(res => res.json())
       .then(data => this.setState({dbposts: data}, () => console.log('Text fetched ', data)));
   }
