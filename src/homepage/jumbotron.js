@@ -6,17 +6,17 @@ import './style.css'
 
 function Jumbotron_elem(){
     const background_color = {backgroundColor: "#f8f8ff"};
-    const margin_top = {marginTop: "2em"};
+    const margin_top = {marginTop: "0em"};
     const font_size = {fontSize: "1.5em"}
 
     return(
         <Jumbotron style={{...background_color,...margin_top}}>
             <h1 style={{textAlign: "center"}}> 
-                Welcome to DeepEmploi
+                Sign Up now!
             </h1>
-            <p style={{...{textAlign: "center"},...font_size}}>
-                A website where truckers can share information and help each other. <br/>
-                Sign up now!
+            <p style={{...{textAlign: "center"},...font_size,... {fontFamily: "Roboto"}}}>
+                Fellow truck drivers are awaiting to share their knowledge with you! <br/>
+                Oh, did we not mention it? It's totally FREE
             </p>
             <p>
                 <Button variant="primary">Learn more</Button>
