@@ -12,9 +12,18 @@ const AccountSchema = new Schema({
     },
     dateOfCreation: {
         type: Date,
+        default: Date.now,
         required: true
     },
     email: {
+        type: String,
+        required: true
+    },
+    username: {
+        type: String,
+        required: true
+    },
+    password: {
         type: String,
         required: true
     }

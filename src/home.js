@@ -1,16 +1,24 @@
 import React from 'react';
 import NavBar from "./components/navbar";
-import Jumbotron_elem from './homepage/jumbotron'
-import Carousel_elem from './homepage/carousel'
-function Home() {
+import Jumbotronelem from './homepage/jumbotron'
+import Carouselelem from './homepage/carousel'
+
+class Home extends React.Component {
+  constructor(props){
+    super(props);
+   
+  }
   
-  return (
-    <div>
-      <NavBar company="DeepEmploi" firstSection="Home" secondSection="NewsFeed" thirdSection="About Us" fourthSection="Contact Us"/>
-      <Carousel_elem/>
-      <Jumbotron_elem/>
-    </div>
-  );
+  render(){
+    return (
+      <div>
+        <NavBar company="DeepEmploi" firstSection="Home" secondSection="NewsFeed" thirdSection="About Us" fourthSection="Contact Us"/>
+        <Carouselelem/>
+        <Jumbotronelem/>
+      </div>
+    );
+  }
+  
 }
 
 export default Home;
