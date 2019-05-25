@@ -5,7 +5,7 @@ const session = require('express-session');
 
 
 //Item Model
-const Accounts = require('../../models/Accounts')
+const Accounts = require('../../models/accounts')
 
 router.use(session({
 	secret: 'secret',
