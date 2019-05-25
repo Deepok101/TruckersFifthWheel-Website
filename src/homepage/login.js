@@ -26,7 +26,7 @@ class Login extends React.Component{
 
     }
     handleChange(e){
-        this.setState({username: e.target.value, password: e.target.value})
+        this.setState({[e.target.name]: e.target.value})
 
     }
     handleClick(e){
