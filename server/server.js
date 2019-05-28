@@ -6,9 +6,8 @@ const session = require('express-session');
 
 const posts = require('./routes/api/posts')
 const accounts = require('./routes/api/accounts')
+const mongoURI = require('./MongoURI')
 
-
-const mongoURI = 'mongodb+srv://deepok:deepu7700@deepakcluster-eiyyp.mongodb.net/test?retryWrites=true'
 const port = process.env.PORT || 5000;
 
 const db = mongoURI;

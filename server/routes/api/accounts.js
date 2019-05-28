@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require("mongoose");
 const session = require('express-session');
-
+const mongoURI = require('../../MongoURI')
+const MongoStore = require('connect-mongo')(session)
 
 //Item Model
 const Accounts = require('../../models/accounts')
@@ -10,7 +11,8 @@ const Accounts = require('../../models/accounts')
 router.use(session({
 	secret: 'secret',
 	resave: true,
-	saveUninitialized: true
+    saveUninitialized: true,
+    store: new MongoStore({mongooseConnection: mongoose.connection})
 }));
 //@route GET api/items
 
@@ -37,12 +39,21 @@ router.post('/auth', urlencodedParser, (req, res) => {
 
     Accounts.findOne({username: user, password: pass}, function(error, result){
         if (result) {
-            req.session.username = user
-        res.status(200).send({session: req.session.username})
+            req.session.isAuthenticated = true
+            res.status(200).send({"result": result, "session": req.session.isAuthenticated});
         } else {
-        res.send({auth: 0})
+            res.status(404).end()
         }
     })
+})
+
+router.get('/auth', (req, res)=>{
+    res.send({"session": req.session.isAuthenticated});
+})
+
+router.get('/auth/logout', (req, res)=>{
+    req.session.isAuthenticated = false;
+    res.send({"session": req.session.isAuthenticated});
 })
 
 

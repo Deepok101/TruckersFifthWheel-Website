@@ -8,17 +8,28 @@ class Home extends React.Component {
     super(props);
    
   }
-  
-  render(){
-    return (
-      <div>
-        <NavBar company="DeepEmploi" firstSection="Home" secondSection="NewsFeed" thirdSection="About Us" fourthSection="Contact Us"/>
-        <Carouselelem/>
-        <Jumbotronelem/>
-      </div>
-    );
+
+  componentDidMount(){
+    
+    
+    
+    
   }
   
+  render(){
+
+    return (
+   
+        <div>
+          <NavBar company="DeepEmploi" firstSection="Home" secondSection="NewsFeed" thirdSection="About Us" fourthSection="Contact Us"/>
+          <Carouselelem/>
+          <Jumbotronelem/>
+        </div>
+    
+
+    );
+  }
+   
 }
 
-export default Home;
+export default (Home);

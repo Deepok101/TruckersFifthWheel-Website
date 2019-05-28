@@ -1,0 +1,1 @@
+module.exports = MongoURI = 'mongodb+srv://deepok:deepu7700@deepakcluster-eiyyp.mongodb.net/test?retryWrites=true'

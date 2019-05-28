@@ -8,11 +8,11 @@ import {
 } from 'react-router-dom'
 
 
-const PrivateRoute  = ({component: Component, authed, ...rest}) =>{    
+const PrivateRoute  = ({component: Component, authed, authed2, ...rest}) =>{    
     return (
       <Route
         {...rest}
-        render={(props) => authed == 1
+        render={(props) => authed || authed2 === 'true' 
           ? <Component {...props} />
           : <Redirect to='/' />}
       />

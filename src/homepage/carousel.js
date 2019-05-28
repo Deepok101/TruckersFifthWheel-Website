@@ -14,10 +14,6 @@ class Carousel_elem extends React.Component{
       index_is_2: false
     };
   }
-  componentDidMount(){
- 
-  }
-
   
   handleSelect(selectedIndex, e) {
     this.setState({
@@ -37,42 +33,42 @@ class Carousel_elem extends React.Component{
       >
           <Carousel.Item>
             <div className="carousel_div">
-              <p className='child'>
+              <div className='child'>
                 <h1 id="animation1" style={{fontSize: "4em"}}>
                   Welcome to DeepEmploi
                 </h1>
                 <h3 style={{...{marginTop: "1em"},...{fontSize: "1.8em"},...{animationDelay: "0.5s"}}}>
                   Website made for truckers by truckers
                 </h3>
-              </p>
+              </div>
             </div>
             <Carousel.Caption style={{color: "#000000"}}>
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <div className="carousel_div">
-                <p className='child'>
+                <div className='child'>
                     <h1 id="animation2" style={{...{fontSize: "4em"},...{animationDelay: "0.5s"}}}>
                       Need trucking advice?
                     </h1>
                   <h3 style={{...{marginTop: "1em"},...{fontSize: "1.8em"},...{animationDelay: "0.5s"}}}>
                     You came to the right place
                   </h3>
-                </p>
+                </div>
             </div>
             <Carousel.Caption style={{color: "#000000"}}>
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <div className="carousel_div">
-                <p className='child'>
+                <div className='child'>
                     <h1 id="animation3" style={{...{fontSize: "4em"},...{animationDelay: "0.5s"}}}>
                       Building a community of Truckers since 1999
                     </h1>
                   <h3 style={{...{marginTop: "1em"},...{fontSize: "1.8em"},...{animationDelay: "0.5s"}}}>
                     Sign up now to socialize with millions of truck drivers around the World
                   </h3>
-                </p>
+                </div>
             </div>
             <Carousel.Caption style={{color: "#000000"}}>
             </Carousel.Caption>
