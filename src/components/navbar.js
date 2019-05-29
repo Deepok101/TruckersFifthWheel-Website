@@ -40,7 +40,7 @@ class NavBar extends React.Component{
               <Link class="nav-link" to="/newsfeed">{this.props.secondSection}</Link>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">{this.props.thirdSection}</a>
+              <Link class="nav-link" to="/chat">{this.props.thirdSection}</Link>
             </li>
             <li class="nav-item">
               <a class="nav-link disabled" href="#">{this.props.fourthSection}</a>

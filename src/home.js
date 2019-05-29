@@ -21,7 +21,7 @@ class Home extends React.Component {
     return (
    
         <div>
-          <NavBar company="DeepEmploi" firstSection="Home" secondSection="NewsFeed" thirdSection="About Us" fourthSection="Contact Us"/>
+          <NavBar company="DeepEmploi" firstSection="Home" secondSection="NewsFeed" thirdSection="Chat" fourthSection="Contact Us"/>
           <Carouselelem/>
           <Jumbotronelem/>
         </div>

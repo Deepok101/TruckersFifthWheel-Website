@@ -14,7 +14,7 @@ import PrivateRouter from './PrivateRoute'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types'
 import {changeCache} from './actions/cacheActions'
-
+import Chat from './components/chat'
 class AppRouter extends React.Component{
   constructor(props){
     super(props)
@@ -39,6 +39,7 @@ class AppRouter extends React.Component{
         <Router>
           <Route path="/" exact component={Login} />
           <Route path="/signup" exact component={SignUpForm} />
+          <Route path='/chat' component={Chat}/>
           <PrivateRouter authed={this.props.auth} authed2={a} path='/home' component={Home}/>
           <PrivateRouter authed={this.props.auth} authed2={a} path='/newsfeed' component={App}/>
         </Router>
