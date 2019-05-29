@@ -1,16 +1,14 @@
 import React from 'react';
 import Clock from './assets/clock'
 import {
-  BrowserRouter as Router,
-  Route,
   Link,
-  Redirect,
   withRouter
 } from 'react-router-dom'
-import { Switch } from "react-router-dom";
 import { connect } from 'react-redux';
 import { logout } from '../actions/authLogout';
 import PropTypes from 'prop-types';
+import './assets/feed.css'
+
 
 class NavBar extends React.Component{
   constructor(props){
@@ -25,6 +23,8 @@ class NavBar extends React.Component{
   }
 
   render(){
+    const username = window.sessionStorage.getItem('auth_firstName')
+
     return(
       <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
         <Link class="navbar-brand" to="/home">{this.props.company}</Link>
@@ -47,12 +47,11 @@ class NavBar extends React.Component{
             </li>
           </ul>
           <a class="nav-link disabled">
-            {this.props.username}  
+            {username}  
           </a>
-          <button class="nav-link" onClick={this.handleLogout}>
+          <a class="nav-link nav_links" onClick={this.handleLogout}>
             Logout
-          
-          </button>
+          </a>
           <Clock/>
         </div>
       </nav>

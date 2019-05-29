@@ -40,7 +40,6 @@ class NewsFeed extends React.Component{
       <div id='wrapper'>
         <div class="container-fluid">
           <div class='col-2' id=''>
-            <RightSideBar/>
           </div>
           <div class='row'>
           <CSSTransition

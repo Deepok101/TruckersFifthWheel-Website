@@ -26,27 +26,39 @@ class Login extends React.Component{
           display: ""
       }
       this.handleClick = this.handleClick.bind(this);
-      this.handleChange = this.handleChange.bind(this);
+      this.handleChangeUsername = this.handleChangeUsername.bind(this);
+      this.handleChangePassword = this.handleChangePassword.bind(this);
+      this.handleSignUpClick = this.handleSignUpClick.bind(this);
 
     }
-    handleChange(e){
-        this.setState({[e.target.name]: e.target.value})
+    handleChangeUsername(e){
+        this.setState({username: e.target.value})
         this.props.inputChange(e.target.value)
+        console.log(this.props.username)
+ 
+   
+    }
+    handleChangePassword(e){
+        this.setState({password: e.target.value})
+ 
+
+      
     }
     handleClick(e){
         e.preventDefault();
-        this.props.fetchAuth(this.props.username, this.state.password)
+        this.props.fetchAuth(this.state.username, this.state.password)
             
         setTimeout(()=>{
             this.props.history.push('/home')
             this.setState({display: "none"}) 
-
- 
-
-            
         }, 400)
         
-
+        if (this.props.auth){
+            this.props.history.push('/')
+        }
+    }
+    handleSignUpClick(){
+        this.props.history.push('/signup')
     }
   
     render(){
@@ -58,10 +70,11 @@ class Login extends React.Component{
                 <h1 style={{marginTop: "2em"}}>DeepEmploi</h1>
                 <h1>Login Form</h1>
                 <form action="/api/accounts/auth" method="POST">
-                    <input value={this.state.username} onChange={this.handleChange} type="text" name="username" placeholder="Username" required/>
-                    <input value={this.state.password} onChange={this.handleChange} type="password" name="password" placeholder="Password" required/>
+                    <input value={this.state.username} onChange={this.handleChangeUsername} type="text" name="username" placeholder="Username" required/>
+                    <input value={this.state.password} onChange={this.handleChangePassword} type="password" name="password" placeholder="Password" required/>
                 </form>
                 <button id='submit-btn' onClick={this.handleClick}>Submit</button>
+                <button style={{marginTop: 10}} id='submit-btn' onClick={this.handleSignUpClick}>Sign Up</button>
             </div>
         )
     }
