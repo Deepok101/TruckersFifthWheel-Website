@@ -30,9 +30,9 @@ class Chat extends React.Component{
         socket.emit('send message', this.state.message, username)
         
         
-
+        console.log(this.state.allmsg)
     }
-    componentDidMount(){
+    componentWillReceiveProps(){
         const socket = socketIOClient.connect(this.state.endpoint, {transports:['websocket']})
         
 
@@ -46,12 +46,15 @@ class Chat extends React.Component{
             document.getElementById('messages').appendChild(node);
             
         })
+      
+
+    }
+    componentDidMount(){
         fetch('/api/chat', {
             method: 'GET'
           })
             .then(res => res.json())
             .then(data => this.setState({allmsg: data}, () => console.log('Text fetched ', data)));
-
     }
     render(){
         let messages = this.state.allmsg.map((msg)=>

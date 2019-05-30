@@ -47,12 +47,18 @@ class Login extends React.Component{
     handleClick(e){
         e.preventDefault();
         this.props.fetchAuth(this.state.username, this.state.password)
-            
-        setTimeout(()=>{
-            this.props.history.push('/home')
-            this.setState({display: "none"}) 
-        }, 400)
-        
+        var body = {
+            username: this.state.username,
+            password: this.state.password
+        }
+        fetch('/api/accounts/auth', {
+            method: 'POST',
+            credentials: 'include',
+            body: JSON.stringify(body),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        }).then(res => res.json()).then(()=> this.props.history.push('/home'))
         if (this.props.auth){
             this.props.history.push('/')
         }
