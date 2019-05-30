@@ -9,7 +9,7 @@ class Chat extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            endpoint: '/',
+            endpoint: 'ws://still-taiga-69176.herokuapp.com:52416/',
             message: "",
             allmsg: [],
             htmlmsg: null
@@ -24,7 +24,7 @@ class Chat extends React.Component{
     }
 
     sendSockets(){
-        const socket = socketIOClient(this.state.endpoint, {secure: true})
+        const socket = socketIOClient(this.state.endpoint)
         if (!socket){
             socket = socketIOClient('http://localhost:5000')
         }
