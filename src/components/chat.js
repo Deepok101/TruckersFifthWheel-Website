@@ -9,7 +9,7 @@ class Chat extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            endpoint: 'https://still-taiga-69176.herokuapp.com:52416/',
+            endpoint: 'https://still-taiga-69176.herokuapp.com:80',
             message: "",
             allmsg: [],
             htmlmsg: null
