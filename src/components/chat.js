@@ -24,7 +24,7 @@ class Chat extends React.Component{
     }
 
     sendSockets(){
-        const socket = socketIOClient(this.state.endpoint)
+        const socket = socketIOClient(this.state.endpoint, {transports:['websocket']})
         if (!socket){
             socket = socketIOClient('http://localhost:5000')
         }
@@ -35,7 +35,7 @@ class Chat extends React.Component{
 
     }
     componentDidMount(){
-        const socket = socketIOClient(this.state.endpoint, {secure: true})
+        const socket = socketIOClient(this.state.endpoint)
         if (!socket){
             socket = socketIOClient('http://localhost:5000')
         }

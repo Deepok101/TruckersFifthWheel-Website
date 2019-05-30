@@ -55,7 +55,7 @@ app.get('/home', (req, res) => {
 
 const Chat = require('./models/Chat')
 
-io.set('origins', 'http://localhost:3000');
+io.set('origins', '*:*');
 
 io.on('connection', (socket)=>{
   socket.on('send message', (sent_msg, user)=>{
