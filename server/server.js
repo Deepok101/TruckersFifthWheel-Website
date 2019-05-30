@@ -26,11 +26,6 @@ app.use('/api/posts', posts);
 app.use('/api/accounts', accounts);
 app.use('/api/chat', chat);
 
-app.use(session({
-	secret: 'secret',
-	resave: true,
-	saveUninitialized: true
-}));
 
 var urlencodedParser = express.urlencoded({extended: false});
 
@@ -55,7 +50,7 @@ app.get('/home', (req, res) => {
 
 const Chat = require('./models/Chat')
 
-io.set('origins', 'http://localhost:3000');
+
 
 io.on('connection', (socket)=>{
   socket.on('send message', (sent_msg, user)=>{
