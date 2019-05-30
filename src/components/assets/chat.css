@@ -1,22 +1,52 @@
 
 
-form input {
+#input_chat {
     border: 1px solid black;
-    border-radius: 10px;
+    border-radius: 20px;
     padding: 10px;
     width: 100%;
 }
 
 
- p{
-    border: 2px solid rgb(79, 190, 255);
+ .container p{
+    border: 0px solid rgb(79, 190, 255);
     border-radius: 20px;
     list-style-position:none;
     min-width: 10%;
     margin-bottom: 10px;
-    padding: 5px;
+    padding: 8px;
     display: inline-block;
     color: white;
-  background: linear-gradient(to bottom, #00D0EA 0%, #0085D1 100%);
-  background-attachment: fixed;
+    background: linear-gradient(to bottom, #00D0EA 0%, #0085D1 100%);
+    background-attachment: fixed;
+}
+
+#send_btn {
+  background: #6cc1fa;
+  background-image: -webkit-linear-gradient(top, #6cc1fa, #3baef5);
+  background-image: -moz-linear-gradient(top, #6cc1fa, #3baef5);
+  background-image: -ms-linear-gradient(top, #6cc1fa, #3baef5);
+  background-image: -o-linear-gradient(top, #6cc1fa, #3baef5);
+  background-image: linear-gradient(to bottom, #6cc1fa, #3baef5);
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  margin-top: 10px;
+  border: 0px;
+  width: 200px;
+}
+
+#send_btn:hover {
+  background: #3cb0fd;
+  background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+  text-decoration: none;
 }

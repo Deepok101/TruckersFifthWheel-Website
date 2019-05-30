@@ -35,9 +35,11 @@ class Chat extends React.Component{
         const socket = socketIOClient(this.state.endpoint)
 
         socket.on('message', (msg)=>{
-            var node = document.createElement('LI');
+            var node = document.createElement('div');
+            var node_inner = document.createElement('p');
             var content = document.createTextNode(msg)
-            node.appendChild(content);
+            node.appendChild(node_inner).appendChild(content);
+          
             console.log(node)
             document.getElementById('messages').appendChild(node);
             
@@ -51,7 +53,7 @@ class Chat extends React.Component{
     }
     render(){
         let messages = this.state.allmsg.map((msg)=>
-            <div><p>{msg.text} by {msg.author}</p></div>
+           <div><p>{msg.text} by {msg.author}</p></div>
         )
         return(
             <div>
@@ -60,13 +62,12 @@ class Chat extends React.Component{
                     <div>
                         <div id='messages'>
                             {messages}
-                            
                         </div>
                     </div>
                     <form>
-                        <input onChange={this.handleInputChange} name="message" type='text' value={this.state.message} autoFocus='on' placeholder='Message...'/>
+                        <input id="input_chat" onChange={this.handleInputChange} name="message" type='text' value={this.state.message} autoFocus='on' placeholder='Message...'/>
                     </form>
-                    <button onClick={this.sendSockets}>Send</button>
+                    <button id='send_btn' onClick={this.sendSockets}>Send</button>
 
                 </div>
 
