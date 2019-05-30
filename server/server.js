@@ -15,11 +15,7 @@ const port = process.env.PORT || 5000;
 
 var server = app.listen(port, () => console.log('Listening to port 5000'))
 
-const io =  require('socket.io').listen(server, {
-  serveClient: (config.env === 'production') ? false : true,
-  path: '/socket.io'
-});
-
+const io =  require('socket.io').listen(server);
 const db = mongoURI;
 
 mongoose.connect(db).then(() => console.log('Connected to MongoDB')).catch(err => console.log(err))
@@ -59,7 +55,7 @@ app.get('/home', (req, res) => {
 
 const Chat = require('./models/Chat')
 
-io.set('origins', '*:*');
+io.set('origins', 'http://localhost:3000');
 
 io.on('connection', (socket)=>{
   socket.on('send message', (sent_msg, user)=>{
