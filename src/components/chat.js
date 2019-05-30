@@ -9,7 +9,7 @@ class Chat extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            endpoint: "http://localhost:5000" || process.env.PORT,
+            endpoint: process.env.PORT,
             message: "",
             allmsg: [],
             htmlmsg: null
