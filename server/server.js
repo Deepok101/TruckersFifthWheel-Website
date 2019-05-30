@@ -15,7 +15,11 @@ const port = process.env.PORT || 5000;
 
 var server = app.listen(port, () => console.log('Listening to port 5000'))
 
-const io =  require('socket.io').listen(server);
+const io =  require('socket.io').listen(server, {
+  serveClient: (config.env === 'production') ? false : true,
+  path: '/socket.io'
+});
+
 const db = mongoURI;
 
 mongoose.connect(db).then(() => console.log('Connected to MongoDB')).catch(err => console.log(err))
