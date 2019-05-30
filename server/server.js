@@ -50,7 +50,7 @@ app.get('/home', (req, res) => {
 
 const Chat = require('./models/Chat')
 
-io.set('transports', ['websocket']);
+
 
 io.on('connection', (socket)=>{
   socket.on('send message', (sent_msg, user)=>{

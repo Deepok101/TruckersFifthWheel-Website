@@ -24,7 +24,7 @@ class Chat extends React.Component{
     }
 
     sendSockets(){
-        const socket = socketIOClient.connect(this.state.endpoint, {transports:['websocket']})
+        const socket = socketIOClient.connect(this.state.endpoint)
        
         const username = window.sessionStorage.getItem('auth_firstName')
         socket.emit('send message', this.state.message, username)
@@ -33,7 +33,7 @@ class Chat extends React.Component{
 
     }
     componentDidMount(){
-        const socket = socketIOClient.connect(this.state.endpoint, {transports:['websocket']})
+        const socket = socketIOClient.connect(this.state.endpoint)
         
 
         socket.on('message', (msg)=>{
