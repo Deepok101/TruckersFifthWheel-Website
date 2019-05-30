@@ -9,7 +9,7 @@ class Chat extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            endpoint: 'ws://still-taiga-69176.herokuapp.com:52416',
+            endpoint: 'ws://still-taiga-69176.herokuapp.com',
             message: "",
             allmsg: [],
             htmlmsg: null
@@ -24,7 +24,7 @@ class Chat extends React.Component{
     }
 
     sendSockets(){
-        const socket = socketIOClient.connect(this.state.endpoint)
+        const socket = socketIOClient.connect(this.state.endpoint, {transports:['websocket']})
        
         const username = window.sessionStorage.getItem('auth_firstName')
         socket.emit('send message', this.state.message, username)
@@ -33,7 +33,7 @@ class Chat extends React.Component{
 
     }
     componentDidMount(){
-        const socket = socketIOClient.connect(this.state.endpoint)
+        const socket = socketIOClient.connect(this.state.endpoint, {transports:['websocket']})
         
 
         socket.on('message', (msg)=>{
