@@ -58,7 +58,7 @@ class Login extends React.Component{
             headers: {
                 'Content-Type': 'application/json'
             },
-        }).then(res => res.json()).then(()=> this.props.history.push('/home'))
+        }).then(res => res.json()).then(()=> setTimeout(()=>{this.props.history.push('/home')}), 200)
         if (this.props.auth){
             this.props.history.push('/')
         }

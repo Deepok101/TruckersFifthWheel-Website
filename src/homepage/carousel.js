@@ -11,7 +11,8 @@ class Carousel_elem extends React.Component{
     this.state = {
       index: 0,
       direction: null,
-      index_is_2: false
+      index_is_2: false,
+      loaded: false
     };
   }
   
@@ -20,6 +21,9 @@ class Carousel_elem extends React.Component{
       index: selectedIndex,
       direction: e.direction,
     });
+  }
+  componentWillMount(){
+
   }
 
   render(){

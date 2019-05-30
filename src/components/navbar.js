@@ -40,7 +40,7 @@ class NavBar extends React.Component{
               <Link class="nav-link" to="/newsfeed">{this.props.secondSection}</Link>
             </li>
             <li class="nav-item">
-              <Link class="nav-link" to="/chat">{this.props.thirdSection}</Link>
+              <a class="nav-link" href="/chat">{this.props.thirdSection}</a>
             </li>
             <li class="nav-item">
               <a class="nav-link disabled" href="#">{this.props.fourthSection}</a>
@@ -49,7 +49,7 @@ class NavBar extends React.Component{
           <a class="nav-link disabled">
             {username}  
           </a>
-          <a class="nav-link nav_links" onClick={this.handleLogout}>
+          <a class="nav-link" style={{color: 'black'}} href='/'>
             Logout
           </a>
           <Clock/>
