@@ -28,10 +28,10 @@ class NavBar extends React.Component{
     return(
       <nav style={{...{backgroundColor: '#3cd0e7'},...{color: "white"}}} class="navbar navbar-expand-lg navbar-dark sticky-top">
         <Link class="navbar-brand" to="/home">{this.props.company}</Link>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigationbar" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarText">
+        <div class="collapse navbar-collapse" id="navigationbar">
           <ul class="navbar-nav mr-auto">
             <li className={`nav-item ${this.props.first}`}>
               <Link class="nav-link" to="/home">{this.props.firstSection} <span class="sr-only">(current)</span></Link>

@@ -4,6 +4,7 @@ import Jumbotronelem from './homepage/jumbotron'
 import Carouselelem from './homepage/carousel'
 import './style/home.css'
 import About from './homepage/about'
+import Offer from './homepage/offer'
 
 class Home extends React.Component {
   constructor(props){
@@ -28,6 +29,7 @@ class Home extends React.Component {
             <Carouselelem/>
             <Jumbotronelem/>
             <About/>
+            <Offer/>
           </div>
         </div>
         

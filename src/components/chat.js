@@ -18,6 +18,7 @@ class Chat extends React.Component{
         this.handleInputChange = this.handleInputChange.bind(this);
         this.sendSockets = this.sendSockets.bind(this);
         this.createNode = this.createNode.bind(this);
+        this.onKeyUp = this.onKeyUp.bind(this);
 
     }
 
@@ -34,6 +35,18 @@ class Chat extends React.Component{
         
         console.log(this.state.allmsg)
     }
+
+    onKeyUp(event){
+        if (event.keyCode == 13){
+            const socket = socketIOClient.connect(this.state.endpoint, {transports:['websocket']})
+
+            const username = window.sessionStorage.getItem('auth_firstName')
+            socket.emit('send message', this.state.message, username)
+
+
+            console.log(this.state.allmsg)
+        }
+    }
     
     componentDidMount(){
         fetch('/api/chat', {
@@ -42,7 +55,8 @@ class Chat extends React.Component{
             .then(res => res.json())
             .then(data => this.setState({allmsg: data}, () => console.log('Text fetched ', data)))
             .then(data => this.setState({loaded: true}));
-    
+            
+            
     }
     componentWillReceiveProps(){
             const socket = socketIOClient.connect(this.state.endpoint, {transports:['websocket']})
@@ -78,6 +92,7 @@ class Chat extends React.Component{
     }
     
     render(){
+        
         console.log('executed is ' + this.state.executed)
         let user = window.sessionStorage.getItem('auth_firstName')
         let messages = this.state.allmsg.map((msg)=>{
@@ -100,7 +115,7 @@ class Chat extends React.Component{
                                 </div>
                             </div>
                             <footer>
-                                <input id="input_chat" onChange={this.handleInputChange} name="message" type='text' value={this.state.message} autoFocus='on' placeholder='Message...'/>
+                                <input onKeyUp={this.onKeyUp} id="input_chat" onChange={this.handleInputChange} name="message" type='text' value={this.state.message} autoFocus='on' placeholder='Message...'/>
                             </footer>
                             <button id='send_btn' onClick={this.sendSockets}>Send</button>
                         </div>
