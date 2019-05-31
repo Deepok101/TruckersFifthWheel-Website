@@ -26,7 +26,7 @@ class AppRouter extends React.Component{
   
   componentDidMount(){
     this.props.changeCache()
-    
+    document.body.style.background = '#eff6ff'
     
   }
   

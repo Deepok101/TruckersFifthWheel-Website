@@ -41,7 +41,7 @@ class FormPost extends React.Component{
         let text = this.props.value;
         return(
 
-            <div className='border border-secondary mt-5 posts'>
+            <div className='posts'>
               <header>
                 <div className="p-2">
                   <p id="woym">What's on your mind?</p>
@@ -52,12 +52,12 @@ class FormPost extends React.Component{
                   <form onSubmit={this.handleSubmit}>
                     <div className=''>
                       <div className='row'>
-                        <div className='col-xl-10'>
+                        <div className='col-xl-10 col-lg-6 col-8'>
                           <form method='POST' action='/api/posts'>
-                            <input id="posting_input" name="postText" className="form-control" id="formGroupExampleInput" aria-label="Default" aria-describedby="inputGroup-sizing-default" onChange={this.handleChange}/>
+                            <input id="posting_input" name="postText" type='text' className="form-control" id="formGroupExampleInput" aria-label="Default" aria-describedby="inputGroup-sizing-default" onChange={this.handleChange}/>
                           </form>
                         </div>
-                        <div className='col-xl-2'>
+                        <div className='col-xl-2 col-lg-6 col-4 text-right'>
                           <button id='posting_btn' onClick={this.handleSubmit}>Post</button>
                         </div>
                       </div>

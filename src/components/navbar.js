@@ -26,23 +26,23 @@ class NavBar extends React.Component{
     const username = window.sessionStorage.getItem('auth_firstName')
 
     return(
-      <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+      <nav style={{...{backgroundColor: '#3cd0e7'},...{color: "white"}}} class="navbar navbar-expand-lg navbar-dark sticky-top">
         <Link class="navbar-brand" to="/home">{this.props.company}</Link>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
+            <li className={`nav-item ${this.props.first}`}>
               <Link class="nav-link" to="/home">{this.props.firstSection} <span class="sr-only">(current)</span></Link>
             </li>
-            <li class="nav-item">
+            <li className={`nav-item ${this.props.second}`}>
               <Link class="nav-link" to="/newsfeed">{this.props.secondSection}</Link>
             </li>
-            <li class="nav-item">
+            <li className={`nav-item ${this.props.third}`}>
               <a class="nav-link" href="/chat">{this.props.thirdSection}</a>
             </li>
-            <li class="nav-item">
+            <li className={`nav-item ${this.props.fourth}`}>
               <a class="nav-link disabled" href="#">{this.props.fourthSection}</a>
             </li>
           </ul>

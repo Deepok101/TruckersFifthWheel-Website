@@ -11,7 +11,7 @@ class NewsFeed extends React.Component{
     super(props);
     this.state = {value: '', 
                   dbposts: [],
-                  appeared: false
+                  loaded: false
     }
     this.changeText = this.changeText.bind(this);
   }
@@ -30,12 +30,14 @@ class NewsFeed extends React.Component{
     this.setState({value: newValue})
   }
 
+  
   render(){
     let posts = this.state.dbposts.map((data)=>
         <Posts accountName={data.author} text={data.text} date={data.date}/>
     );
+    
 
-
+    
     return(
       <div id='wrapper'>
         <div class="container-fluid">
@@ -47,7 +49,7 @@ class NewsFeed extends React.Component{
             timeout={600}
             classNames="fade"
           >
-            <div className="col-6 col-centered">
+            <div className="col-12 col-xl-6 col-centered">
               <FormPost changeText={this.changeText} value={this.state.value}/>
               {posts}
             </div>

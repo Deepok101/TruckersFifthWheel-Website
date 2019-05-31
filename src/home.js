@@ -3,6 +3,7 @@ import NavBar from "./components/navbar";
 import Jumbotronelem from './homepage/jumbotron'
 import Carouselelem from './homepage/carousel'
 import './style/home.css'
+import About from './homepage/about'
 
 class Home extends React.Component {
   constructor(props){
@@ -22,10 +23,11 @@ class Home extends React.Component {
     if(this.state.loaded === true){
     return (
         <div>
-          <NavBar company="DeepEmploi" firstSection="Home" secondSection="NewsFeed" thirdSection="Chat" fourthSection="Contact Us"/>
+          <NavBar first='active' company="DeepEmploi" firstSection="Home" secondSection="NewsFeed" thirdSection="Chat" fourthSection="Contact Us"/>
           <div class='div-fadeIn'>
             <Carouselelem/>
             <Jumbotronelem/>
+            <About/>
           </div>
         </div>
         

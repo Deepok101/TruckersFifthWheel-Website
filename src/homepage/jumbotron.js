@@ -5,12 +5,12 @@ import Img from './truck_background.jpg'
 import './style.css'
 
 function Jumbotron_elem(){
-    const background_color = {backgroundColor: "#f8f8ff"};
+    const background_color = {backgroundColor: "#f7f7f7"};
     const margin_top = {marginTop: "0em"};
     const font_size = {fontSize: "1.5em"}
-
+    const borderBottom = {borderBottom: "1px solid #c9c9c9"}
     return(
-        <Jumbotron style={{...background_color,...margin_top}}>
+        <Jumbotron style={{...background_color,...margin_top,...borderBottom}}>
             <h1 style={{textAlign: "center"}}> 
                 Sign Up now!
             </h1>
@@ -18,9 +18,9 @@ function Jumbotron_elem(){
                 Fellow truck drivers are awaiting to share their knowledge with you! <br/>
                 Oh, did we not mention it? It's totally FREE
             </p>
-            <p>
+            <div id='learnMore'>
                 <Button variant="primary">Learn more</Button>
-            </p>
+            </div>
         </Jumbotron>
     )
 }

@@ -90,8 +90,8 @@ class Chat extends React.Component{
         )
         if (this.state.loaded === true){
             return(
-                <div>
-                    <NavBar company="DeepEmploi" firstSection="Home" secondSection="NewsFeed" thirdSection="Chat" fourthSection="Contact Us"/>
+                <div style={{backgroundColor: "#eff6ff"}}>
+                    <NavBar third='active' company="DeepEmploi" firstSection="Home" secondSection="NewsFeed" thirdSection="Chat" fourthSection="Contact Us"/>
                     <div id='animated'>
                         <div class='container'>
                             <div id='chat-container'>
@@ -109,8 +109,9 @@ class Chat extends React.Component{
             )
         } else {
             return(
+                <div style={{backgroundColor: "#eff6ff"}}>
                 <NavBar company="DeepEmploi" firstSection="Home" secondSection="NewsFeed" thirdSection="Chat" fourthSection="Contact Us"/>
-
+                </div>
             )
         }
         

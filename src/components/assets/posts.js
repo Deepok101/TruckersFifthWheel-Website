@@ -11,7 +11,7 @@ class Posts extends React.Component{
     let time = this.props.date.slice(11, 16)
     return(
       <div className="">
-        <div className="border border-secondary mt-5 posts">
+        <div className="posts">
         <header>
             <span class="p-2 post_acc_name">
               {this.props.accountName}
