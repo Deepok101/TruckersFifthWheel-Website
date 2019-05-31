@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { logout } from '../actions/authLogout';
 import PropTypes from 'prop-types';
 import './assets/feed.css'
-
+import Button from 'react-bootstrap/Button'
 
 class NavBar extends React.Component{
   constructor(props){
@@ -46,11 +46,12 @@ class NavBar extends React.Component{
               <a class="nav-link disabled" href="#">{this.props.fourthSection}</a>
             </li>
           </ul>
+          
           <a class="nav-link disabled">
             {username}  
           </a>
-          <a class="nav-link" style={{color: 'black'}} href='/'>
-            Logout
+          <a class="nav-link" href='/'>
+            <Button style={{...{marginTop: '-1.3em'},...{marginBottom: '-1em'}}} variant="outline-light">Logout</Button>
           </a>
           <Clock/>
         </div>

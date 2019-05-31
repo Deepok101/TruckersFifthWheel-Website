@@ -12,7 +12,7 @@ function AboutUs(){
     return(
         <Jumbotron style={{...background_color,...margin_top, ...{color}}}>
             <div>
-                <h1 style={{textAlign: "center"}}> 
+                <h1 className='h1-bigger' style={{textAlign: "center"}}> 
                     Who are we?
                 </h1>
             </div>

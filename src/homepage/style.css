@@ -12,21 +12,69 @@
 
 
 /* About Page*/
+
 .img-icons{
     width: 30%;
     display: block;
     margin-top: 3em;
     margin-left: auto;
     margin-right: auto;
+    padding: 5px;
+    border-radius: 50%;
+
 }
 
+
+
 .img-icons-2{
-    width: 25%;
+    max-width: 200px;
     display: block;
     margin-top: 3em;
     margin-left: auto;
     margin-right: auto;
+    border-radius: 50%;
+
+    background-color: transparent;
+    animation-name: circleOut;
+    animation-fill-mode: forwards;
+    animation-duration:0.3s;
+    box-shadow: inset 0 0 20px #000000;
+    
 }
+
+.img-icons-2:hover{
+    animation-name: circle;
+    animation-fill-mode: forwards;
+    animation-duration:0.3s;
+}
+
+
+@keyframes circle {
+    from {
+        border: 0px;
+        background-color: transparent;
+    }
+    to {
+        border: 20px;
+        background-color: #E9E4F0;
+
+    }
+}
+
+@keyframes circleOut {
+    from {
+        border: 20px;
+        background-color: #E9E4F0;
+    }
+    to {
+        border: 0px;
+        background-color: transparent;
+
+    }
+}
+
+
+
 
 .p-logo{
     margin-top: 1em;
@@ -36,19 +84,55 @@
     
 }
 
+.p-logo-2{
+    margin-top: 1em;
+    font-size: 1.8em;
+    
+    color: white;
+}
+
+
 #learnMore{
     margin-right: auto;
     margin-left: auto;
     text-align: center;
 }
 
-h1{
-    font-size: 3em !important;
+.h1-bigger{
+    font-size: 3em;
 }
 
-.h1-carousel{
-    font-size: 4em !important;
+.h1-dark{
+    color: white;
 }
+.h1-carousel{
+    font-size: 4em;
+}
+
+.h1-btn{
+    font-size: 2em;
+    background-color: #0082c8;
+    padding: 20px 0 20px 0;
+}
+
+.h1-btn:hover{
+    background-color: #005786;
+
+}
+
+.bar{
+    background-color: #0082c8;
+    border-radius: 0px !important;
+    transition: ease-in-out 0.5s background-color;
+    padding-top: 2em !important;
+    padding-bottom: 2em !important;
+
+}
+
+.bar:hover{
+    background-color: #434343 !important;
+}
+
 
 /* Carousel */
 .carousel_div{

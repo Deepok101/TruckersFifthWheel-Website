@@ -11,7 +11,7 @@ function Jumbotron_elem(){
     const borderBottom = {borderBottom: "1px solid #c9c9c9"}
     return(
         <Jumbotron style={{...background_color,...margin_top,...borderBottom}}>
-            <h1 style={{textAlign: "center"}}> 
+            <h1 className='h1-bigger' style={{textAlign: "center"}}> 
                 Sign Up now!
             </h1>
             <p style={{...{textAlign: "center"},...font_size,... {fontFamily: "Roboto"}}}>

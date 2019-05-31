@@ -34,9 +34,12 @@
 
 
 html, body {
-  max-width: 1920px;
-  min-width: 1080;
   margin-left: auto;
   margin-right: auto;
+  
 }
 
+html {
+
+  zoom: 0.85
+}
