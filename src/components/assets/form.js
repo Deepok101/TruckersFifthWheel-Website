@@ -53,7 +53,7 @@ class FormPost extends React.Component{
                     <div className=''>
                       <div className='row'>
                         <div className='col-xl-10 col-lg-6 col-8'>
-                          <form method='POST' action='/api/posts'>
+                          <form id='post_form' method='POST' action='/api/posts'>
                             <input id="posting_input" name="postText" type='text' className="form-control" id="formGroupExampleInput" aria-label="Default" aria-describedby="inputGroup-sizing-default" onChange={this.handleChange}/>
                           </form>
                         </div>
@@ -63,7 +63,6 @@ class FormPost extends React.Component{
                       </div>
                     </div>
                   </form>
-                  <h3>You wrote {text}</h3>
                 </div>
               </div>
             </div>

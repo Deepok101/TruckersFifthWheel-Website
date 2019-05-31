@@ -21,7 +21,7 @@
     padding: 1rem;
 }
 
-input[type='text']{
+#post_form input[type='text']{
     font-size: 1.6em !important;
     
 }
