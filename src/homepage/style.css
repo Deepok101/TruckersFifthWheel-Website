@@ -38,6 +38,10 @@ h1{
     font-size: 3em !important;
 }
 
+.h1-carousel{
+    font-size: 4em !important;
+}
+
 /* Carousel */
 .carousel_div{
     width: 100%;

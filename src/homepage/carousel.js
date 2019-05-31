@@ -38,7 +38,7 @@ class Carousel_elem extends React.Component{
           <Carousel.Item>
             <div className="carousel_div">
               <div className='child'>
-                <h1 id="animation1" style={{fontSize: "4em"}}>
+                <h1 class='h1-carousel' id="animation1" style={{fontSize: "4em"}}>
                   Welcome to DeepEmploi
                 </h1>
                 <h3 style={{...{marginTop: "1em"},...{fontSize: "1.8em"},...{animationDelay: "0.5s"}}}>
