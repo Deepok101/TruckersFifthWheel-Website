@@ -78,7 +78,7 @@
 
 .p-logo{
     margin-top: 1em;
-    font-size: 1.5em;
+    font-size: 1.3em;
     margin-right: 3em;
     margin-left: 3em;
     
@@ -86,7 +86,7 @@
 
 .p-logo-2{
     margin-top: 1em;
-    font-size: 1.8em;
+    font-size: 1.65em;
     
     color: white;
 }
@@ -124,6 +124,7 @@
     background-color: #0082c8;
     border-radius: 0px !important;
     transition: ease-in-out 0.5s background-color;
+    
     padding-top: 2em !important;
     padding-bottom: 2em !important;
 

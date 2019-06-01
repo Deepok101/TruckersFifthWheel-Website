@@ -28,12 +28,6 @@ class Posts extends React.Component{
           <div class="pt-3 p-2">
             <p class="p-posts">{this.props.text}</p>
           </div>
-          <div class="pl-2">
-            <p>
-              0 Likes &nbsp;&nbsp;
-              0 Comments
-            </p>
-          </div>
           <div class="reaction">
             <button class="post_btn reaction-btn">Love</button>
             <button class="post_btn button reaction-btn">Comment</button>

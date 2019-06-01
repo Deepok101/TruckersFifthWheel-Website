@@ -9,7 +9,7 @@
          url('../assets/fonts/roboto-v19-latin-regular.woff') format('woff'), /* Modern Browsers */
          url('../assets/fonts/roboto-v19-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
          url('../assets/fonts/roboto-v19-latin-regular.svg#Roboto') format('svg'); /* Legacy iOS */
-  }
+}
 
 .posts{
     border-radius: 0.3em;
@@ -22,9 +22,9 @@
 }
 
 #post_form input[type='text']{
-    font-size: 1.6em !important;
-    
+    font-size: 1.6em !important; 
 }
+
 #woym{
     font-size: 2em;
 }
@@ -50,20 +50,19 @@
 
 /* Buttons */
 .post_btn{
-    color: #494949 !important;
     background: #ffffff;
-    padding: 0 0.9em 0 0.9em;
-    border: 3px solid #494949 !important;
-    border-radius: 6px;
+    padding-right: 4em;
+    padding-left: 4em;
+    border: 0px solid #494949;
     display: inline-block;
     font-family: 'Roboto';
-    font-size: 1.25em;
+    font-size: 1.2em;
 }
+
 .post_btn:hover{
-    color: #ffffff !important;
-    background: #3b48f6;
+    color: #000000 !important;
+    background: #eeeeee;
     border-color: #3b48f6 !important;
-    transition: all 0.4s ease 0s;
 }
 
 @media all and (max-width:30em){
@@ -73,9 +72,6 @@
     }
 }
 
-
-
-
 .p-posts{
     font-size: 1.2rem;
 }
@@ -84,6 +80,8 @@
     margin: auto;
     display: block;
     text-align: center;
+    padding-top: 10px;
+    border-top: 1px solid #b6b6b6;
 }
 
 .SideBar_Options{

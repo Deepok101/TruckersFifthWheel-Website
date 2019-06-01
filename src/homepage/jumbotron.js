@@ -19,7 +19,7 @@ function Jumbotron_elem(){
                 Oh, did we not mention it? It's totally FREE
             </p>
             <div id='learnMore'>
-                <Button variant="primary">Learn more</Button>
+                <Button variant="primary">Sign Up</Button>
             </div>
         </Jumbotron>
     )
