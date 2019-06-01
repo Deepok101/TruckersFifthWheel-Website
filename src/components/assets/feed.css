@@ -29,6 +29,21 @@
     font-size: 2em;
 }
 
+
+.sub_comment_btn{
+    display: inline-block;
+}
+
+.commentSection{
+    margin-top: 2em;
+}
+
+.commentBubble{
+    border-radius: 20px;
+    background-color: #EEF;
+    padding: 0.5em;
+}
+
 .reaction-btn{
     margin-right: 0.5em;
 }

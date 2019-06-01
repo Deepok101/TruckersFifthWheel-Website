@@ -16,12 +16,27 @@ const PostsSchema = new Schema({
         required: true
     },
     likes: {
-        type: Number
+        type: Number,
+        default: 0,
     },
     date: {
         type: Date,
         default: Date.now 
-    }
+    },
+    comments:[{
+        user:{
+            type: String,
+            required: false
+        },
+        date: {
+            type: Date,
+            default: Date.now
+        },
+        text:{
+            type: String,
+            required: false
+        }
+    }]
 });
 
 module.exports = Posts = mongoose.model('posts', PostsSchema)

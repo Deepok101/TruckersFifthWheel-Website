@@ -33,7 +33,7 @@ class NewsFeed extends React.Component{
   
   render(){
     let posts = this.state.dbposts.map((data)=>
-        <Posts accountName={data.author} text={data.text} date={data.date}/>
+        <Posts comments={data.comments} likes={data.likes} id={data._id} accountName={data.author} text={data.text} date={data.date}/>
     );
     
 
