@@ -18,7 +18,7 @@ class Posts extends React.Component{
       increment: 0,     //goes up by 5 to show more comments
       didLike: false,   //check if like button has been clicked. Made to avoid overclicking the like button
       didDislike: true, //check if dislike button has been clicked. Made to avoid overclicking the dislike button
-      endpoint: 'http://localhost:5000'
+      endpoint: 'ws://still-taiga-69176.herokuapp.com'
     }
     this.onClickLikeBtn = this.onClickLikeBtn.bind(this);
     this.onClickCommentBtn = this.onClickCommentBtn.bind(this);
