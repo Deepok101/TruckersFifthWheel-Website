@@ -24,7 +24,18 @@ router.post('/', (req, res) => {
 
 router.post('/like', (req, res)=>{
     var id = req.body.id;
-    Posts.updateOne({_id: id}, {$inc: {likes: 1} }, (err, res)=>{
+    var user = req.body.user;
+    Posts.updateOne({_id: id, likedByAcc: {$nin: [user]}}, {$inc: {likes: 1}, $push: {likedByAcc: user} }, (err, res)=>{
+        if (err){
+            console.log(err)
+        }
+    })
+});
+
+router.post('/like/cancel', (req, res)=>{
+    var id = req.body.id;
+    var user = req.body.user;
+    Posts.updateOne({_id: id, likedByAcc: {$in: [user]}}, {$inc: {likes: -1}, $pull: {likedByAcc: user} }, (err, res)=>{
         if (err){
             console.log(err)
         }

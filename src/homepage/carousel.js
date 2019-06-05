@@ -1,6 +1,7 @@
 import React from 'react';
 import Carousel from 'react-bootstrap/Carousel'
 import { CSSTransition } from 'react-transition-group';
+import CarouselCaption from 'react-bootstrap/CarouselCaption';
 
 class Carousel_elem extends React.Component{
   constructor(props, context) {
@@ -36,20 +37,23 @@ class Carousel_elem extends React.Component{
         onSelect={this.handleSelect}
       >
           <Carousel.Item>
-            <div className="carousel_div">
+            <div className="carousel_div_img">
               <div className='child'>
-                <h1 class='h1-carousel' id="animation1" style={{fontSize: "4em"}}>
-                  Welcome to DeepEmploi
-                </h1>
-                <h3 style={{...{marginTop: "1em"},...{fontSize: "1.8em"},...{animationDelay: "0.5s"}}}>
+                <img class='truckPicture' src={require('./pictures/wideRoad.jpg')}/>
+
+                
+                {/* <h3 style={{...{marginTop: "1em"},...{fontSize: "1.8em"},...{animationDelay: "0.5s"}}}>
                   Website made for truckers by truckers
-                </h3>
+                </h3> */}
               </div>
             </div>
-            <Carousel.Caption style={{color: "#000000"}}>
+            <Carousel.Caption style={{color: "#fff"}}>
+              <h1 class='h1-carousel' id="animation1" style={{fontSize: "4em"}}>
+                Welcome to DeepEmploi
+              </h1>
             </Carousel.Caption>
           </Carousel.Item>
-          <Carousel.Item>
+          {/* <Carousel.Item>
             <div className="carousel_div">
                 <div className='child'>
                     <h1 id="animation2" style={{...{fontSize: "4em"},...{animationDelay: "0.5s"}}}>
@@ -76,7 +80,7 @@ class Carousel_elem extends React.Component{
             </div>
             <Carousel.Caption style={{color: "#000000"}}>
             </Carousel.Caption>
-          </Carousel.Item>
+          </Carousel.Item> */}
       </Carousel>
       
       </div>

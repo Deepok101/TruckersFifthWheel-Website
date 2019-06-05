@@ -17,7 +17,10 @@ const PostsSchema = new Schema({
     },
     likes: {
         type: Number,
-        default: 0,
+        default: 0
+    },
+    likedByAcc: {
+        type: Array
     },
     date: {
         type: Date,

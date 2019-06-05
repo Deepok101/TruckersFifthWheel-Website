@@ -44,6 +44,18 @@
     padding: 0.5em;
 }
 
+.showMoreComments{
+    border-radius: 5px;
+    border: 0px solid rgba(123, 213, 255, 0.582);
+    background-color: rgba(167, 223, 255, 0.781);
+    padding: 0.6em;
+    margin-top: 2em;
+}
+.showMoreComments:hover{
+    background-color: rgba(120, 205, 255, 0.829);
+
+}
+
 .reaction-btn{
     margin-right: 0.5em;
 }

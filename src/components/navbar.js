@@ -26,7 +26,7 @@ class NavBar extends React.Component{
     const username = window.sessionStorage.getItem('auth_firstName')
 
     return(
-      <nav style={{...{backgroundColor: '#3cd0e7'},...{color: "white"}}} class="navbar navbar-expand-lg navbar-dark sticky-top">
+      <nav style={{...{backgroundColor: '#0082c8'},...{color: "white"}}} class="navbar navbar-expand-lg navbar-dark sticky-top">
         <Link class="navbar-brand" to="/home">{this.props.company}</Link>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigationbar" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -37,7 +37,7 @@ class NavBar extends React.Component{
               <Link class="nav-link" to="/home">{this.props.firstSection} <span class="sr-only">(current)</span></Link>
             </li>
             <li className={`nav-item ${this.props.second}`}>
-              <Link class="nav-link" to="/newsfeed">{this.props.secondSection}</Link>
+              <a class="nav-link" href="/newsfeed">{this.props.secondSection}</a>
             </li>
             <li className={`nav-item ${this.props.third}`}>
               <a class="nav-link" href="/chat">{this.props.thirdSection}</a>

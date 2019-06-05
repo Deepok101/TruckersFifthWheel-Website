@@ -49,7 +49,7 @@ app.get('/home', (req, res) => {
 //Socket.io
 
 const Chat = require('./models/Chat')
-
+const Posts = require('./models/Posts')
 io.set('transports', ['websocket']);
 
 io.on('connection', (socket)=>{
@@ -60,6 +60,37 @@ io.on('connection', (socket)=>{
       text: sent_msg
     });
     newChat.save();
+  })
+
+  socket.on('send comment', (comment, user, id)=>{
+    io.sockets.emit('comment', {id: id, msg:`${comment}`});
+
+    var comment = {
+        user: user,
+        text: comment
+    }
+    Posts.updateOne({_id: id}, {$push: {comments: comment}} , (err, res)=>{
+        if (err){
+            console.log(err)
+        }
+    })
+  })
+  socket.on('send like', (id, user)=>{
+    io.sockets.emit('like', (id));
+    Posts.updateOne({_id: id, likedByAcc: {$nin: [user]}}, {$inc: {likes: 1}, $push: {likedByAcc: user} }, (err, res)=>{
+      if (err){
+          console.log(err)
+      }
+  })
+  })
+
+  socket.on('remove like', (id, user)=>{
+    io.sockets.emit('unlike', (id));
+    Posts.updateOne({_id: id, likedByAcc: {$in: [user]}}, {$inc: {likes: -1}, $pull: {likedByAcc: user} }, (err, res)=>{
+      if (err){
+          console.log(err)
+      }
+  })
   })
 })
 
