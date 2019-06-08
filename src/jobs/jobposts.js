@@ -1,43 +1,75 @@
 import React from 'react';
-import "./feed.css"
+import JobModal from './jobmodal'
+import './style.css'
+import Button from 'react-bootstrap/Button'
+import Job from './jobbar'
 
-class Posts extends React.Component{
+class Jobposts extends React.Component{
   constructor(props){
     super(props);
+
+    this.state = {
+      modalShow: false,
+      show: false,
+      active: false
+    }
+
+    this.onClick = this.onClick.bind(this)
   }
-  
+
+
+  onClick(){
+    this.props.clicked({show: true, name: this.props.jobName, jobDesc: this.props.jobDesc, id: this.props.id});
+    this.setState({active: true})
+  }
   render(){
-    let date = this.props.date.slice(0, 10);
-    let time = this.props.date.slice(11, 16)
+
+    let modalClose = () => this.setState({modalShow: false})
+    let wordcount = 20;
+    let text = this.props.jobDesc.split(" ");
+    for(var i=0; i<text.length - 1; i++){
+      text[i] += " "
+      if(i==wordcount){
+        break
+      }
+    }
+  
+    text[wordcount+1] += "...";
+    
     return(
-      <div className="">
-        <div className="posts">
-        <header>
-            <span class="p-2 post_acc_name">
-              {this.props.accountName}
-            </span>
-            <span className="post_date">
-              <span>
-                <b>{date} </b>
-              </span>
-              <span>
-                <b>{time}</b>
-              </span>
-            </span>
-          </header>
-          <div class="pt-3 p-2">
-            <p class="p-posts">{this.props.text}</p>
+      <div>
+        <div>
+          <div>
+            <div className="jobposts p-2" id={this.props.active ? 'activeJob': ''} onClick={this.onClick}>
+              <header>
+                <span className="pl-2 job">
+                  {this.props.jobName}
+                </span>
+                <div className="pl-2 companyName">
+                  {this.props.companyName}
+                </div>
+                <div className="pl-2 companyName">
+                  Montreal (West Island)
+                </div>
+                
+              </header>
+              <p className="pt-1 pl-2">
+                Type: Class 1 Trucking, experience, good job, flatbed <br/>
+                {text.slice(0,wordcount+2)}
+
+              </p> 
+            </div>
           </div>
-          <div class="reaction">
-            <button class="post_btn reaction-btn">Love</button>
-            <button class="post_btn button reaction-btn">Comment</button>
-            <button class="post_btn button reaction-btn">Share</button>
+          <div className='col align-self-end'>
+            <Job show={this.state.show} />
           </div>
         </div>
+        
+        <JobModal {...this.props} onHide={modalClose} show={this.state.modalShow}/>
      </div> 
     
     );
   };
 }
 
-export default Posts;
+export default Jobposts;

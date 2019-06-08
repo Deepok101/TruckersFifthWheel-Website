@@ -8,6 +8,7 @@ const session = require('express-session');
 const posts = require('./routes/api/posts')
 const accounts = require('./routes/api/accounts')
 const chat = require('./routes/api/chat')
+const jobs = require('./routes/api/jobs')
 
 const mongoURI = require('./MongoURI')
 
@@ -25,7 +26,7 @@ app.use(express.json());
 app.use('/api/posts', posts);
 app.use('/api/accounts', accounts);
 app.use('/api/chat', chat);
-
+app.use('/api/jobs', jobs)
 
 var urlencodedParser = express.urlencoded({extended: false});
 
@@ -46,7 +47,9 @@ app.get('/home', (req, res) => {
 })
 
 
-//Socket.io
+
+
+//Socket.io Real Time Chat and Comment System
 
 const Chat = require('./models/Chat')
 const Posts = require('./models/Posts')

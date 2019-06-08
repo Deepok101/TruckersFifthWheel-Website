@@ -12,15 +12,37 @@
 
 
 /* About Page*/
+#imageContainer{
+    position: relative;
+    text-align: center;
+}
+
+#imageText{
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 5em;
+    
+  
+}
 .truckPicture{
-    zoom: 0.369;
-    filter: saturate(1.5);
-    opacity: 0.7;
-    margin-top: -100px;
+    zoom: 0.5;
+    filter: saturate(1.4);
+    margin-top: -18%;
+    overflow: hidden;
+    position: relative;
 
 }
+
+.crop{
+    overflow: hidden;
+    height: 920px;
+}
+
 .img-icons{
-    width: 30%;
+    width: 40%;
     display: block;
     margin-top: 3em;
     margin-left: auto;
@@ -84,16 +106,17 @@
 
 .p-logo{
     margin-top: 1em;
-    font-size: 1.3em;
-    margin-right: 3em;
-    margin-left: 3em;
+    font-size: 1.2em;
+    margin-right: 3.2em;
+    margin-left: 3.2em;
     
 }
 
 .p-logo-2{
     margin-top: 1em;
-    font-size: 1.65em;
-    
+    font-size: 1.5em;
+    font-weight: 400;
+    font-family: "Roboto";
     color: white;
 }
 
@@ -105,7 +128,7 @@
 }
 
 .h1-bigger{
-    font-size: 3em;
+    font-size: 2.5em;
 }
 
 .h1-dark{
@@ -113,10 +136,12 @@
 }
 .h1-carousel{
     font-size: 3em;
-    margin-bottom: 2.8em;
+    margin-bottom: 5em;
     font-weight: 700;
     font-family: 'Montserrat', sans-serif;
 }
+
+
 
 .h1-btn{
     font-size: 2em;
@@ -200,11 +225,12 @@
 
 
 /* Animations */
-#animation1{
+.animation1{
+    
     animation-name: bounceInUp;
     animation-duration: 1.5s;
 }
-#animation2 {
+.animation2 {
     opacity: 0;
     -webkit-animation-name: fadeIn; /* Safari 4.0 - 8.0 */
     -webkit-animation-duration: 2s; /* Safari 4.0 - 8.0 */
