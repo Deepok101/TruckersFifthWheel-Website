@@ -21,6 +21,12 @@ router.get('/', (req, res) => {
     Accounts.findOne({username: "deepok", password: "deepok"}).then(data => res.json(data))
 });
 
+router.post('/verify', (req, res)=>{
+    var firstName = req.body.fname;
+    var lastName = req.body.lname;
+    Accounts.findOne({firstName: firstName, lastName: lastName}).then(acc => res.json(acc))
+})
+
 router.post('/', (req, res) => {
     const newAccount = new Accounts({
         firstName: req.body.firstName,
