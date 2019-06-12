@@ -3,6 +3,8 @@ import "./feed.css"
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import socketIOClient from 'socket.io-client';
+import Dropdown from 'react-bootstrap/Dropdown'
+import DropdownButton from 'react-bootstrap/DropdownButton'
 
 class Posts extends React.Component{
   constructor(props){
@@ -320,14 +322,13 @@ class Posts extends React.Component{
     let reactionButton;
 
     if (!this.state.likedBy.includes(window.sessionStorage.getItem('auth_firstName'))){
-      reactionButton = <button onClick={this.onClickLikeBtn} class="post_btn reaction-btn">Love</button>
+      reactionButton = <button onClick={this.onClickLikeBtn} class="post_btn reaction-btn">Like</button>
 
     } else {
       reactionButton = <button onClick={this.onClickLikeBtn} class="post_btn reaction-btn">Unlike</button>
 
     }
-    
-    if(this.props.url && !this.props.image){
+    //Styles 
       const urlDescStyle = {
         float: 'left',
         textAlign: 'left',
@@ -338,156 +339,94 @@ class Posts extends React.Component{
         padding: "10px",
         cursor: 'pointer'
       }
+    //Content depending on if it is a URL, text or image
+    let content;
+    if(this.props.url && !this.props.image){
+      content =   <div class="p-4" >
+                    <div className='row' style={linkBox}>
+                      <a style={{...{color: 'black'}}} href={this.props.url}>
+                        <img style={{...{float: 'left'}}} src={this.props.imgUrl} width="250px"/>
+                        <div style={urlDescStyle} class="col-7 p-posts">
+                          <h5>{this.props.urlTitle}</h5>
+                          {this.props.urlDesc}
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+    }
+    if(!this.props.url && !this.props.image){
+      content = <div class="pt-3 pl-4">
+                  <p class="p-posts">{this.props.text}</p>
+                </div>
+    }
+    if(!this.props.url && this.props.image){
+      content = <div class="pt-3 pb-2">
+                  <p class="p-posts pl-4 pr-4">{this.props.text}</p>
+                  <img src={this.props.image} class='centerImg' width="100%"/>
+                </div>
+    }
       return(
         <div id={"post#" + this.props.id}>
           <div className="posts">
-          <header>
-              <span class="p-2 post_acc_name">
-                {this.props.accountName}
-              </span>
-              <span className="post_date">
-                <span>
-                  <b style={{cursor: "pointer"}} onClick={this.onClickDeleteBtn}> Delete Post </b>
+            <div className="pl-4 pr-4 pt-3">
+              <header>
+                <span className="post_acc_name">
+                  {this.props.accountName}
                 </span>
-                <span>
-                  <b>{date} </b>
+                <span className="post_date">
+                  <span>
+                  </span>
+                  <span>
+                    <b>{date} </b>
+                  </span>
+                  <span>
+                    <b>{time} </b>
+                  </span>
+                  <span>
+                    <DropdownButton 
+                      size="sm"
+                      variant=""
+                      style={{...{position: 'relative'},...{display: 'inline-block'}}} 
+                      id="dropdown-item-button" 
+                      title="">
+                      
+                   
+                      <Dropdown.Item onClick={this.onClickDeleteBtn} as="button">Delete Post</Dropdown.Item>
+                      <Dropdown.Item as="button">Another action</Dropdown.Item>
+                      <Dropdown.Item as="button">Something else</Dropdown.Item>
+                    </DropdownButton>
+                  </span>
                 </span>
-                <span>
-                  <b>{time}</b>
-                </span>
-              </span>
-            </header>
-            <div class="p-4" >
-              <div className='row' style={linkBox}>
-                <a style={{...{color: 'black'}}} href={this.props.url}>
-                  <img style={{...{float: 'left'}}} src={this.props.imgUrl} width="250px"/>
-                  <div style={urlDescStyle} class="col-7 p-posts">
-                    <h5>{this.props.urlTitle}</h5>
-                    {this.props.urlDesc}
-                  </div>
-                </a>
-              </div>
+              </header>
             </div>
-            <div class="pl-2">
+            {content}
+            <div className="pl-4 pr-4 pt-2">
               <p>
                 {this.state.likes} Likes &nbsp;&nbsp;
                 {this.state.nbComments} Comments
               </p>
             </div>
-            <div class="reaction">
-              {reactionButton}
-              <button onClick={this.onClickCommentBtn}  class="post_btn button reaction-btn">Comment</button>
-              <button class="post_btn button reaction-btn">Share</button>
+            <div className="row">
+              <div className='reaction'>
+                {reactionButton}
+                <button onClick={this.onClickCommentBtn}  className="post_btn button reaction-btn">Comment</button>
+                <button className="post_btn button reaction-btn">Share</button>
+              </div>
+              
             </div>
   
-            <div id={this.props.id}>
+            <div id={this.props.id} className='pl-4 pr-4'>
   
             </div>
-            <div class='commentSection' id={this.props.id + 'comments'}>
+            <div className='commentSection pl-4 pb-4' id={this.props.id + 'comments'}>
               {comments}
             </div>
               {UnhideBtn}
           </div>
        </div> 
       )
-    } 
-    if(!this.props.url && !this.props.image){
-      return(
-        <div id={"post#" + this.props.id}>
-          <div className="posts">
-          <header>
-              <span class="p-2 post_acc_name">
-                {this.props.accountName}
-              </span>
-              <span className="post_date">
-                <span>
-                  <b style={{cursor: "pointer"}} onClick={this.onClickDeleteBtn}> Delete Post </b>
-                </span>
-                <span>
-                  <b>{date} </b>
-                </span>
-                <span>
-                  <b>{time}</b>
-                </span>
-              </span>
-            </header>
-            <div class="pt-3 p-2">
-              <p class="p-posts">{this.props.text}</p>
-            </div>
-            <div class="pl-2">
-              <p>
-                {this.state.likes} Likes &nbsp;&nbsp;
-                {this.state.nbComments} Comments
-              </p>
-            </div>
-            <div class="reaction">
-              {reactionButton}
-              <button onClick={this.onClickCommentBtn}  class="post_btn button reaction-btn">Comment</button>
-              <button class="post_btn button reaction-btn">Share</button>
-            </div>
-  
-            <div id={this.props.id}>
-  
-            </div>
-            <div class='commentSection' id={this.props.id + 'comments'}>
-              {comments}
-            </div>
-              {UnhideBtn}
-          </div>
-       </div> 
-      
-      );
-    }
-    if(!this.props.url && this.props.image){
-      return(
-        <div id={"post#" + this.props.id}>
-          <div className="posts">
-          <header>
-              <span class="p-2 post_acc_name">
-                {this.props.accountName}
-              </span>
-              <span className="post_date">
-                <span>
-                  <b style={{cursor: "pointer"}} onClick={this.onClickDeleteBtn}> Delete Post </b>
-                </span>
-                <span>
-                  <b>{date} </b>
-                </span>
-                <span>
-                  <b>{time}</b>
-                </span>
-              </span>
-            </header>
-            <div class="pt-3 p-2">
-              <p class="p-posts">{this.props.text}</p>
-              <img src={this.props.image} class='centerImg' width="100%"/>
-            </div>
-            <div class="pl-2">
-              <p>
-                {this.state.likes} Likes &nbsp;&nbsp;
-                {this.state.nbComments} Comments
-              </p>
-            </div>
-            <div class="reaction">
-              {reactionButton}
-              <button onClick={this.onClickCommentBtn}  class="post_btn button reaction-btn">Comment</button>
-              <button class="post_btn button reaction-btn">Share</button>
-            </div>
-  
-            <div id={this.props.id}>
-  
-            </div>
-            <div class='commentSection' id={this.props.id + 'comments'}>
-              {comments}
-            </div>
-              {UnhideBtn}
-          </div>
-       </div> 
-      
-      );
-    }
-  };
-}
+    };
+  }
 Posts.propTypes = {
   username: PropTypes.string.isRequired
 }

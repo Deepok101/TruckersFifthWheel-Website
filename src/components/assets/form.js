@@ -19,12 +19,15 @@ class FormPost extends React.Component{
         this.handleSubmit = this.handleSubmit.bind(this);
         this.fileSelectedHandler = this.fileSelectedHandler.bind(this);
         this.handleImageUpload = this.handleImageUpload.bind(this);
-
+        this.checkUser = this.checkUser.bind(this);
+        this.handleTextSubmit = this.handleTextSubmit.bind(this);
     }
 
     handleChange(e){
         this.props.changeText(e.target.value);
       }
+
+   
 
     handleSubmit(e){
         e.preventDefault();
@@ -36,7 +39,9 @@ class FormPost extends React.Component{
 
         //Check if attached picture
         if(this.state.selectedFile){
-          this.handleImageUpload(auth_firstName, auth_lastName, text)
+          this.checkUser(()=> {
+            this.handleImageUpload(auth_firstName, auth_lastName, text)
+          })
         }
 
 
@@ -48,6 +53,7 @@ class FormPost extends React.Component{
                                                                 urlDescription: data.description,
                                                                 urlImg: data.image,
                                                                 url: data.url}))
+            .then(() => this.checkUser())
             .then(()=> {
               
 
@@ -120,22 +126,9 @@ class FormPost extends React.Component{
 
           //If NOT LINK, proceed with this...
         } else if(!this.props.value.match(/(?:((?:https?|ftp):\/\/)|ww)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,}))\.?)(?::\d{2,5})?(?:[/?#]\S*)?/i) && !this.state.selectedFile){
-
-          var post = {
-              "id": 3,
-              "author": `${auth_firstName} ${auth_lastName}`,
-              "text": text
-          };
-  
-          fetch('/api/posts', {
-              method: 'POST',
-              body: JSON.stringify(post),
-              headers: {
-                  'Content-Type': 'application/json'
-              },
-          }).then(res => res.json()).then(data => console.log(data));
-
-          window.location.reload()
+              this.checkUser(()=>{
+                this.handleTextSubmit(auth_firstName, auth_lastName, text);
+              })
      
         }
 
@@ -146,6 +139,43 @@ class FormPost extends React.Component{
     fileSelectedHandler(event){ 
       this.setState({selectedFile: event.target.files[0]})
       
+    }
+
+    checkUser(callback){
+      const auth_firstName = window.sessionStorage.getItem('auth_firstName')
+      const auth_lastName = window.sessionStorage.getItem('auth_lastName')
+
+      fetch('/api/accounts/verify', {
+        method: 'POST',
+        body: JSON.stringify({"fname": auth_firstName, "lname": auth_lastName}),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+      }).then(res => res.json())
+        .then((user) => {
+          if (user){
+            callback()
+          }
+        })
+
+    }
+
+    handleTextSubmit(auth_firstName, auth_lastName, text){
+      var post = {
+        "id": 3,
+        "author": `${auth_firstName} ${auth_lastName}`,
+        "text": text
+      };
+
+      fetch('/api/posts', {
+        method: 'POST',
+        body: JSON.stringify(post),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+      }).then(res => res.json()).then(data => console.log(data));
+
+      window.location.reload()
     }
 
     handleImageUpload(firstName, lastName, text) {
@@ -179,37 +209,42 @@ class FormPost extends React.Component{
         })
     }
 
+
+
     render(){
         let text = this.props.value;
-        console.log(this.state.image)
         return(
           
-            <div className='posts'>
+            <div className='posts p-2'>
               <header>
                 <div className="p-2">
                   <p id="woym">What's on your mind?</p>
                 </div>
               </header>
-              <div className="pt-3 p-2">
+              <div className="pt-2 p-2">
                 <div>
                   <form onSubmit={this.handleSubmit}>
-                    <div className=''>
-                      <div className='row'>
-                        <div className='col-xl-10 col-lg-6 col-8'>
+                    <div className='pl-3 pr-3'>
+                      <div className=''>
+                        <div className=''>
                           <form id='post_form' method='POST' action='/api/posts'>
-                            <input id="posting_input" name="postText" type='text' className="form-control" id="formGroupExampleInput" aria-label="Default" aria-describedby="inputGroup-sizing-default" onChange={this.handleChange}/>
-                            <input name="file" type="file"
-                              class="file-upload" data-cloudinary-field="image_id" onChange={this.fileSelectedHandler}
-                              data-form-data="{ 'transformation': {'crop':'limit','tags':'samples','width':3000,'height':2000}}"/>
+                            <textarea style={{width: '100%'}} id="posting_input" name="postText" type='text' className="form-control" id="formGroupExampleInput" aria-label="Default" aria-describedby="inputGroup-sizing-default" onChange={this.handleChange}/>
                           </form>
                         </div>
-                        <div className='col-xl-2 col-lg-6 col-4 text-right'>
-                          <button id='posting_btn' onClick={this.handleSubmit}>Post</button>
+                        <div className='pt-3 pb-3'>
+                          <div  style={{display: 'inline-block'}}>
+                            <input name="file" type="file"
+                              class="file-upload" data-cloudinary-field="image_id" onChange={this.fileSelectedHandler}
+                              data-form-data="{ 'transformation': {'crop':'limit','tags':'samples','width':3000,'height':2000}}"/>                        
+                          </div>
+                          <div className='' style={{...{display: 'inline-block'},...{float: 'right'}}}>
+                            <button id='posting-btn' class='btn btn-primary' style={{width: "100px"}} onClick={this.handleSubmit}>Post</button>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </form>
-                  <button onClick={this.handleImageUpload}>Upload</button>
+                  {/* <button onClick={this.handleImageUpload}>Upload</button> */}
 
                 </div>
               </div>

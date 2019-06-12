@@ -58,7 +58,7 @@ class Login extends React.Component{
             headers: {
                 'Content-Type': 'application/json'
             },
-        }).then(res => res.json()).then(()=> setTimeout(()=>{this.props.history.push('/home')}), 200)
+        }).then(res => res.json()).then(()=> setTimeout(()=>{this.props.history.push('/newsfeed')},500))
         if (this.props.auth){
             this.props.history.push('/')
         }
@@ -73,14 +73,16 @@ class Login extends React.Component{
         return( 
             
             <div style={{display: this.state.display}} class="login-form">
-                <h1 style={{marginTop: "2em"}}>DeepEmploi</h1>
-                <h1>Login Form</h1>
+                <h1>Don't have an account? Sign up</h1>
                 <form action="/api/accounts/auth" method="POST">
                     <input value={this.state.username} onChange={this.handleChangeUsername} type="text" name="username" placeholder="Username" required/>
                     <input value={this.state.password} onChange={this.handleChangePassword} type="password" name="password" placeholder="Password" required/>
                 </form>
                 <button id='submit-btn' onClick={this.handleClick}>Submit</button>
-                <button style={{marginTop: 10}} id='submit-btn' onClick={this.handleSignUpClick}>Sign Up</button>
+                <p style={{marginTop: 20}}>
+                    Don't have an account? 
+                    <a href='#' style={{marginTop: 10}} onClick={this.handleSignUpClick}> Sign Up</a>
+                </p>
             </div>
         )
     }
@@ -91,4 +93,4 @@ const mapStateToProps = state => ({
     username: state.auth.name,
     cache: state.auth.bool
 })
-export default connect(mapStateToProps, { fetchAuth, inputChange })(Login);
+export default withRouter(connect(mapStateToProps, { fetchAuth, inputChange })(Login));

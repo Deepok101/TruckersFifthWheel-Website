@@ -213,6 +213,7 @@
 .login-form input[type="text"] {
     width: 100%;
     padding: 15px;
+    border-radius: 30px;
     border: 1px solid #dddddd;
     margin-bottom: 15px;
     box-sizing:border-box;
@@ -220,7 +221,7 @@
 #submit-btn {
     width: 100%;
     padding: 15px;
-    background-color: #535b63;
+    background-color: #047ffb;
     border: 0;
     box-sizing: border-box;
     cursor: pointer;

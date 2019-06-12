@@ -40,11 +40,13 @@ class AppRouter extends React.Component{
     return (
      
         <Router>
-          <Route path="/" exact component={Login} />
+          <Route path="/" exact component={Home} />
+          <Route path="/home" exact component={Home} />
+          <Route path="/login" exact component={Login} />
           <Route path="/signup" exact component={SignUpForm} />
           <Route path='/chat' component={Chat}/>
           <Route path='/job' component={Jobpage}/>
-          <PrivateRouter authed={this.props.auth} authed2={a} path='/home' component={Home}/>
+          {/* <PrivateRouter authed={this.props.auth} authed2={a} path='/home' component={Home}/> */}
           <PrivateRouter authed={this.props.auth} authed2={a} path='/newsfeed' component={App}/>
         </Router>
     

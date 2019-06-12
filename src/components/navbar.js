@@ -9,11 +9,16 @@ import { logout } from '../actions/authLogout';
 import PropTypes from 'prop-types';
 import './assets/feed.css'
 import Button from 'react-bootstrap/Button'
+import LoginModal from '../homepage/loginModal'
 
 class NavBar extends React.Component{
   constructor(props){
     super(props)
     this.handleLogout = this.handleLogout.bind(this)
+
+    this.state = {
+      modalShow: false
+    }
   }
 
   handleLogout(){
@@ -25,9 +30,31 @@ class NavBar extends React.Component{
   render(){
     const username = window.sessionStorage.getItem('auth_firstName')
 
+    let log;
+    if(username){
+      log = <a class="nav-link" href='/'>
+              <Button style={{...{marginTop: '-1.3em'},...{marginBottom: '-1em'}}} onClick={this.handleLogout} variant="outline-light">Logout</Button>
+            </a>
+    }
+    if (!username){
+      log = <a class="nav-link" >
+              <Button style={{...{marginTop: '-1.3em'},...{marginBottom: '-1em'}}} 
+                      variant="outline-light" 
+                      onClick={() => {this.setState({modalShow: true})}}
+                      >
+                  Login
+              </Button>
+            </a>
+    }
+
+    let modalClose = () => this.setState({modalShow: false})
+
+
     return(
       <nav style={{...{backgroundColor: '#0082c8'},...{color: "white"}}} class="navbar navbar-expand-lg navbar-dark sticky-top">
         <Link class="navbar-brand" to="/home">{this.props.company}</Link>
+        <LoginModal {...this.props} onHide={modalClose} show={this.state.modalShow}/>
+
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigationbar" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -50,9 +77,7 @@ class NavBar extends React.Component{
           <a class="nav-link disabled">
             {username}  
           </a>
-          <a class="nav-link" href='/'>
-            <Button style={{...{marginTop: '-1.3em'},...{marginBottom: '-1em'}}} variant="outline-light">Logout</Button>
-          </a>
+          {log}
           <Clock/>
         </div>
       </nav>
