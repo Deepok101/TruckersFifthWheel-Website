@@ -5,12 +5,17 @@ class SearchJob extends React.Component{
     constructor(props) {
         super(props);
         this.state = {value: ''};
+
         this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(e){
-        this.props.changeText(e.target.value);
-      }
+      this.setState({value: e.target.value})
+    }
+    handleSubmit(e){
+        this.props.handleSubmit(this.state.value)
+    }
 
     render(){
         let text = this.props.value;
@@ -25,19 +30,19 @@ class SearchJob extends React.Component{
                 </header>
                   <div className="pt-3 p-2">
                     <div>
-                      <form onSubmit={this.handleSubmit}>
+                     
                       <div>
-                        <form id='jobInput' method='POST' action='/api/posts'>
-                          <input placeholder="Job Title" name="postText" type='text' className="form-control search" id="formGroupExampleInput" aria-label="Default" aria-describedby="inputGroup-sizing-default" onChange={this.handleChange}/>
-                          <input placeholder="Location" name="postText" type='text' className="form-control search" id="formGroupExampleInput" aria-label="Default" aria-describedby="inputGroup-sizing-default" onChange={this.handleChange}/>
-                          <button id='jobsearchbtn'>
+                        <div id='jobInput'>
+                          <input placeholder="Job Title" name="postText" type='text' className="form-control search" id="formGroupExampleInput" aria-label="Default" aria-describedby="inputGroup-sizing-default" />
+                          <input placeholder="Location" name="location" type='text' className="form-control search" id="formGroupExampleInput" aria-label="Default" aria-describedby="inputGroup-sizing-default" onChange={this.handleChange}/>
+                          <button onClick={this.handleSubmit} id='jobsearchbtn'>
                             Search
                           </button>
-                        </form>
+                        </div>
                       </div>
                       <div className='col-xl-2 col-lg-6 col-4 text-right'>  
                       </div>
-                      </form>
+         
                     </div>
                   </div>
                 </div>

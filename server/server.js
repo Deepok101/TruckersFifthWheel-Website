@@ -1,7 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
-
 const app = express()
 
 const session = require('express-session');
@@ -9,6 +8,7 @@ const posts = require('./routes/api/posts')
 const accounts = require('./routes/api/accounts')
 const chat = require('./routes/api/chat')
 const jobs = require('./routes/api/jobs')
+const url = require('./routes/api/url')
 
 const mongoURI = require('./MongoURI')
 
@@ -27,6 +27,7 @@ app.use('/api/posts', posts);
 app.use('/api/accounts', accounts);
 app.use('/api/chat', chat);
 app.use('/api/jobs', jobs)
+app.use('/api/url', url)
 
 var urlencodedParser = express.urlencoded({extended: false});
 
@@ -49,8 +50,10 @@ app.get('/home', (req, res) => {
 
 
 
-//Socket.io Real Time Chat and Comment System
 
+
+
+//Socket.io Real Time Chat and Comment System
 const Chat = require('./models/Chat')
 const Posts = require('./models/Posts')
 io.set('transports', ['websocket']);

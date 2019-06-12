@@ -2,7 +2,14 @@ import React from 'react';
 import JobModal from './jobmodal'
 import './style.css'
 import Button from 'react-bootstrap/Button'
-import Job from './jobbar'
+import Job from './jobbar';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect,
+  withRouter
+} from 'react-router-dom';
 
 class Jobposts extends React.Component{
   constructor(props){
@@ -20,7 +27,8 @@ class Jobposts extends React.Component{
 
   onClick(){
     this.props.clicked({show: true, name: this.props.jobName, jobDesc: this.props.jobDesc, id: this.props.id});
-    this.setState({active: true})
+    this.setState({active: true});
+    this.props.history.push(`/job/${this.props.id}`)
   }
   render(){
 
@@ -61,7 +69,7 @@ class Jobposts extends React.Component{
             </div>
           </div>
           <div className='col align-self-end'>
-            <Job show={this.state.show} />
+            {/* <Job show={this.state.show} /> */}
           </div>
         </div>
         
@@ -72,4 +80,4 @@ class Jobposts extends React.Component{
   };
 }
 
-export default Jobposts;
+export default withRouter(Jobposts);

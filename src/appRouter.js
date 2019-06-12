@@ -16,6 +16,7 @@ import PropTypes from 'prop-types'
 import {changeCache} from './actions/cacheActions'
 import Chat from './components/chat'
 import Jobpage from './jobpage'
+import Jobbar from './jobs/jobbar'
 
 class AppRouter extends React.Component{
   constructor(props){
@@ -43,7 +44,6 @@ class AppRouter extends React.Component{
           <Route path="/signup" exact component={SignUpForm} />
           <Route path='/chat' component={Chat}/>
           <Route path='/job' component={Jobpage}/>
-
           <PrivateRouter authed={this.props.auth} authed2={a} path='/home' component={Home}/>
           <PrivateRouter authed={this.props.auth} authed2={a} path='/newsfeed' component={App}/>
         </Router>

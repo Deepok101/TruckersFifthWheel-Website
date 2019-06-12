@@ -26,6 +26,26 @@ const PostsSchema = new Schema({
         type: Date,
         default: Date.now 
     },
+    url: {
+        type: String,
+        required: false
+    },
+    urlImg: {
+        type: String,
+        required: false
+    },
+    urlDescription:{
+        type: String,
+        required: false
+    },
+    urlTitle:{
+        type: String,
+        required: false
+    },
+    image: {
+        type: String,
+        required: false
+    },
     comments:[{
         user:{
             type: String,

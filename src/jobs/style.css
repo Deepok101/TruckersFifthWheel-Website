@@ -23,6 +23,7 @@
 .jobposts{
     border-bottom: 1px solid rgb(172, 172, 172);
     border-left: 3px solid rgba(255, 0, 0, 0);
+    cursor: pointer;
 
     /*box-shadow: 4px 6px 10px;*/
     max-width: 960px ;
@@ -68,7 +69,6 @@
 }
 #activeJob{
     border-left: 3px solid rgb(255, 0, 0);
-    cursor: pointer;
 }
 
 #titleJobSearch{

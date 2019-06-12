@@ -2,6 +2,7 @@ import React from 'react';
 import Carousel from 'react-bootstrap/Carousel'
 import { CSSTransition } from 'react-transition-group';
 import CarouselCaption from 'react-bootstrap/CarouselCaption';
+import Image from './pictures/truckMountain2.jpg'
 
 class Carousel_elem extends React.Component{
   constructor(props, context) {
@@ -28,11 +29,17 @@ class Carousel_elem extends React.Component{
   }
 
   render(){
+    const style = {
+      picture: {
+        height: "200%",
+        backgroundImage: `url(${Image})`,
+      }
+    }
 
     return(
       <div id='imageContainer'>
         <div class='crop'>
-          <img class='truckPicture' src={require('./pictures/truckSand.jpg')}/>
+          <div class='truckPicture' style={style.picture}></div>
         </div>
         <h1 id='imageText' class='animation2'>
             Made by Truckers

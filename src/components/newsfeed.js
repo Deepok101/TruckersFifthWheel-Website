@@ -11,9 +11,17 @@ class NewsFeed extends React.Component{
     super(props);
     this.state = {value: '', 
                   dbposts: [],
-                  loaded: false
+                  loaded: false,
+                  url: {
+                    urlTitle: "",
+                    urlDescription: "",
+                    urlImg: "",
+                    url: ""
+                  }
     }
     this.changeText = this.changeText.bind(this);
+    this.onURLSubmit = this.onURLSubmit.bind(this);
+
   }
 
   componentDidMount(){
@@ -30,10 +38,25 @@ class NewsFeed extends React.Component{
     this.setState({value: newValue})
   }
 
+  onURLSubmit(values){
+    this.setState({url: values})
+  }
+
   
   render(){
     let posts = this.state.dbposts.map((data)=>
-        <Posts comments={data.comments} likedByAcc={data.likedByAcc} likes={data.likes} id={data._id} accountName={data.author} text={data.text} date={data.date}/>
+        <Posts  urlTitle={data.urlTitle} 
+                url={data.url} 
+                imgUrl={data.urlImg} 
+                urlDesc={data.urlDescription} 
+                comments={data.comments} 
+                likedByAcc={data.likedByAcc} 
+                likes={data.likes} 
+                id={data._id} 
+                accountName={data.author} 
+                text={data.text} 
+                date={data.date}
+                image={data.image}/>
     );
     
 

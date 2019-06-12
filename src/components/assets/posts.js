@@ -25,6 +25,7 @@ class Posts extends React.Component{
     this.onCommentSubmit = this.onCommentSubmit.bind(this);
     this.onTyped = this.onTyped.bind(this);
     this.UnhideComments = this.UnhideComments.bind(this);
+    this.onClickDeleteBtn = this.onClickDeleteBtn.bind(this);
 
   }
   
@@ -238,9 +239,6 @@ class Posts extends React.Component{
     this.setState({comment: e.target.value})
   }
 
-  
-
- 
   UnhideComments(){
     var comments = document.getElementById(this.props.id + 'comments');
     if (comments.childNodes.length > 5){
@@ -258,6 +256,23 @@ class Posts extends React.Component{
       
     }
   }
+
+  onClickDeleteBtn(){
+    var body = {
+      "id": this.props.id
+    }
+    fetch('/api/posts/delete', {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+          'Content-Type': 'application/json'
+      }
+    }).then(res => res.json())
+      .then(() => console.log("deleted!"))
+      document.getElementById(`post#${this.props.id}`).remove()
+
+  }
+
 
   componentDidUpdate(){
     if(this.state.updated == false){
@@ -312,48 +327,165 @@ class Posts extends React.Component{
 
     }
     
-    return(
-      <div className="">
-        <div className="posts">
-        <header>
-            <span class="p-2 post_acc_name">
-              {this.props.accountName}
-            </span>
-            <span className="post_date">
-              <span>
-                <b>{date} </b>
+    if(this.props.url && !this.props.image){
+      const urlDescStyle = {
+        float: 'left',
+        textAlign: 'left',
+        fontSize: '1em'
+      }
+      const linkBox = {
+        backgroundColor: '#f2f2f2',
+        padding: "10px",
+        cursor: 'pointer'
+      }
+      return(
+        <div id={"post#" + this.props.id}>
+          <div className="posts">
+          <header>
+              <span class="p-2 post_acc_name">
+                {this.props.accountName}
               </span>
-              <span>
-                <b>{time}</b>
+              <span className="post_date">
+                <span>
+                  <b style={{cursor: "pointer"}} onClick={this.onClickDeleteBtn}> Delete Post </b>
+                </span>
+                <span>
+                  <b>{date} </b>
+                </span>
+                <span>
+                  <b>{time}</b>
+                </span>
               </span>
-            </span>
-          </header>
-          <div class="pt-3 p-2">
-            <p class="p-posts">{this.props.text}</p>
+            </header>
+            <div class="p-4" >
+              <div className='row' style={linkBox}>
+                <a style={{...{color: 'black'}}} href={this.props.url}>
+                  <img style={{...{float: 'left'}}} src={this.props.imgUrl} width="250px"/>
+                  <div style={urlDescStyle} class="col-7 p-posts">
+                    <h5>{this.props.urlTitle}</h5>
+                    {this.props.urlDesc}
+                  </div>
+                </a>
+              </div>
+            </div>
+            <div class="pl-2">
+              <p>
+                {this.state.likes} Likes &nbsp;&nbsp;
+                {this.state.nbComments} Comments
+              </p>
+            </div>
+            <div class="reaction">
+              {reactionButton}
+              <button onClick={this.onClickCommentBtn}  class="post_btn button reaction-btn">Comment</button>
+              <button class="post_btn button reaction-btn">Share</button>
+            </div>
+  
+            <div id={this.props.id}>
+  
+            </div>
+            <div class='commentSection' id={this.props.id + 'comments'}>
+              {comments}
+            </div>
+              {UnhideBtn}
           </div>
-          <div class="pl-2">
-            <p>
-              {this.state.likes} Likes &nbsp;&nbsp;
-              {this.state.nbComments} Comments
-            </p>
+       </div> 
+      )
+    } 
+    if(!this.props.url && !this.props.image){
+      return(
+        <div id={"post#" + this.props.id}>
+          <div className="posts">
+          <header>
+              <span class="p-2 post_acc_name">
+                {this.props.accountName}
+              </span>
+              <span className="post_date">
+                <span>
+                  <b style={{cursor: "pointer"}} onClick={this.onClickDeleteBtn}> Delete Post </b>
+                </span>
+                <span>
+                  <b>{date} </b>
+                </span>
+                <span>
+                  <b>{time}</b>
+                </span>
+              </span>
+            </header>
+            <div class="pt-3 p-2">
+              <p class="p-posts">{this.props.text}</p>
+            </div>
+            <div class="pl-2">
+              <p>
+                {this.state.likes} Likes &nbsp;&nbsp;
+                {this.state.nbComments} Comments
+              </p>
+            </div>
+            <div class="reaction">
+              {reactionButton}
+              <button onClick={this.onClickCommentBtn}  class="post_btn button reaction-btn">Comment</button>
+              <button class="post_btn button reaction-btn">Share</button>
+            </div>
+  
+            <div id={this.props.id}>
+  
+            </div>
+            <div class='commentSection' id={this.props.id + 'comments'}>
+              {comments}
+            </div>
+              {UnhideBtn}
           </div>
-          <div class="reaction">
-            {reactionButton}
-            <button onClick={this.onClickCommentBtn}  class="post_btn button reaction-btn">Comment</button>
-            <button class="post_btn button reaction-btn">Share</button>
+       </div> 
+      
+      );
+    }
+    if(!this.props.url && this.props.image){
+      return(
+        <div id={"post#" + this.props.id}>
+          <div className="posts">
+          <header>
+              <span class="p-2 post_acc_name">
+                {this.props.accountName}
+              </span>
+              <span className="post_date">
+                <span>
+                  <b style={{cursor: "pointer"}} onClick={this.onClickDeleteBtn}> Delete Post </b>
+                </span>
+                <span>
+                  <b>{date} </b>
+                </span>
+                <span>
+                  <b>{time}</b>
+                </span>
+              </span>
+            </header>
+            <div class="pt-3 p-2">
+              <p class="p-posts">{this.props.text}</p>
+              <img src={this.props.image} class='centerImg' width="100%"/>
+            </div>
+            <div class="pl-2">
+              <p>
+                {this.state.likes} Likes &nbsp;&nbsp;
+                {this.state.nbComments} Comments
+              </p>
+            </div>
+            <div class="reaction">
+              {reactionButton}
+              <button onClick={this.onClickCommentBtn}  class="post_btn button reaction-btn">Comment</button>
+              <button class="post_btn button reaction-btn">Share</button>
+            </div>
+  
+            <div id={this.props.id}>
+  
+            </div>
+            <div class='commentSection' id={this.props.id + 'comments'}>
+              {comments}
+            </div>
+              {UnhideBtn}
           </div>
-
-          <div id={this.props.id}>
-
-          </div>
-          <div class='commentSection' id={this.props.id + 'comments'}>
-            {comments}
-          </div>
-            {UnhideBtn}
-        </div>
-     </div> 
-    
-    );
+       </div> 
+      
+      );
+    }
   };
 }
 Posts.propTypes = {

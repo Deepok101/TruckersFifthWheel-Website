@@ -15,6 +15,9 @@
 #imageContainer{
     position: relative;
     text-align: center;
+    height: 100%;
+    
+    
 }
 
 #imageText{
@@ -23,22 +26,24 @@
     left: 50%;
     transform: translate(-50%, -50%);
     color: white;
-    font-size: 5em;
+    font-size: 4.5em;
     
   
 }
 .truckPicture{
     zoom: 0.5;
-    filter: saturate(1.4);
-    margin-top: -18%;
-    overflow: hidden;
-    position: relative;
-
+    filter: saturate(1.5);
+    margin-top: -7%;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .crop{
     overflow: hidden;
     height: 920px;
+
 }
 
 .img-icons{

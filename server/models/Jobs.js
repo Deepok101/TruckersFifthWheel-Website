@@ -19,6 +19,18 @@ const JobSchema = new Schema({
         type: String,
         required: true
     },
+    city: {
+        type: String,
+        required: true
+    },
+    province: {
+        type: String,
+        required: true
+    },
+    salary: {
+        type: Number,
+        required: true
+    },
     date: {
         type: Date,
         default: Date.now 

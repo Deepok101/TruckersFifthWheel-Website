@@ -5,8 +5,20 @@ class JobFilter extends React.Component{
     constructor(props) {
         super(props);
 
+        this.onSalaryFilter = this.onSalaryFilter.bind(this);
+        this.onLocationFilter = this.onLocationFilter.bind(this);
+
     }
 
+    onSalaryFilter(e){
+      
+      this.props.salaryFilter(e.currentTarget.id)
+   
+    }
+
+    onLocationFilter(e){
+      this.props.locationFilter(e.currentTarget.innerHTML)
+    }
   
 
     render(){
@@ -20,16 +32,16 @@ class JobFilter extends React.Component{
                     Salary
                   </li>
                   <li>
-                    <a href='#'>$50,000+</a>
+                    <a onClick={this.onSalaryFilter} id='50000' href='#'>$50,000+</a>
                   </li>
                   <li>
-                    <a href='#'>$100,000+</a>
+                    <a onClick={this.onSalaryFilter} id='100000' href='#'>$100,000+</a>
                   </li>
                   <li>
-                    <a href='#'>$150,000+</a>
+                    <a onClick={this.onSalaryFilter} id='150000' href='#'>$150,000+</a>
                   </li>
                   <li>
-                    <a href='#'>$200,000+</a>
+                    <a onClick={this.onSalaryFilter} id='200000' href='#'>$200,000+</a>
                   </li>
                 </ul>
               </div>
@@ -39,10 +51,10 @@ class JobFilter extends React.Component{
                     Location
                   </li>
                   <li>
-                    <a href='#'>Montreal</a>
+                    <a onClick={this.onLocationFilter} href='#' id='Montreal'>Montreal</a>
                   </li>
                   <li>
-                    <a href='#'>Toronto</a>
+                    <a onClick={this.onLocationFilter} id='Toronto' href='#'>Toronto</a>
                   </li>
                   <li>
                     <a href='#'>Quebec</a>

@@ -12,14 +12,31 @@ router.get('/', (req, res) => {
 });
 
 
+
+
 router.post('/', (req, res) => {
     const newPost = new Posts({
         id: req.body.id,
         author: req.body.author,
-        text: req.body.text
+        text: req.body.text,
+        url: req.body.url,
+        urlTitle: req.body.urlTitle,
+        urlDescription: req.body.urlDescription,
+        urlImg: req.body.urlImg,
+        image: req.body.image
+
     });
 
     newPost.save().then(post => res.json(post))
+})
+
+router.post('/delete', (req, res)=>{
+    var id = req.body.id;
+    Posts.deleteOne({_id: id}, (err, res)=> {
+        if (err){
+            console.log(err)
+        }
+    })
 })
 
 router.post('/like', (req, res)=>{

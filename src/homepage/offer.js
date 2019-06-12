@@ -2,6 +2,7 @@ import React from 'react';
 import Jumbotron from 'react-bootstrap/Jumbotron'
 import Button from 'react-bootstrap/Button'
 import Img from './truck_background.jpg'
+import { Link } from 'react-router-dom'
 import './style.css'
 
 function Offer(){
@@ -32,9 +33,11 @@ function Offer(){
                     </div>
                     <div style={{...{marginTop: "10em"},...{zoom:0.9}}} className='row'>
                         <div className='col-sm'>
-                            <h1 className='h1-btn' style={{textAlign: "center"}}>
-                                Find a Job
-                            </h1>
+                            <Link to='/job' style={{...{ color: 'white' },...{textDecoration: 'none'}}}>
+                                <h1 className='h1-btn'  style={{textAlign: "center"}}>
+                                    Find a Job
+                                </h1>
+                            </Link>
                         </div>
                         <div className='col-sm'>
                             <h1 className='h1-btn'  style={{textAlign: "center"}}>
