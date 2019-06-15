@@ -9,12 +9,19 @@ function saveFile(data, file){
 
 var getWeather = () => {
     request('http://api.openweathermap.org/data/2.5/weather?q=Montreal,ca&units=metric&APPID=3bd0a89292360e66a7daddeafc730aa0', function(error, result, body){
-        saveFile((body))
+        saveFile(body, "weather")
     })
     console.log("WEATHER UPDATED!")
 }
 
-// setInterval(getWeather, 60000)
+var getForecast = () => {
+    request('http://api.openweathermap.org/data/2.5/forecast?q=Montreal,ca&units=metric&APPID=3bd0a89292360e66a7daddeafc730aa0', function(error, result, body){
+        saveFile(body, "forecast")
+    })
+    console.log("WEATHER UPDATED!")
+}
+
+setInterval(getWeather, 300000)
 
 //@routes
 router.get('/', (req, res)=>{

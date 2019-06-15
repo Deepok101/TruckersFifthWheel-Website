@@ -222,3 +222,17 @@ li{
 .modal-open > #root > div > nav {
     padding-right: 1rem !important;
 }
+
+
+#forecast{
+    visibility: visible;
+    
+    
+
+}
+#showmore{
+    color: black;
+}
+.forecast{
+    
+}

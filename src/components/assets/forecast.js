@@ -6,14 +6,17 @@ class ForecastComponent extends React.Component{
     super(props)
     this.state = {
       forecast: [],
-      location: null
+      location: null,
+      btn: "Show"
     }
     this.weatherRef = React.createRef()
     this.fetchWeather = this.fetchWeather.bind(this)
   }
     componentDidMount(){
       this.fetchWeather()
+
     }
+    
     fetchWeather(){
       fetch('/api/weather/forecast/load').then(res => res.json()).then(data => this.setState({forecast: data.list, 
                                                                                             location: data.name}))
@@ -51,6 +54,8 @@ class ForecastComponent extends React.Component{
             }
                 
         )
+
+        
     
 
       return(
@@ -60,7 +65,26 @@ class ForecastComponent extends React.Component{
               Forecast
             </h3>
             <hr style={{border: '0.5px solid #b7b7b7'}}/>
-            {forecast}
+            <div style={{cursor: 'pointer'}} onClick={() => {
+                                  if(this.weatherRef.current.style.display === 'none'){
+                                    this.weatherRef.current.style.display = 'block';
+                                    this.setState({btn: "Hide"})
+                                  } else {
+                                    this.weatherRef.current.style.display = 'none'
+                                    this.setState({btn: "Show"});
+                                  }
+
+                               
+                                }}>
+              {this.state.btn}
+            </div>
+
+            <div ref={this.weatherRef} id='forecast' style={{display: 'none'}}>
+            <hr style={{border: '0.5px solid #b7b7b7'}}/>
+
+              {forecast}
+            </div>
+
           </div>  
         </div>
 
