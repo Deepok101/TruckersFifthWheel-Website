@@ -21,8 +21,8 @@ var getForecast = () => {
     console.log("WEATHER UPDATED!")
 }
 
-setInterval(getWeather, 300000)
-setInterval(getForecast, 300000)
+// setInterval(getWeather, 300000)
+// setInterval(getForecast, 300000)
 
 //@routes
 router.get('/', (req, res)=>{
