@@ -61,13 +61,16 @@ class NavBar extends React.Component{
         <div class="collapse navbar-collapse" id="navigationbar">
           <ul class="navbar-nav mr-auto">
             <li className={`nav-item ${this.props.first}`}>
-              <Link class="nav-link" to="/home">{this.props.firstSection} <span class="sr-only">(current)</span></Link>
+              <Link class="nav-link" to="/home">Home<span class="sr-only">(current)</span></Link>
             </li>
             <li className={`nav-item ${this.props.second}`}>
-              <a class="nav-link" href="/newsfeed">{this.props.secondSection}</a>
+              <a class="nav-link" href="/newsfeed">Newsfeed</a>
+            </li>
+            <li className={`nav-item ${this.props.fifth}`}>
+              <Link class="nav-link" to="/profile">Profile</Link>
             </li>
             <li className={`nav-item ${this.props.third}`}>
-              <a class="nav-link" href="/chat">{this.props.thirdSection}</a>
+              <a class="nav-link" href="/chat">Chat</a>
             </li>
             <li className={`nav-item ${this.props.fourth}`}>
               <a class="nav-link disabled" href="#">{this.props.fourthSection}</a>

@@ -345,8 +345,8 @@ class Posts extends React.Component{
       content =   <div class="p-4" >
                     <div className='row' style={linkBox}>
                       <a style={{...{color: 'black'}}} href={this.props.url}>
-                        <img style={{...{float: 'left'}}} src={this.props.imgUrl} width="250px"/>
-                        <div style={urlDescStyle} class="col-7 p-posts">
+                        <img style={{...{float: 'left'}}} src={this.props.imgUrl} width="100%"/>
+                        <div style={urlDescStyle} class="p-posts">
                           <h5>{this.props.urlTitle}</h5>
                           {this.props.urlDesc}
                         </div>

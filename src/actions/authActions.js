@@ -21,8 +21,12 @@ export function fetchAuth(user, pass){
             window.sessionStorage.setItem('loggedIn', (data.session))
             const auth_firstName = data.result.firstName;
             const auth_lastName = data.result.lastName;
+            const id = data.result._id
+            const token = data.token
             window.sessionStorage.setItem('auth_firstName', auth_firstName)
             window.sessionStorage.setItem('auth_lastName', auth_lastName)
+            window.sessionStorage.setItem('id', id)
+            window.sessionStorage.setItem('token', token)
             })
             
            

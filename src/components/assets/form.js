@@ -14,13 +14,17 @@ class FormPost extends React.Component{
                       urlDescription: '',
                       urlTitle: '',
                       selectedFile: null,
-                      image: ""};
+                      image: "",
+                      fname: null,
+                      lname: null,
+                      userID: null};
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.fileSelectedHandler = this.fileSelectedHandler.bind(this);
         this.handleImageUpload = this.handleImageUpload.bind(this);
         this.checkUser = this.checkUser.bind(this);
         this.handleTextSubmit = this.handleTextSubmit.bind(this);
+        this.getUserDataFromJWT = this.getUserDataFromJWT.bind(this);
     }
 
     handleChange(e){
@@ -31,8 +35,7 @@ class FormPost extends React.Component{
 
     handleSubmit(e){
         e.preventDefault();
-        const auth_firstName = window.sessionStorage.getItem('auth_firstName')
-        const auth_lastName = window.sessionStorage.getItem('auth_lastName')
+  
         var text = this.props.value;
 
 
@@ -40,7 +43,7 @@ class FormPost extends React.Component{
         //Check if attached picture
         if(this.state.selectedFile){
           this.checkUser(()=> {
-            this.handleImageUpload(auth_firstName, auth_lastName, text)
+            this.handleImageUpload(this.state.fname, this.state.lname, text)
           })
         }
 
@@ -75,7 +78,8 @@ class FormPost extends React.Component{
 
                     var post = {
                       "id": 3,
-                      "author": `${auth_firstName} ${auth_lastName}`,
+                      "author": `${this.state.fname} ${this.state.lname}`,
+                      "authorID": this.state.userID,
                       "text": text,
                       "url": this.state.url,
                       "urlTitle": this.state.urlTitle,
@@ -101,7 +105,8 @@ class FormPost extends React.Component{
               } else {
                 var post = {
                   "id": 3,
-                  "author": `${auth_firstName} ${auth_lastName}`,
+                  "author": `${this.state.fname} ${this.state.lname}`,
+                  "authorID": this.state.userID,
                   "text": text,
                   "url": this.state.url,
                   "urlTitle": this.state.urlTitle,
@@ -127,7 +132,7 @@ class FormPost extends React.Component{
           //If NOT LINK, proceed with this...
         } else if(!this.props.value.match(/(?:((?:https?|ftp):\/\/)|ww)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,}))\.?)(?::\d{2,5})?(?:[/?#]\S*)?/i) && !this.state.selectedFile){
               this.checkUser(()=>{
-                this.handleTextSubmit(auth_firstName, auth_lastName, text);
+                this.handleTextSubmit(this.state.fname, this.state.lname, text);
               })
      
         }
@@ -141,13 +146,21 @@ class FormPost extends React.Component{
       
     }
 
-    checkUser(callback){
-      const auth_firstName = window.sessionStorage.getItem('auth_firstName')
-      const auth_lastName = window.sessionStorage.getItem('auth_lastName')
+    getUserDataFromJWT(){
+      fetch('/api/accounts/getUserData', {
+        method: 'POST',
+        headers: {
+            'Authorization': `bearer ${window.sessionStorage.getItem('token')}`
+        }
+      }).then(res => res.json()).then(data => this.setState({fname: data.user.firstName, 
+                                                            lname: data.user.lastName,
+                                                            userID: data.user._id}))
+    }
 
+    checkUser(callback){
       fetch('/api/accounts/verify', {
         method: 'POST',
-        body: JSON.stringify({"fname": auth_firstName, "lname": auth_lastName}),
+        body: JSON.stringify({"fname": this.state.fname, "lname": this.state.lname}),
         headers: {
             'Content-Type': 'application/json'
         }
@@ -164,6 +177,7 @@ class FormPost extends React.Component{
       var post = {
         "id": 3,
         "author": `${auth_firstName} ${auth_lastName}`,
+        "authorID": this.state.userID,
         "text": text
       };
 
@@ -194,6 +208,7 @@ class FormPost extends React.Component{
           var post = {
             "id": 3,
             "author": `${firstName} ${lastName}`,
+            "authorID": this.state.userID,
             "text": text,
             "image": `https://res.cloudinary.com/dktmhlt1r/image/upload/v1560284584/${this.state.image}`
           };
@@ -210,12 +225,19 @@ class FormPost extends React.Component{
     }
 
 
+    componentDidMount(){
+      this.getUserDataFromJWT();
+    }
+
+
 
     render(){
         let text = this.props.value;
+
+        console.log(this.state)
         return(
           
-            <div className='posts p-2'>
+            <div className='posts p-2' >
               <header>
                 <div className="p-2">
                   <p id="woym">What's on your mind?</p>

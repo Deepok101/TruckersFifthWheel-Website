@@ -53,6 +53,7 @@ class Jobposts extends React.Component{
                 <span className="pl-2 job">
                   {this.props.jobName}
                 </span>
+                
                 <div className="pl-2 companyName">
                   {this.props.companyName}
                 </div>

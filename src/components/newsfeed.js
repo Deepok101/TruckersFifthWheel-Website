@@ -3,6 +3,10 @@ import "./assets/feed.css"
 import Posts from "./assets/posts";
 import FormPost from './assets/form'
 import RightSideBar from './rightsidebar'
+import WeatherComponent from './assets/weather'
+import RoadAlert from './assets/roadNews'
+import JobsBar from './assets/jobsBar'
+import ForecastComponent from './assets/forecast'
 import { CSSTransition } from 'react-transition-group';
 
 
@@ -63,20 +67,28 @@ class NewsFeed extends React.Component{
     
     return(
       <div id='wrapper'>
-        <div class="container-fluid">
-          <div class='col-2' id=''>
-          </div>
+        <div class="container">
+          
           <div class='row'>
+            <div className='col-3' style={{...{marginTop: "2em"},...{marginLeft: ''}}}>
+              <WeatherComponent/>
+              <ForecastComponent/>
+            </div>
           <CSSTransition
             in={this.state.appeared}
             timeout={600}
             classNames="fade"
           >
-            <div className="col-12 col-xl-6 col-centered">
+            <div className="col-centered" style={{marginTop: '17px'}}>
               <FormPost changeText={this.changeText} value={this.state.value}/>
               {posts}
             </div>
+            
           </CSSTransition>
+          <div className='col-3'  style={{marginTop: "2em"}}>
+            <RoadAlert/>
+            <JobsBar/>
+            </div>
           </div>
         </div>
       </div> 

@@ -9,6 +9,7 @@ const accounts = require('./routes/api/accounts')
 const chat = require('./routes/api/chat')
 const jobs = require('./routes/api/jobs')
 const url = require('./routes/api/url')
+const weather = require('./routes/api/weather')
 
 const mongoURI = require('./MongoURI')
 
@@ -28,6 +29,8 @@ app.use('/api/accounts', accounts);
 app.use('/api/chat', chat);
 app.use('/api/jobs', jobs)
 app.use('/api/url', url)
+app.use('/api/weather', weather)
+
 
 var urlencodedParser = express.urlencoded({extended: false});
 

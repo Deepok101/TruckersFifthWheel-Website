@@ -25,12 +25,14 @@
 }
 
 .posts{
-    border-radius: 0.3em;
-    border: 1px solid rgb(172, 172, 172);
-    margin: 2em auto 2em auto;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+   
+    margin: 15px auto 15px auto;
     /*box-shadow: 4px 6px 10px;*/
     max-width: 100%;
-    width: 700px;
+    width: 570px;
     background-color: rgb(255, 255, 255);
 }
 
@@ -75,7 +77,7 @@
 }
 
 .reaction-btn{
-    margin-right: 0.5em;
+   
 }
 
 #wrapper{
@@ -100,7 +102,7 @@
     border: 0px solid #494949;
     display: inline-block;
     font-family: 'Roboto';
-    font-size: 1.2em;
+    font-size: 1em;
 }
 
 .post_btn:hover{
@@ -117,12 +119,12 @@
 }
 
 .p-posts{
-    font-size: 1.2rem;
+    font-size: 1.1em;
 }
 
 .reaction{
     margin: auto;
-
+    max-width:680px;
     display: block;
     text-align: center;
     padding-top: 10px;

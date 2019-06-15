@@ -17,6 +17,8 @@ import {changeCache} from './actions/cacheActions'
 import Chat from './components/chat'
 import Jobpage from './jobpage'
 import Jobbar from './jobs/jobbar'
+import Profile from './profile';
+import Posts from './profile/posts'
 
 class AppRouter extends React.Component{
   constructor(props){
@@ -46,6 +48,10 @@ class AppRouter extends React.Component{
           <Route path="/signup" exact component={SignUpForm} />
           <Route path='/chat' component={Chat}/>
           <Route path='/job' component={Jobpage}/>
+          <Route path='/profile'exact component={Profile}/>
+          <Route path='/profile/posts' component={Posts}/>
+
+
           {/* <PrivateRouter authed={this.props.auth} authed2={a} path='/home' component={Home}/> */}
           <PrivateRouter authed={this.props.auth} authed2={a} path='/newsfeed' component={App}/>
         </Router>

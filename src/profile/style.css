@@ -1,0 +1,17 @@
+.experience{
+    min-width: 420px;
+    width: 15%;
+    padding: 10px;
+}
+
+.profileName{
+    font-size: 1.5em;
+}
+
+.profileBio{
+    width: 500px;
+}
+
+.nav-link{
+    cursor: pointer
+}
