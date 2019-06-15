@@ -22,6 +22,7 @@ var getForecast = () => {
 }
 
 setInterval(getWeather, 300000)
+setInterval(getForecast, 300000)
 
 //@routes
 router.get('/', (req, res)=>{

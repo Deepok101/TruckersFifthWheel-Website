@@ -47,12 +47,12 @@ class AppRouter extends React.Component{
           <Route path="/login" exact component={Login} />
           <Route path="/signup" exact component={SignUpForm} />
           <Route path='/chat' component={Chat}/>
-          <Route path='/job' component={Jobpage}/>
-          <Route path='/profile'exact component={Profile}/>
           <Route path='/profile/posts' component={Posts}/>
 
 
           {/* <PrivateRouter authed={this.props.auth} authed2={a} path='/home' component={Home}/> */}
+          <PrivateRouter authed={this.props.auth} authed2={a} path='/job' component={Jobpage}/>
+          <PrivateRouter authed={this.props.auth} authed2={a} path='/profile' component={Profile}/>
           <PrivateRouter authed={this.props.auth} authed2={a} path='/newsfeed' component={App}/>
         </Router>
     

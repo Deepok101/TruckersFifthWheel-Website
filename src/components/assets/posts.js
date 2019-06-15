@@ -335,7 +335,7 @@ class Posts extends React.Component{
         fontSize: '1em'
       }
       const linkBox = {
-        backgroundColor: '#f2f2f2',
+        backgroundColor: '',
         padding: "10px",
         cursor: 'pointer'
       }
@@ -343,11 +343,11 @@ class Posts extends React.Component{
     let content;
     if(this.props.url && !this.props.image){
       content =   <div class="p-4" >
-                    <div className='row' style={linkBox}>
+                    <div className='row card' style={linkBox}>
                       <a style={{...{color: 'black'}}} href={this.props.url}>
                         <img style={{...{float: 'left'}}} src={this.props.imgUrl} width="100%"/>
                         <div style={urlDescStyle} class="p-posts">
-                          <h5>{this.props.urlTitle}</h5>
+                          <h5 class='pt-3'>{this.props.urlTitle}</h5>
                           {this.props.urlDesc}
                         </div>
                       </a>
