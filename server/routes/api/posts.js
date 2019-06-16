@@ -74,7 +74,7 @@ router.post('/comment', (req, res)=>{
         user: user,
         text: text
     }
-    Posts.updateOne({_id: id}, {$push: {comments: comment}} , (err, res)=>{
+    Posts.updateOne({_id: id}, {$push: {comments: comment}} , (err, result)=>{
         if (err){
             console.log(err)
         }

@@ -59,7 +59,7 @@ class ForecastComponent extends React.Component{
     
 
       return(
-        <div className='card p-3' style={{marginTop: '15px'}}>
+        <div className='card p-3 sidecards' style={{marginTop: '15px'}}>
           <div style={{textAlign: 'center'}}>
             <h3>
               Forecast

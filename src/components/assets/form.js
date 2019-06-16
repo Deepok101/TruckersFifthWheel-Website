@@ -17,7 +17,13 @@ class FormPost extends React.Component{
                       image: "",
                       fname: null,
                       lname: null,
-                      userID: null};
+                      userID: null,
+                      clicked: false,
+                      rows: 1};
+
+        this.textRef = React.createRef()
+        this.formRef = React.createRef()
+
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.fileSelectedHandler = this.fileSelectedHandler.bind(this);
@@ -25,6 +31,8 @@ class FormPost extends React.Component{
         this.checkUser = this.checkUser.bind(this);
         this.handleTextSubmit = this.handleTextSubmit.bind(this);
         this.getUserDataFromJWT = this.getUserDataFromJWT.bind(this);
+        this.openOverlay = this.openOverlay.bind(this);
+
     }
 
     handleChange(e){
@@ -229,6 +237,38 @@ class FormPost extends React.Component{
       this.getUserDataFromJWT();
     }
 
+  
+
+    openOverlay() {
+      this.setState({clicked: true})
+      if(this.state.clicked === false){
+        this.setState({rows: 5})
+        var elem = document.getElementById('postForm')
+        elem.style.position = 'relative';
+        elem.style.zIndex = 1;
+        var canvas = document.createElement("canvas");
+        canvas.className = "highlight";
+        canvas.width = document.documentElement.clientWidth;
+      
+        var ctx = canvas.getContext("2d");
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        document.body.appendChild(canvas);
+        
+        canvas.onclick = () => {
+          this.setState({clicked: false});
+          this.setState({rows: 1})
+          canvas.style.opacity = 0;
+          setTimeout(() => canvas.remove(), 200)
+          
+          
+
+        }
+      }
+      
+
+    }
+
+    
 
 
     render(){
@@ -237,7 +277,7 @@ class FormPost extends React.Component{
         console.log(this.state)
         return(
           
-            <div className='posts p-2' >
+            <div className='posts p-2' id='postForm' ref={this.formRef}>
               <header>
                 <div className="p-2">
                   <p id="woym">What's on your mind?</p>
@@ -245,12 +285,19 @@ class FormPost extends React.Component{
               </header>
               <div className="pt-2 p-2">
                 <div>
-                  <form onSubmit={this.handleSubmit}>
+                  <form onSubmit={this.handleSubmit} id='fullPostForm'>
                     <div className='pl-3 pr-3'>
                       <div className=''>
                         <div className=''>
                           <form id='post_form' method='POST' action='/api/posts'>
-                            <textarea style={{width: '100%'}} id="posting_input" name="postText" type='text' className="form-control" id="formGroupExampleInput" aria-label="Default" aria-describedby="inputGroup-sizing-default" onChange={this.handleChange}/>
+                            <textarea placeholder="What's up?" 
+                                      ref={this.textRef} 
+                                      onFocus={this.openOverlay} 
+                                      rows={this.state.rows} 
+                                      style={{width: '100%'}} 
+                                      id="posting_input" 
+                                      name="postText" 
+                                      type='text' className="form-control" id="formGroupExampleInput" aria-label="Default" aria-describedby="inputGroup-sizing-default" onChange={this.handleChange}/>
                           </form>
                         </div>
                         <div className='pt-3 pb-3'>

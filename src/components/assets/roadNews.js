@@ -18,7 +18,7 @@ class RoadAlert extends React.Component{
     render(){
       
       return(
-        <div className='card p-3' style={{height: ''}}>
+        <div className='sidecards card p-3' style={{height: ''}}>
           <div style={{textAlign: 'left'}}>
             <h5>
               Road Alerts 

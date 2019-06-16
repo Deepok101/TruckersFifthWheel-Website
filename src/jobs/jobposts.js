@@ -26,7 +26,7 @@ class Jobposts extends React.Component{
 
 
   onClick(){
-    this.props.clicked({show: true, name: this.props.jobName, jobDesc: this.props.jobDesc, id: this.props.id});
+    this.props.clicked({show: true, name: this.props.jobName, jobDesc: this.props.jobDesc, id: this.props.id, city: this.props.city});
     this.setState({active: true});
     this.props.history.push(`/job/${this.props.id}`)
   }
@@ -45,10 +45,10 @@ class Jobposts extends React.Component{
     text[wordcount+1] += "...";
     
     return(
-      <div>
+      <div className="jobposts ">
         <div>
           <div>
-            <div className="jobposts p-2" id={this.props.active ? 'activeJob': ''} onClick={this.onClick}>
+            <div className="p-2" id={this.props.active ? 'activeJob': ''} onClick={this.onClick}>
               <header>
                 <span className="pl-2 job">
                   {this.props.jobName}
@@ -58,7 +58,7 @@ class Jobposts extends React.Component{
                   {this.props.companyName}
                 </div>
                 <div className="pl-2 companyName">
-                  Montreal (West Island)
+                  {this.props.city}
                 </div>
                 
               </header>

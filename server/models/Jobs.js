@@ -34,7 +34,29 @@ const JobSchema = new Schema({
     date: {
         type: Date,
         default: Date.now 
-    }
+    },
+    applicants: [{
+        userID: {
+            type: String,
+            required: false
+        },
+        userfirstName:{
+            type: String, 
+            required: false
+        },
+        userlastName:{
+            type: String,
+            required: false
+        },
+        userEmail:{
+            type: String,
+            required: false
+        },
+        userPhoneNumber:{
+            type: Number,
+            required: false
+        }
+    }]
 });
 
 module.exports = JobPost = mongoose.model('Job', JobSchema)

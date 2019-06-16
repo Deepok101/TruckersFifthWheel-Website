@@ -27,7 +27,7 @@ class JobsBar extends React.Component{
 
 
       return(
-        <div className='card p-3' style={{marginTop: '15px'}}>
+        <div className='card p-3 sidecards' style={{marginTop: '15px'}}>
           <div style={{textAlign: 'left'}}>
             <h5>
             View Jobs

@@ -56,6 +56,7 @@
 
 .commentSection{
     margin-top: 2em;
+    width: 100%;
 }
 
 .commentBubble{
@@ -125,7 +126,7 @@
 .reaction{
     margin: auto;
     max-width:680px;
-    display: block;
+    display: inline-block;
     text-align: center;
     padding-top: 10px;
     border-top: 1px solid #b6b6b6;
@@ -211,6 +212,10 @@ li{
     font-family: 'Roboto';
 }
 
+#posting_input:focus{
+    
+}
+
 
 /* Hacks to override the modal's padding modifications*/
 
@@ -236,3 +241,55 @@ li{
 .forecast{
     
 }
+
+
+canvas.highlight {
+    position: absolute;
+    z-index: 0;
+    display: block;
+    top: 0;
+    left: 0;
+    opacity: 0.5;
+    width: 100%;
+    height: 100%;
+    -webkit-transition: opacity 250ms ease;
+    transition: opacity 250ms ease;
+    -webkit-animation: canvasFade 250ms ease;
+    animation: canvasFade 250ms ease;
+  }
+
+  @-webkit-keyframes canvasFade {
+    from { opacity: 0; }
+    to { opacity: 0.5; }
+  }
+  @keyframes canvasFade {
+    from { opacity: 0; }
+    to { opacity: 0.5; }
+  }
+
+
+  @media screen and (max-width: 1200px){
+    .sidecards{
+        display: none !important;
+    }
+    
+  }
+
+  @media screen and (max-width: 564px){
+      #root{
+          width: 564px;
+      }
+      .reaction{
+    
+        
+      }
+      canvas.highlight{
+        width: 564px;
+        height: 200%;
+      }
+
+      .reaction-btn{
+        display: inline;
+      }
+  }
+

@@ -16,7 +16,7 @@ class App extends React.Component {
   render(){
     if (this.state.loaded === true){
       return (
-        <div style={{backgroundColor: "#eff6ff"}}>
+        <div className='newsfeed' style={{backgroundColor: "#eff6ff"}}>
           <NavBar second='active' company="DeepEmploi" firstSection="Home" secondSection="NewsFeed" thirdSection="Chat" fourthSection="Contact Us"/>
           <NewsFeed/>
         </div>

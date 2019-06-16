@@ -4,6 +4,7 @@ import {
   Link,
   withRouter
 } from 'react-router-dom'
+
 import { connect } from 'react-redux';
 import { logout } from '../actions/authLogout';
 import PropTypes from 'prop-types';
@@ -55,10 +56,10 @@ class NavBar extends React.Component{
         <Link class="navbar-brand" to="/home">{this.props.company}</Link>
         <LoginModal {...this.props} onHide={modalClose} show={this.state.modalShow}/>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigationbar" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navigationbar">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li className={`nav-item ${this.props.first}`}>
               <Link class="nav-link" to="/home">Home<span class="sr-only">(current)</span></Link>

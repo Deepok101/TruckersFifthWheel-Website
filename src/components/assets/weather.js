@@ -41,7 +41,7 @@ class WeatherComponent extends React.Component{
       }
 
       return(
-        <div className='card p-3' style={{height: ''}}>
+        <div className='card p-3 sidecards' style={{height: ''}}>
           <div style={{textAlign: 'center'}}>
             <h3>
               {this.state.location} 

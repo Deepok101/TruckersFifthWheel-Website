@@ -24,8 +24,8 @@ class Jobpage extends React.Component {
       jobs: [],
       jobName: "",
       jobDesc: "",
+      city: "",
       id: 0
-
     }
 
     this.fetchJobs = this.fetchJobs.bind(this);
@@ -43,7 +43,7 @@ class Jobpage extends React.Component {
   }
 
   onLoad(data){
-    this.setState({jobName: data.jobName, jobDesc: data.jobDesc});
+    this.setState({jobName: data.jobName, jobDesc: data.jobDesc, city: data.city});
     console.log(data.jobName);
   }
 
@@ -56,7 +56,7 @@ class Jobpage extends React.Component {
   }
   
   onClick(e){
-    this.setState({clicked: e.show, jobName: e.name, jobDesc: e.jobDesc, id: e.id});
+    this.setState({clicked: e.show, jobName: e.name, jobDesc: e.jobDesc, id: e.id, city: e.city});
   }
 
   onSubmit(value){
@@ -65,6 +65,11 @@ class Jobpage extends React.Component {
 
   isActive(id){
     return this.state.id === id
+  }
+
+
+  userApplied(){
+
   }
 
   componentWillMount(){
@@ -76,7 +81,7 @@ class Jobpage extends React.Component {
   render(){
     if(this.state.jobs !== undefined){
       var jobposts = this.state.jobs.map(job => { 
-        return <Jobpost active={this.isActive(job._id)} id={job._id} clicked={this.onClick} jobName={job.jobName} companyName={job.company} jobDesc={job.jobDescription} />
+        return <Jobpost city={job.city} active={this.isActive(job._id)} id={job._id} clicked={this.onClick} jobName={job.jobName} companyName={job.company} jobDesc={job.jobDescription} />
       })
     }
     if(this.state.jobs.length == 0){
@@ -107,7 +112,7 @@ class Jobpage extends React.Component {
                 </div>
                 <div className='' style={{marginTop: '20px'}}>
                   {/* <Job jobDesc={this.state.jobDesc} show={this.state.clicked} jobName={this.state.jobName}/> */}
-                  <Route path='/job/:id' render={(props) => <Job {...props} load={this.onLoad} jobDesc={this.state.jobDesc} show={this.state.clicked} jobName={this.state.jobName}/>}/>
+                  <Route path='/job/:id' render={(props) => <Job {...props} city={this.state.city} load={this.onLoad} jobDesc={this.state.jobDesc} show={this.state.clicked} jobName={this.state.jobName}/>}/>
 
                 </div>
               </div>

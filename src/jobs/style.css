@@ -21,8 +21,9 @@
 }
 
 .jobposts{
-    border-bottom: 1px solid rgb(172, 172, 172);
-    border-left: 3px solid rgba(255, 0, 0, 0);
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+  
     cursor: pointer;
 
     /*box-shadow: 4px 6px 10px;*/
@@ -32,12 +33,26 @@
   
 }
 
-.jobContainer:first-child{
+.jobposts:first-child{
+    border-bottom: 0px solid black;
+}
 
+.jobbar{
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+   
+    cursor: pointer;
+
+    /*box-shadow: 4px 6px 10px;*/
+    max-width: 960px ;
+    width: 700px;
+    background-color: rgb(255, 255, 255);
+  
 }
 
 .jobsearch{
-    border: 1px solid rgb(172, 172, 172);
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
     /*box-shadow: 4px 6px 10px;*/
     width: 100%;
     text-align: center;
@@ -45,7 +60,8 @@
 }
 
 .jobFilter{
-    border: 1px solid rgb(172, 172, 172);
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
     border-top: 0;
 
     background-color: rgb(255, 255, 255);
@@ -104,3 +120,12 @@
 }
 
 .show { opacity: 1; }
+
+.applyInput{
+    width: 50%;
+    padding: 15px;
+    border-radius: 30px;
+    border: 1px solid #dddddd;
+    margin-bottom: 15px;
+    box-sizing:border-box;
+}

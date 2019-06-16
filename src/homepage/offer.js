@@ -40,9 +40,11 @@ function Offer(){
                             </Link>
                         </div>
                         <div className='col-sm'>
-                            <h1 className='h1-btn'  style={{textAlign: "center"}}>
-                                Go to NewsFeed
-                            </h1>
+                            <a href='/newsfeed' style={{...{ color: 'white' },...{textDecoration: 'none'}}}>
+                                <h1 className='h1-btn'  style={{textAlign: "center"}}>
+                                    Go to NewsFeed
+                                </h1>
+                            </a>
                         </div>
                         <div className='col-sm'>
                             <h1 className='h1-btn'  style={{textAlign: "center"}}>

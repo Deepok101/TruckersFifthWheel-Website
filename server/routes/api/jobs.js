@@ -52,4 +52,28 @@ router.post('/', (req, res)=>{
     newJob.save().then(data => res.json(data))
 })
 
+router.post('/apply', (req, res)=>{
+    var userID = req.body.userid;
+    var userfirstName = req.body.fname;
+    var userlastName = req.body.lname;
+    var userEmail = req.body.email;
+    var userPhoneNumber = req.body.phone;
+    var id = req.body.id;
+    var applicant = {
+        userID: userID,
+        userfirstName: userfirstName,
+        userlastName: userlastName,
+        userEmail: userEmail,
+        userPhoneNumber: userPhoneNumber
+    }
+
+    JobPost.updateOne({_id: id}, {$push: {applicants: applicant}} , (err, result)=>{
+        if (err){
+            console.log(err)
+        } else {
+            res.json(result)
+        }
+    })
+})
+
 module.exports = router;

@@ -70,7 +70,7 @@ class NewsFeed extends React.Component{
         <div class="container">
           
           <div class='row'>
-            <div className='col-3' style={{...{marginTop: "2em"},...{marginLeft: ''}}}>
+            <div className='col-lg-3' style={{...{marginTop: "2em"},...{paddingRight: '0'}}}>
               <WeatherComponent/>
               <ForecastComponent/>
             </div>
@@ -79,13 +79,13 @@ class NewsFeed extends React.Component{
             timeout={600}
             classNames="fade"
           >
-            <div className="col-centered" style={{marginTop: '17px'}}>
+            <div className="col-centered col-lg-6 col-sm-12 col-12" style={{marginTop: '17px'}}>
               <FormPost changeText={this.changeText} value={this.state.value}/>
               {posts}
             </div>
             
           </CSSTransition>
-          <div className='col-3'  style={{marginTop: "2em"}}>
+          <div className='col-lg-3'  style={{...{marginTop: "2em"},...{paddingLeft: '0'}}}>
             <RoadAlert/>
             <JobsBar/>
             </div>
