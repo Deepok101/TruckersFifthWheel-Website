@@ -22,6 +22,7 @@ class Jobpage extends React.Component {
       laoded: false,
       clicked: false,
       jobs: [],
+      company: "",
       jobName: "",
       jobDesc: "",
       city: "",
@@ -56,7 +57,7 @@ class Jobpage extends React.Component {
   }
   
   onClick(e){
-    this.setState({clicked: e.show, jobName: e.name, jobDesc: e.jobDesc, id: e.id, city: e.city});
+    this.setState({clicked: e.show, jobName: e.name, jobDesc: e.jobDesc, id: e.id, city: e.city, company: e.company});
   }
 
   onSubmit(value){
@@ -112,7 +113,7 @@ class Jobpage extends React.Component {
                 </div>
                 <div className='' style={{marginTop: '20px'}}>
                   {/* <Job jobDesc={this.state.jobDesc} show={this.state.clicked} jobName={this.state.jobName}/> */}
-                  <Route path='/job/:id' render={(props) => <Job {...props} city={this.state.city} load={this.onLoad} jobDesc={this.state.jobDesc} show={this.state.clicked} jobName={this.state.jobName}/>}/>
+                  <Route path='/job/:id' render={(props) => <Job {...props} city={this.state.city} load={this.onLoad} jobCompany={this.state.company} jobDesc={this.state.jobDesc} show={this.state.clicked} jobName={this.state.jobName}/>}/>
 
                 </div>
               </div>

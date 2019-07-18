@@ -19,23 +19,33 @@ class CurrentPos extends React.Component {
       return(
         <div className='experience'>
           <div style={{display: 'block'}} >
-            <b>
-              &nbsp; Title:
+            <b className="experienceTitle">
+            {this.props.title}
             </b>
-            &nbsp; Truck Driver 
-          </div>             
+          </div>   
           <div style={{display: 'block'}} >
             <b>
-              &nbsp; Year:
+             
             </b>
-            &nbsp; 1999
-          </div>            
-          <div style={{display: 'inline-block'}} >
+            {this.props.position}
+          </div>          
+          <div style={{display: 'block'}} >
             <b>
-              &nbsp; Position:
+             
             </b>
-            &nbsp; DeepEmploi Class 1 Trucker
+            <div className="experienceDesc">
+              {this.props.year}
+            </div>
+          </div>            
+          <div style={{display: 'block'}} >
+            <b>
+              
+            </b>
+            <div className="experienceDesc">
+              {this.props.description}
+            </div>
           </div>
+          <hr/>
         </div>
       )
     

@@ -1,22 +1,28 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
+import AlertModal from './alertModal'
 
 
 class RoadAlert extends React.Component{
   constructor(props){
     super(props)
     this.state = {
-      
+      show: false
     }
-  
+    
+    this.onClick = this.onClick.bind(this)
   }
     componentDidMount(){
     
     }
     
+    onClick(){
+      this.setState({show: true})
+    }
+
 
     render(){
-      
+      let modalClose = () => this.setState({show: false})
       return(
         <div className='sidecards card p-3' style={{height: ''}}>
           <div style={{textAlign: 'left'}}>
@@ -42,7 +48,8 @@ class RoadAlert extends React.Component{
                 <p>
                     Found any road alerts?
                 </p>
-                <Button variant='primary'>Notify Us!</Button>
+                <Button variant='primary' onClick={this.onClick}>Notify Us!</Button>
+                <AlertModal onHide={modalClose} show={this.state.show}/>
             </div>
           </div>  
         </div>

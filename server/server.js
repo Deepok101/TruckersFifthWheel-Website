@@ -10,6 +10,7 @@ const chat = require('./routes/api/chat')
 const jobs = require('./routes/api/jobs')
 const url = require('./routes/api/url')
 const weather = require('./routes/api/weather')
+const roadalert = require('./routes/api/roadalert')
 
 const mongoURI = require('./MongoURI')
 
@@ -30,6 +31,7 @@ app.use('/api/chat', chat);
 app.use('/api/jobs', jobs)
 app.use('/api/url', url)
 app.use('/api/weather', weather)
+app.use('/api/roadalert', roadalert)
 
 
 var urlencodedParser = express.urlencoded({extended: false});

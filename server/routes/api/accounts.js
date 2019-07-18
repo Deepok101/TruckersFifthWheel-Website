@@ -47,13 +47,14 @@ router.post('/update', (req, res)=>{
     var id = req.body.id;
     var bio = req.body.bio;
     var picture = req.body.picture;
-    var currentPosition = req.body.currentPosition;
-
+    var currentPosition = req.body.currentPosition; //Object
+    var highlights = req.body.highlights;
     var experience = req.body.experience;
     Accounts.updateOne({_id: id}, {$set: {'profile.bio': bio, 
                                                 'profile.picture': picture, 
                                                 'profile.currentPosition': currentPosition,
-                                                'profile.experience': experience}}).then(acc => res.json(acc))
+                                                'profile.experience': experience,
+                                                'profile.highlights': highlights}}).then(acc => res.json(acc))
 })
 
 router.post('/', (req, res) => {

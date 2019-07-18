@@ -48,6 +48,10 @@ const AccountSchema = new Schema({
             job : {
                 type: String,
                 required: false
+            },
+            company: {
+                type: String, 
+                required: false
             }
         },
         experience: [{
@@ -62,8 +66,24 @@ const AccountSchema = new Schema({
             position: {
                 type: String,
                 required: false
+            },
+            description: {
+                type: String,
+                required: false
             }
-        }]
+        }],
+        highlights: {
+            type: Array,
+            required: false
+        },
+        education: {
+            type: Array,
+            required: false
+        },
+        location: {
+            type: String,
+            required: false
+        }
     }
 });
 

@@ -70,6 +70,9 @@ class NavBar extends React.Component{
             <li className={`nav-item ${this.props.fifth}`}>
               <Link class="nav-link" to="/profile">Profile</Link>
             </li>
+            <li className={`nav-item`}>
+              <Link class="nav-link" to="/job">Jobs</Link>
+            </li>
             <li className={`nav-item ${this.props.third}`}>
               <a class="nav-link" href="/chat">Chat</a>
             </li>

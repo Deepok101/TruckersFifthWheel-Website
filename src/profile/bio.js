@@ -29,11 +29,11 @@ class Bio extends React.Component {
 
       return(
         <div className=''>
-          <div className='profileName pb-1'>
-              <h1>{firstName} {lastName}</h1>
+          <div className='profileName'>
+              <h1 className='profileName'>{firstName} {lastName}</h1>
           </div>
-          <div className='currentPosition pb-1'>
-              <CurrentPos currentPos={this.props.currentPos}/>
+          <div className='currentPosition'>
+              <CurrentPos currentPosCompany={this.props.currentPosCompany} currentPosJob={this.props.currentPosJob}/>
           </div>
           <div className='profileBio'>
               {this.props.description}

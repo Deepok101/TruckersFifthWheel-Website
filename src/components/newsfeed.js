@@ -9,7 +9,6 @@ import JobsBar from './assets/jobsBar'
 import ForecastComponent from './assets/forecast'
 import { CSSTransition } from 'react-transition-group';
 
-
 class NewsFeed extends React.Component{
   constructor(props){
     super(props);
@@ -21,7 +20,8 @@ class NewsFeed extends React.Component{
                     urlDescription: "",
                     urlImg: "",
                     url: ""
-                  }
+                  },
+                  alertModal: false
     }
     this.changeText = this.changeText.bind(this);
     this.onURLSubmit = this.onURLSubmit.bind(this);
@@ -70,25 +70,26 @@ class NewsFeed extends React.Component{
         <div class="container">
           
           <div class='row'>
-            <div className='col-lg-3' style={{...{marginTop: "2em"},...{paddingRight: '0'}}}>
+            <div className='col-lg-3' style={{...{marginTop: "2em"}}}>
               <WeatherComponent/>
               <ForecastComponent/>
             </div>
-          <CSSTransition
-            in={this.state.appeared}
-            timeout={600}
-            classNames="fade"
-          >
-            <div className="col-centered col-lg-6 col-sm-12 col-12" style={{marginTop: '17px'}}>
-              <FormPost changeText={this.changeText} value={this.state.value}/>
-              {posts}
+            <CSSTransition
+              in={this.state.appeared}
+              timeout={600}
+              classNames="fade"
+            >
+              <div className="col-centered col-lg-6 col-sm-12 col-12" style={{...{marginTop: '17px'},...{padding: 0}}}>
+                <FormPost changeText={this.changeText} value={this.state.value}/>
+                {posts}
+              </div>
+              
+            </CSSTransition>
+            <div className='col-lg-3'  style={{...{marginTop: "2em"}}}>
+              {/* <RoadAlert/> */}
+              <JobsBar/>
             </div>
-            
-          </CSSTransition>
-          <div className='col-lg-3'  style={{...{marginTop: "2em"},...{paddingLeft: '0'}}}>
-            <RoadAlert/>
-            <JobsBar/>
-            </div>
+          
           </div>
         </div>
       </div> 

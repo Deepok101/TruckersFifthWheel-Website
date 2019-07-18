@@ -17,14 +17,18 @@ class CurrentPos extends React.Component {
   
   render(){
       return(
-        <div className='experience'>
-          <img style={{display: 'inline-block'}} height="50px" src={require('../homepage/icons/truck.png')} />
-          <p style={{display: 'inline-block'}} >
-            <b>
-              &nbsp; Current Position:
-            </b>
-            &nbsp; {this.props.currentPos}
+        <div className='bioPos'>
+          {/* <img style={{display: 'inline-block'}} height="50px" src={require('../homepage/icons/truck.png')} /> */}
+          <p className='bioPos' style={{float: ''}} >
+            Montreal, Quebec
           </p>
+          <p className='bioPos' style={{display: 'inline-block'}} >
+            {this.props.currentPosJob} at  {this.props.currentPosCompany}
+          </p>
+          <p className='bioEducation' style={{float: 'right'}} >
+            Centre de Formation du Transport Routier (CFTR)
+          </p>
+          
         </div>
       )
     

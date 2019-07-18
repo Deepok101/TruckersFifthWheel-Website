@@ -26,7 +26,13 @@ class Jobposts extends React.Component{
 
 
   onClick(){
-    this.props.clicked({show: true, name: this.props.jobName, jobDesc: this.props.jobDesc, id: this.props.id, city: this.props.city});
+    this.props.clicked({show: true, 
+                        name: this.props.jobName, 
+                        jobDesc: this.props.jobDesc, 
+                        id: this.props.id, 
+                        city: this.props.city,
+                        company: this.props.companyName});
+
     this.setState({active: true});
     this.props.history.push(`/job/${this.props.id}`)
   }

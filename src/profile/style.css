@@ -1,17 +1,52 @@
 .experience{
     min-width: 420px;
-    width: 15%;
+    width: 100%;
     padding: 10px;
 }
 
+ul.experience{
+    margin-bottom: 0;
+}
+
+.experience > div > b {
+    font-size :1.05em;
+    color: rgb(0, 0, 0)
+
+}
+.experienceDesc {
+    color: #929292
+}
+
+.experienceTitle{
+    color: #414141 !important;
+}
 .profileName{
-    font-size: 1.5em;
+    font-size: 1.3em;
+    font-weight: normal;
+}
+
+.bioPos{
+    font-size: 1.05em;
+    font-weight: normal;
+    margin-bottom: 3px;
+}
+
+.profileBio{
+    font-size: 1.05em;
 }
 
 .profileBio{
     width: 500px;
 }
 
+.bioEducation{
+    font-size: 1em;
+}
+
 .nav-link{
     cursor: pointer
+}
+
+.profileImg{
+    border-radius: 5%;
 }

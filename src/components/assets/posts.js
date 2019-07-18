@@ -418,10 +418,13 @@ class Posts extends React.Component{
             <div id={this.props.id} className='pl-4 pr-4'>
   
             </div>
-            <div className='commentSection pl-4 pb-4' id={this.props.id + 'comments'}>
+            <div className='commentSection pl-4' id={this.props.id + 'comments'}>
               {comments}
             </div>
+            <div className='pl-4 pb-4'>
               {UnhideBtn}
+            </div>
+            
           </div>
        </div> 
       )
