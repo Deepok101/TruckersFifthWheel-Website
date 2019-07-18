@@ -87,7 +87,7 @@ io.on('connection', (socket)=>{
     })
   })
   socket.on('send like', (id, user)=>{
-    io.sockets.emit('like', (id, user));
+    io.sockets.emit('like', ({id:id, user:user}));
     Posts.updateOne({_id: id, likedByAcc: {$nin: [user]}}, {$inc: {likes: 1}, $push: {likedByAcc: user} }, (err, res)=>{
       if (err){
           console.log(err)
@@ -96,7 +96,7 @@ io.on('connection', (socket)=>{
   })
 
   socket.on('remove like', (id, user)=>{
-    io.sockets.emit('unlike', (id, user));
+    io.sockets.emit('unlike', ({id:id, user:user}));
     Posts.updateOne({_id: id, likedByAcc: {$in: [user]}}, {$inc: {likes: -1}, $pull: {likedByAcc: user} }, (err, res)=>{
       if (err){
           console.log(err)
