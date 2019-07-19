@@ -68,10 +68,12 @@ router.post('/like/cancel', (req, res)=>{
 router.post('/comment', (req, res)=>{
     var id = req.body.id;
     var user = req.body.user;
+    var userID = req.body.userID;
     var text = req.body.comment;
 
     var comment = {
         user: user,
+        userID: userID,
         text: text
     }
     Posts.updateOne({_id: id}, {$push: {comments: comment}} , (err, result)=>{

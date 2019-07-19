@@ -73,11 +73,12 @@ io.on('connection', (socket)=>{
     newChat.save();
   })
 
-  socket.on('send comment', (comment, user, id)=>{
+  socket.on('send comment', (comment, user, userID, id)=>{
     io.sockets.emit('comment', {id: id, msg:`${comment}`});
 
     var comment = {
         user: user,
+        userID: userID,
         text: comment
     }
     Posts.updateOne({_id: id}, {$push: {comments: comment}} , (err, res)=>{
