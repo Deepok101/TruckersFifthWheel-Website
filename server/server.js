@@ -74,7 +74,7 @@ io.on('connection', (socket)=>{
   })
 
   socket.on('send comment', (comment, user, userID, id)=>{
-    io.sockets.emit('comment', {id: id, msg:`${comment}`});
+    io.sockets.emit('comment', {id: id, user: user, msg:`${comment}`});
 
     var comment = {
         user: user,
