@@ -72,6 +72,32 @@ const AccountSchema = new Schema({
                 required: false
             }
         }],
+        connections: {
+            friendList:[{
+                requesterUserID:{
+                    type: String
+                },
+                userID: {
+                    type: String
+                },
+                username:{
+                    type: String
+                },
+                Date:{
+                    type: Date,
+                    default: Date.now
+                }, 
+                statusNumber: {
+                    type: Number,
+                    enums: [
+                        0,    //'add friend',
+                        1,    //'requested',
+                        2,    //'pending',
+                        3,    //'friends'
+                    ]
+                },
+            }]
+        },
         highlights: {
             type: Array,
             required: false

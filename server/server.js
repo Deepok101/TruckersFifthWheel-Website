@@ -104,6 +104,48 @@ io.on('connection', (socket)=>{
       }
   })
   })
+
+
+  socket.on('send friend request', (userID, username, otherUsername, otherUserID) => {
+    var request = {
+        requesterUserID: userID,
+        userID: otherUserID,
+        username: otherUsername,
+        statusNumber: 1
+
+    }
+    var request2 = {
+      userID: userID,
+      requesterUserID: otherUserID,
+      username: username,
+      statusNumber: 2
+
+    }
+    Accounts.updateOne({_id: userID}, {$push: {'profile.connections.friendList': request} }, (err, res)=>{
+        if (err){
+            console.log(err)
+        }
+    })
+    Accounts.updateOne({_id: otherUserID}, {$push: {'profile.connections.friendList': request2} }, (err, res)=>{
+      if (err){
+          console.log(err)
+      }
+  })
+  })
+
+  socket.on('accept friend request', (userID, username, otherUsername, otherUserID)=>{
+    var request2 = {
+      userID: otherUserID,
+      username: otherUsername
+
+    }
+
+    Accounts.updateOne({_id: userID, 'profile.connections.receivedRequests': {$elemMatch:{userID: otherUserID}}}, {$push: {'profile.connections.friends': request2} }, (err, res)=>{
+      if (err){
+          console.log(err)
+      }
+  })
+  })
 })
 
 

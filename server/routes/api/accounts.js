@@ -43,6 +43,60 @@ router.post('/profile', (req, res)=>{
     Accounts.findOne({_id: id}).then(acc => res.json(acc))
 })
 
+router.post('/connection/sendrequest', (req, res)=>{
+    var userID = req.body.userID;
+
+    var otherUserID = req.body.otherUserID;
+    var username = req.body.username;
+    
+    var request = {
+        userID: otherUserID,
+        username: username
+
+    }
+    Accounts.updateOne({_id: userID}, {$push: {'profile.connections.sentRequest': request} }, (err, res)=>{
+        if (err){
+            console.log(err)
+        }
+    })
+})
+
+router.post('/connection/recrequest', (req, res)=>{
+    var userID = req.body.userID;
+
+    var otherUserID = req.body.otherUserID;
+    var username = req.body.username;
+    
+    var request = {
+        userID: otherUserID,
+        username: username
+
+    }
+    Accounts.updateOne({_id: userID}, {$push: {'profile.connections.receivedRequest': request} }, (err, res)=>{
+        if (err){
+            console.log(err)
+        }
+    })
+})
+
+router.post('/connection/accept', (req, res)=>{
+    var userID = req.body.userID;
+
+    var otherUserID = req.body.otherUserID;
+    var username = req.body.username;
+    
+    var friend = {
+        userID: otherUserID,
+        username: username
+
+    }
+    Accounts.updateOne({_id: userID}, {$push: {'profile.connections.friends': friend} }, (err, res)=>{
+        if (err){
+            console.log(err)
+        }
+    })
+})
+
 router.post('/update', (req, res)=>{
     var id = req.body.id;
     var bio = req.body.bio;

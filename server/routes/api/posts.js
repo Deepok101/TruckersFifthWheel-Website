@@ -11,6 +11,12 @@ router.get('/', (req, res) => {
     Posts.find().sort({date: -1}).then(data => res.json(data))
 });
 
+router.get('/id', (req, res) => {
+    var id = req.body.id;
+
+    Posts.find({_id: id}).then(data => res.json(data))
+});
+
 router.get('/:user', (req, res) => {
     var id = req.params.user;
     Posts.find({authorID: mongoose.Types.ObjectId(id)}).sort({date: -1}).then(data => res.json(data))
