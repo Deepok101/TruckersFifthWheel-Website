@@ -84,7 +84,7 @@
 }
 
 .post_acc_name{
-    font-size: 1.5em;
+    font-size: 1.2em;
     font-weight: 600;
 }
 
@@ -277,4 +277,19 @@ canvas.highlight {
     border: 1px solid #cccccc;
     margin-bottom: 15px;
     box-sizing:border-box;   
+}
+
+.iconForm{
+    margin-right: 5px;
+}
+
+.postBtns input{
+    display: none
+}
+
+label{
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }

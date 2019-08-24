@@ -102,7 +102,7 @@ io.on('connection', (socket)=>{
       if (err){
           console.log(err)
       }
-  })
+    })
   })
 
 
@@ -116,35 +116,34 @@ io.on('connection', (socket)=>{
     }
     var request2 = {
       userID: userID,
-      requesterUserID: otherUserID,
+      requesterUserID: userID,
       username: username,
       statusNumber: 2
 
     }
-    Accounts.updateOne({_id: userID}, {$push: {'profile.connections.friendList': request} }, (err, res)=>{
+    Accounts.updateOne({_id: userID}, {$addToSet: {'profile.connections.friendList': request} }, (err, res)=>{
         if (err){
             console.log(err)
         }
     })
-    Accounts.updateOne({_id: otherUserID}, {$push: {'profile.connections.friendList': request2} }, (err, res)=>{
+    Accounts.updateOne({_id: otherUserID}, {$addToSet: {'profile.connections.friendList': request2} }, (err, res)=>{
       if (err){
           console.log(err)
       }
   })
   })
 
-  socket.on('accept friend request', (userID, username, otherUsername, otherUserID)=>{
-    var request2 = {
-      userID: otherUserID,
-      username: otherUsername
+  socket.on('accept friend request', (userID, otherUserID)=>{
+  
 
-    }
-
-    Accounts.updateOne({_id: userID, 'profile.connections.receivedRequests': {$elemMatch:{userID: otherUserID}}}, {$push: {'profile.connections.friends': request2} }, (err, res)=>{
+    Accounts.updateOne({_id: userID, 'profile.connections.friendList.userID': otherUserID}, {$set: {'profile.connections.friendList.$.statusNumber': 3} }, (err, res)=>{
       if (err){
           console.log(err)
       }
-  })
+      if(res){
+        console.log(res)
+      }
+    })
   })
 })
 

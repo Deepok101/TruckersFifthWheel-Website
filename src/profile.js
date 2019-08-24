@@ -6,6 +6,14 @@ import Nav from './profile/nav'
 import Posts from './components/assets/posts'
 import UserPosts from './profile/posts'
 import Button from 'react-bootstrap/Button'
+import Fab from '@material-ui/core/Fab';
+import EditIcon from '@material-ui/icons/Edit';
+import Chip from '@material-ui/core/Chip';
+import TextField from '@material-ui/core/TextField';
+import IconButton from '@material-ui/core/IconButton';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import BackspaceIcon from '@material-ui/icons/Backspace';
+
 import './profile/style.css'
 
 
@@ -31,6 +39,7 @@ class Profile extends React.Component {
     this.fetchUserPosts = this.fetchUserPosts.bind(this)
     this.handleNavClick = this.handleNavClick.bind(this)
     this.handleHighlightChange = this.handleHighlightChange.bind(this)
+    this.handleHighlightRemove = this.handleHighlightRemove.bind(this)
     this.handleHighlightAdd = this.handleHighlightAdd.bind(this)
     this.handleExperienceChange = this.handleExperienceChange.bind(this)
     this.handleExperienceAdd = this.handleExperienceAdd.bind(this)
@@ -91,12 +100,15 @@ class Profile extends React.Component {
   }
 
   submitUpdate(){
+
+    var highlights = this.state.highlights.filter(el => el !== "")
+
     let body = {
       "id": this.state.userID,
       "bio": this.state.bio,
       "currentPosition": this.state.currentPos,
       "experience": this.state.experience,
-      "highlights": this.state.highlights
+      "highlights": highlights
     }
     fetch('api/accounts/update', {
       method:"POST",
@@ -114,11 +126,19 @@ class Profile extends React.Component {
     this.setState({highlights: a})
     console.log(a)
   }
+  handleHighlightRemove(e){
+    let a = this.state.highlights;
+    console.log(e)
+    a.splice(e.target.id, 1, "")
+    this.setState({highlights: a})
+  }
+
   handleHighlightAdd(){
     let a = this.state.highlights;
     a.push("");
     this.setState({highlights: a})
   }
+ 
 
   //Handle experience changes
   handleExperienceChange(e){
@@ -216,7 +236,28 @@ class Profile extends React.Component {
       var submitBtn = <Button variant="success" onClick={this.submitUpdate}>Submit</Button>
       var highlight = this.state.highlights.map((value, index) => 
         <li>
-          <input onChange={this.handleHighlightChange} id={index} style={inputEditStyle} value={value}/>
+         
+            {/* <input onChange={this.handleHighlightChange} id={index} style={inputEditStyle} value={value}/> */}
+            <TextField
+              id={index}   
+              onChange={this.handleHighlightChange}                          
+              value={value}              
+              variant="filled"
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      edge="end"
+                      aria-label="toggle password visibility"
+                      onClick={this.handleHighlightRemove}
+                    >
+                        <BackspaceIcon fontSize="small"/>
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+         
         </li>
       )
       var editTextArea = (value) => {
@@ -237,7 +278,6 @@ class Profile extends React.Component {
       )
     }
     
-    console.log(this.state)
     //Edit Profile 
     
     
@@ -250,8 +290,9 @@ class Profile extends React.Component {
 
             <div className=''>
               <div className='card p-4'>
-              <Button onClick={()=> this.setState({editMode: bool})}variant="primary" style={{...{position: "absolute"},...{left: '90%'}}}>Edit</Button>
-
+              <Fab style={{...{position: "absolute"},...{left: '90%'}}} onClick={()=> this.setState({editMode: bool})} color="secondary" aria-label="edit">
+                <EditIcon />
+              </Fab>
                 <div className='profileImage ml-2 mt-2'>
                   <img className='profileImg' width="200px" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"/>
                 </div>

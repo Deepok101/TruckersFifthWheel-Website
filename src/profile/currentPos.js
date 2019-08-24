@@ -25,9 +25,6 @@ class CurrentPos extends React.Component {
           <p className='bioPos' style={{display: 'inline-block'}} >
             {this.props.currentPosJob} at  {this.props.currentPosCompany}
           </p>
-          <p className='bioEducation' style={{float: 'right'}} >
-            Centre de Formation du Transport Routier (CFTR)
-          </p>
           
         </div>
       )

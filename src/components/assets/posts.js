@@ -14,13 +14,13 @@ class Posts extends React.Component{
       clicked: false,
       likedBy: [],
       comment: "",
-      arrayComments: [],//list of comments
+      comments: [],//list of comments
       nbComments: 0,    //number of comments
       updated: false,   //check if the page has been updated 
       increment: 0,     //goes up by 5 to show more comments
       didLike: false,   //check if like button has been clicked. Made to avoid overclicking the like button
       didDislike: true, //check if dislike button has been clicked. Made to avoid overclicking the dislike button
-      endpoint: 'ws://still-taiga-69176.herokuapp.com'
+      endpoint: 'http://localhost:5000'
     }
     this.onClickLikeBtn = this.onClickLikeBtn.bind(this);
     this.onClickCommentBtn = this.onClickCommentBtn.bind(this);
@@ -29,49 +29,65 @@ class Posts extends React.Component{
     this.UnhideComments = this.UnhideComments.bind(this);
     this.onClickDeleteBtn = this.onClickDeleteBtn.bind(this);
 
+    this.userID = window.sessionStorage.getItem('id')
   }
   
   componentDidMount(){
-    this.setState({arrayComments: this.props.comments.reverse()});
+    this.setState({comments: this.props.comments.reverse()});
     this.setState({nbComments: this.props.comments.length})
     this.setState({likedBy: this.props.likedByAcc});
 
     const socket = socketIOClient.connect(this.state.endpoint, {transports:['websocket']})
-    socket.on('comment', (data)=>{
-      if(data.id === this.props.id){
-        const username = window.sessionStorage.getItem('auth_firstName')
-      var node = document.createElement("div");
-      node.style.marginTop = '1.5em';
-      var user = document.createElement('b');
-      user.textContent = username + ' : ';
-      user.style.display = 'inline';
+    // socket.on('comment', (data)=>{
+    //   if(data.id === this.props.id){
+    //     const username = window.sessionStorage.getItem('auth_firstName')
+    //   var node = document.createElement("div");
+    //   node.style.marginTop = '1.5em';
+    //   var user = document.createElement('b');
+    //   user.textContent = username + ' : ';
+    //   user.style.display = 'inline';
   
-      var comment = document.createElement('p');
-      comment.textContent = data.msg;
-      comment.style.display = 'inline';
-      comment.classList = 'commentBubble'
+    //   var comment = document.createElement('p');
+    //   comment.textContent = data.msg;
+    //   comment.style.display = 'inline';
+    //   comment.classList = 'commentBubble'
   
-      node.appendChild(user);
-      node.appendChild(comment);
+    //   node.appendChild(user);
+    //   node.appendChild(comment);
   
-      var commentSection = document.getElementById(this.props.id + 'comments')
-      if(data.msg.comment !== ""){
-        commentSection.insertBefore(node, commentSection.firstChild);
-        this.setState({nbComments: this.state.nbComments + 1})
-      }
-    }
+    //   var commentSection = document.getElementById(this.props.id + 'comments')
+    //   if(data.msg.comment !== ""){
+    //     commentSection.insertBefore(node, commentSection.firstChild);
+    //     this.setState({nbComments: this.state.nbComments + 1})
+    //   }
+    // }
       
     
-    });
+    // });
 
-    socket.on('like', (id)=>{
-      if(id === this.props.id){
-        this.setState({likes: this.state.likes + 1})
+    socket.on('comment', (data) => {
+      var body = {
+        user: data.user,
+        text: data.msg
+      }
+      this.setState(prevState=>({comments: [body,...prevState.comments]}));
+      
+
+    })
+
+    socket.on('like', (data)=>{
+      if(data.id === this.props.id){
+        // this.setState({likes: this.state.likes + 1});
+        this.setState(prevState=>({likedBy: [...prevState.likedBy, data.user]}));
+        console.log(this.state.likedBy)
       }
     })
-    socket.on('unlike', (id)=>{
-      if(id === this.props.id){
-        this.setState({likes: this.state.likes - 1})
+    socket.on('unlike', (data)=>{
+      if(data.id === this.props.id){
+        // this.setState({likes: this.state.likes - 1});
+        var array = [...this.state.likedBy];
+        var result = [...array.slice(0, array.length-1)]
+        this.setState({likedBy: result});
       }
     })
 
@@ -82,17 +98,15 @@ class Posts extends React.Component{
     const socket = socketIOClient.connect(this.state.endpoint, {transports:['websocket']})
     var body =  {
       id: this.props.id,
-      user: window.sessionStorage.getItem('auth_firstName')
+      user: window.sessionStorage.getItem('id')
     }
     if(this.state.didLike === false){
       if (!this.state.likedBy.includes(body.user)){
-        this.setState(prevState=>({likedBy: [...prevState.likedBy, body.user]}));
+       
         socket.emit('send like', body.id, body.user);
       }
       if (this.state.likedBy.includes(body.user)){
-        var array = [...this.state.likedBy];
-        var result = [...array.slice(0, array.length-2)]
-        this.setState({likedBy: result});
+
         socket.emit('remove like', body.id, body.user);
       }
     }
@@ -195,7 +209,22 @@ class Posts extends React.Component{
     const socket = socketIOClient.connect(this.state.endpoint, {transports:['websocket']})
     const username = window.sessionStorage.getItem('auth_firstName')
 
-    socket.emit('send comment', this.state.comment, username, this.props.id);
+    var body = {
+      "id": this.props.id,
+      "user": username,
+      "userID": this.userID,
+      "comment": this.state.comment
+  }
+
+  // fetch("https://still-taiga-69176.herokuapp.com/api/posts/comment", {
+  //     method:"POST",
+  //     body: JSON.stringify(body),
+  //     headers: {
+  //         'Content-Type': 'application/json'
+  //     }
+  // }).then(res => res.json())
+
+  socket.emit('send comment', body.comment, body.user, body.userID, body.id);
 
 
     // var body = {
@@ -232,7 +261,7 @@ class Posts extends React.Component{
     // var commentSection = document.getElementById(this.props.id + 'comments')
     // if(body.comment !== ""){
     //   commentSection.insertBefore(node, commentSection.firstChild);
-    //   this.setState({nbComments: this.state.arrayComments.length + 1})
+    //   this.setState({nbComments: this.state.comments.length + 1})
     // }
 
   }
@@ -246,7 +275,7 @@ class Posts extends React.Component{
     if (comments.childNodes.length > 5){
       var i;
       for(i=5; i < 10 + this.state.increment; i++){
-        if(i > this.state.arrayComments.length - 1){
+        if(i > this.state.comments.length - 1){
           break;
         }
         comments.childNodes[i].style.display = "block";
@@ -293,7 +322,7 @@ class Posts extends React.Component{
     let date = this.props.date.slice(0, 10);
     let time = this.props.date.slice(11, 16);
 
-    let comments = this.state.arrayComments.map(comment => 
+    let comments = this.state.comments.map(comment => 
       <div class='comments' style={{marginTop: '1.5em'}}>
         <b style={{display: 'inline'}}>
           {comment.user} : &nbsp;
@@ -307,7 +336,7 @@ class Posts extends React.Component{
     //Show more comments button
     let UnhideBtn;
 
-    if (this.state.arrayComments.length > 5){
+    if (this.state.comments.length > 5){
       UnhideBtn = <button class='showMoreComments' onClick={this.UnhideComments}>Show more comments...</button>
     } else {
       UnhideBtn = null;
@@ -321,7 +350,7 @@ class Posts extends React.Component{
     //Like/Unlike Buttons
     let reactionButton;
 
-    if (!this.state.likedBy.includes(window.sessionStorage.getItem('auth_firstName'))){
+    if (!this.state.likedBy.includes(this.userID)){
       reactionButton = <button onClick={this.onClickLikeBtn} class="post_btn reaction-btn">Like</button>
 
     } else {
@@ -343,6 +372,7 @@ class Posts extends React.Component{
     let content;
     if(this.props.url && !this.props.image){
       content =   <div class="p-4" >
+                    <p class="p-posts">{this.props.text}</p>
                     <div className='row card' style={linkBox}>
                       <a style={{...{color: 'black'}}} href={this.props.url}>
                         <img style={{...{float: 'left'}}} src={this.props.imgUrl} width="100%"/>
@@ -402,7 +432,7 @@ class Posts extends React.Component{
             {content}
             <div className="pl-4 pr-4 pt-2">
               <p>
-                {this.state.likes} Likes &nbsp;&nbsp;
+                {this.state.likedBy.length} Likes &nbsp;&nbsp;
                 {this.state.nbComments} Comments
               </p>
             </div>

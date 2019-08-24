@@ -4,12 +4,25 @@ import Posts from './posts'
 import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react';
 import { connect } from 'react-redux';
 import axios from 'axios'
+import { IoMdPhotos } from "react-icons/io";
 
+import { withStyles } from '@material-ui/core/styles';
+
+import Button from '@material-ui/core/Button';
+import PhotoIcon from '@material-ui/icons/Photo';
+import Fab from '@material-ui/core/Fab';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 class FormPost extends React.Component{
+  
     constructor(props) {
         super(props);
         this.state = {value: '',
+                      urlBool: false,
+                      urlInput: '',
+                      urlSearching: false,
                       urlImg: '',
                       urlDescription: '',
                       urlTitle: '',
@@ -32,14 +45,17 @@ class FormPost extends React.Component{
         this.handleTextSubmit = this.handleTextSubmit.bind(this);
         this.getUserDataFromJWT = this.getUserDataFromJWT.bind(this);
         this.openOverlay = this.openOverlay.bind(this);
-
+        this.handleURLInput = this.handleURLInput.bind(this);
+        this.urlInputChange = this.urlInputChange.bind(this);
     }
 
     handleChange(e){
         this.props.changeText(e.target.value);
       }
 
-   
+    urlInputChange(e){
+      this.setState({urlInput: e.target.value})
+    }
 
     handleSubmit(e){
         e.preventDefault();
@@ -58,8 +74,8 @@ class FormPost extends React.Component{
 
         //Checks if the text is a URL link
         //If is LINK == true
-        if(this.props.value.match(/(?:((?:https?|ftp):\/\/)|ww)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,}))\.?)(?::\d{2,5})?(?:[/?#]\S*)?/i) && !this.state.selectedFile){
-          fetch(`http://api.linkpreview.net/?key=5cfe73bd77bbaabbb1bd2e7a845085e964f4b386c7157&q=${this.props.value}`)
+        if(this.state.urlInput.match(/(?:((?:https?|ftp):\/\/)|ww)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,}))\.?)(?::\d{2,5})?(?:[/?#]\S*)?/i) && !this.state.selectedFile){
+          fetch(`http://api.linkpreview.net/?key=5cfe73bd77bbaabbb1bd2e7a845085e964f4b386c7157&q=${this.state.urlInput}`)
             .then(res => res.json()).then(data => this.setState({urlTitle: data.title,
                                                                 urlDescription: data.description,
                                                                 urlImg: data.image,
@@ -70,7 +86,7 @@ class FormPost extends React.Component{
 
               if (!this.state.urlImg){
                 let url = {
-                  "url": this.props.value
+                  "url": this.state.urlInput
                 }
                 fetch(`/api/url`, {
                   method: 'POST',
@@ -138,7 +154,7 @@ class FormPost extends React.Component{
           })
 
           //If NOT LINK, proceed with this...
-        } else if(!this.props.value.match(/(?:((?:https?|ftp):\/\/)|ww)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,}))\.?)(?::\d{2,5})?(?:[/?#]\S*)?/i) && !this.state.selectedFile){
+        } else if(!this.state.urlInput.match(/(?:((?:https?|ftp):\/\/)|ww)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,}))\.?)(?::\d{2,5})?(?:[/?#]\S*)?/i) && !this.state.selectedFile){
               this.checkUser(()=>{
                 this.handleTextSubmit(this.state.fname, this.state.lname, text);
               })
@@ -146,6 +162,43 @@ class FormPost extends React.Component{
         }
 
         
+    }
+
+    handleURLInput(){
+      console.log(this.state.urlInput)
+      if(this.state.urlInput.match(/(?:((?:https?|ftp):\/\/)|ww)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,}))\.?)(?::\d{2,5})?(?:[/?#]\S*)?/i) && !this.state.selectedFile){
+        this.setState({urlSearching: true})
+        fetch(`http://api.linkpreview.net/?key=5cfe73bd77bbaabbb1bd2e7a845085e964f4b386c7157&q=${this.state.urlInput}`)
+          .then(res => res.json()).then(data => this.setState({urlTitle: data.title,
+                                                              urlDescription: data.description,
+                                                              urlImg: data.image,
+                                                              url: data.url,
+                                                              urlSearching: false}))
+        
+          .then(()=> {
+            
+
+            if (!this.state.urlImg){
+              let url = {
+                "url": this.state.urlInput
+              }
+              fetch(`/api/url`, {
+                method: 'POST',
+                body: JSON.stringify(url),
+                headers: {
+                  'Content-Type': 'application/json'
+              }
+              }).then(res => res.json()).then(data => this.setState({urlTitle: data.data.ogTitle,
+                                                                    urlDescription: data.data.ogDescription,
+                                                                    urlImg: data.data.ogImage.url,
+                                                                    url: data.data.ogUrl,
+                                                                    urlSearching: false}, console.log(data)))    
+            } 
+
+        })
+
+        //If NOT LINK, proceed with this...
+      }
     }
 
 
@@ -242,7 +295,7 @@ class FormPost extends React.Component{
     openOverlay() {
       this.setState({clicked: true})
       if(this.state.clicked === false){
-        this.setState({rows: 5})
+        this.setState({rows: 2})
         var elem = document.getElementById('postForm')
         elem.style.position = 'relative';
         elem.style.zIndex = 1;
@@ -275,6 +328,49 @@ class FormPost extends React.Component{
         let text = this.props.value;
 
         console.log(this.state)
+        var urlInput = null
+        var urlDisplay;
+        if(this.state.urlBool){
+          urlInput = 
+          <div>
+            <textarea placeholder="Paste your URL" 
+              onFocus={this.openOverlay} 
+              rows={this.state.rows} 
+              style={{width: '100%'}} 
+              id="posting_input" 
+              name="postText" 
+              type='text' className="form-control" 
+              id="formGroupExampleInput" aria-label="Default" 
+              aria-describedby="inputGroup-sizing-default"
+              onChange={this.urlInputChange}/>
+            <Button onClick={this.handleURLInput} style={{...{marginTop: '10px'},...{width: '100%'}}} variant="contained" color="primary">
+              Verify URL
+            </Button>
+            {this.state.urlSearching && <LinearProgress />}
+          </div>
+            
+
+        } else if(this.state.urlBool !== false){
+          urlInput = false
+          urlDisplay = null
+        }
+        if(this.state.urlBool && this.state.url){
+          urlDisplay = 
+            <div class="p-4">
+              <div className='row card' style={{padding: '10px'}}>
+                <a style={{...{color: 'black'}}} href={this.state.url}>
+                  <img style={{...{float: 'left'},...{paddingBottom: '10px'}}} src={this.state.urlImg} width="100%"/>
+                  <div>
+                    <h5>{this.state.urlTitle}</h5>
+                  </div>
+                </a>
+              </div>
+            </div>
+        } else if(!this.state.urlBool && !this.state.url){
+          urlDisplay = null
+        }
+
+        
         return(
           
             <div className='posts p-2' id='postForm' ref={this.formRef}>
@@ -298,8 +394,46 @@ class FormPost extends React.Component{
                                       id="posting_input" 
                                       name="postText" 
                                       type='text' className="form-control" id="formGroupExampleInput" aria-label="Default" aria-describedby="inputGroup-sizing-default" onChange={this.handleChange}/>
+                            {urlInput}
                           </form>
+                          {urlDisplay}
                         </div>
+                        <hr/>
+                        <div className="postBtns row justify-content-md-center">
+                          
+                      
+                          <ButtonGroup
+                        
+                            size="large"
+                            aria-label="large outlined secondary button group"
+                            className="btnGroup"
+                          >
+                            <StyledFab color="primary" variant="extended" aria-label="delete" size="small" className="btnForm">
+                              <label for="file-input">
+                                <PhotoIcon className="iconForm"/>
+                                Photos
+                              </label>
+                              <input id="file-input" type="file"
+                              class="file-upload" data-cloudinary-field="image_id" onChange={this.fileSelectedHandler}
+                              data-form-data="{ 'transformation': {'crop':'limit','tags':'samples','width':3000,'height':2000}}"/>          
+                            </StyledFab>
+                            <StyledFab color="primary" variant="extended" aria-label="delete" size="small" className="btnForm"> 
+                              <PhotoIcon className="iconForm"/>
+                              Videos
+                            </StyledFab>
+                            <StyledFab onClick={()=> this.setState({urlBool: true})} color="primary" variant="extended" aria-label="delete" size="small" className="btnForm">
+                              <PhotoIcon className="iconForm"/>
+                              URL
+                            </StyledFab>
+
+                          </ButtonGroup>
+
+                        </div>
+
+                         
+
+
+                      
                         <div className='pt-3 pb-3'>
                           <div  style={{display: 'inline-block'}}>
                             <input name="file" type="file"
@@ -326,5 +460,20 @@ const mapStateToProps = state => ({
   auth: state.auth.items,
   username: state.auth.name
 })
+
+const StyledFab = withStyles({
+  root: {
+    borderRadius: 3,
+    border: 0,
+    width: '150px !important',
+    color: 'white',
+    padding: '0 30px',
+  },
+  label: {
+    textTransform: 'capitalize',
+  },
+})(Fab);
+
+
 
 export default connect(mapStateToProps)(FormPost);
