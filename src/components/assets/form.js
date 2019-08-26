@@ -12,6 +12,8 @@ import Button from '@material-ui/core/Button';
 import PhotoIcon from '@material-ui/icons/Photo';
 import Fab from '@material-ui/core/Fab';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
+import Button2 from '@material-ui/core/Button';
+
 import CircularProgress from '@material-ui/core/CircularProgress';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
@@ -409,7 +411,7 @@ class FormPost extends React.Component{
                             aria-label="large outlined secondary button group"
                             className="btnGroup"
                           >
-                            <StyledFab color="primary" variant="extended" aria-label="delete" size="small" className="btnForm">
+                            <StyledFab color="primary" variant="round" aria-label="delete" size="small" className="btnForm">
                               <label for="file-input">
                                 <PhotoIcon className="iconForm"/>
                                 Photos
@@ -418,11 +420,11 @@ class FormPost extends React.Component{
                               class="file-upload" data-cloudinary-field="image_id" onChange={this.fileSelectedHandler}
                               data-form-data="{ 'transformation': {'crop':'limit','tags':'samples','width':3000,'height':2000}}"/>          
                             </StyledFab>
-                            <StyledFab color="primary" variant="extended" aria-label="delete" size="small" className="btnForm"> 
+                            <StyledFab color="primary" variant="round" aria-label="delete" size="small" className="btnForm"> 
                               <PhotoIcon className="iconForm"/>
                               Videos
                             </StyledFab>
-                            <StyledFab onClick={()=> this.setState({urlBool: true})} color="primary" variant="extended" aria-label="delete" size="small" className="btnForm">
+                            <StyledFab onClick={()=> this.setState({urlBool: true})} color="primary" variant="round" aria-label="delete" size="small" className="btnForm">
                               <PhotoIcon className="iconForm"/>
                               URL
                             </StyledFab>
@@ -469,6 +471,7 @@ const StyledFab = withStyles({
     width: '150px !important',
     color: 'white',
     padding: '0 30px',
+    boxShadow: 'none !important'
   },
   label: {
     textTransform: 'capitalize',

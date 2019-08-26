@@ -14,21 +14,44 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import Badge from '@material-ui/core/Badge';
 import IconButton from '@material-ui/core/IconButton';
 import NotificationBar from './assets/notificationBar'
+import FriendReqBar from './assets/friendsBar'
+import GroupAddIcon from '@material-ui/icons/GroupAdd';
 
 class NavBar extends React.Component{
   constructor(props){
     super(props)
     this.handleLogout = this.handleLogout.bind(this)
+    this.getFriendsReqData = this.getFriendsReqData.bind(this)
 
     this.state = {
-      modalShow: false
+      friends: [],
+      friendReqs: [],
+      modalShow: false,
+      notificationToggle: true,
+      friendToggle: true
     }
   }
-
+  componentDidMount(){
+    this.getFriendsReqData()
+  }
   handleLogout(){
     this.props.logout();
     window.sessionStorage.clear();
     this.props.history.push('/');
+  }
+
+  getFriendsReqData(){
+    var body = {
+      "id": "5cede2fb0530b21d94733d27"
+    }
+
+    fetch('/api/accounts/profile', {
+      method:"POST",
+      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(res => res.json()).then(data => this.setState({friends: data.profile.connections.friendList}))
   }
 
   render(){
@@ -53,7 +76,10 @@ class NavBar extends React.Component{
 
     let modalClose = () => this.setState({modalShow: false})
 
+    if(this.state.friends){
+      var a = <FriendReqBar friendReqs={this.state.friends}/>
 
+    }
     return(
       <div class="sticky-top">
 
@@ -89,19 +115,22 @@ class NavBar extends React.Component{
           <a class="nav-link disabled">
             {username}  
           </a>
-          <IconButton size='small' color='inherit'>
-            <Badge  badgeContent={5} color="secondary"> 
-              <NotificationsIcon/>
+          <IconButton onClick={() => this.setState(prevState => ({notificationToggle: !prevState.notificationToggle}))} size='small' color='inherit'>
+            <Badge badgeContent={5} color="secondary"> 
+              <NotificationsIcon size='small'/>
+            </Badge>
+          </IconButton>
+          <IconButton onClick={() => this.setState(prevState => ({friendToggle: !prevState.friendToggle}))} size='small' color='inherit' style={{margin: '0px 10px'}}>
+            <Badge badgeContent={this.state.friends.length} color="secondary"> 
+              <GroupAddIcon size='small'/>
             </Badge>
           </IconButton>
 
-
           {log}
         </div>
-
       </nav>
-      <NotificationBar invisible={false}/>
-
+        <NotificationBar invisible={this.state.notificationToggle}/>
+        <FriendReqBar invisible={this.state.friendToggle} friendReqs={this.state.friends}/>
       </div>
       );
   }
