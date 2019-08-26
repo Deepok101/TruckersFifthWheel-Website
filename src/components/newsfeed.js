@@ -8,6 +8,7 @@ import RoadAlert from './assets/roadNews'
 import JobsBar from './assets/jobsBar'
 import ForecastComponent from './assets/forecast'
 import { CSSTransition } from 'react-transition-group';
+import NotificationBar from './assets/notificationBar'
 
 class NewsFeed extends React.Component{
   constructor(props){
@@ -51,13 +52,14 @@ class NewsFeed extends React.Component{
     let posts = this.state.dbposts.map((data)=>
         <Posts  urlTitle={data.urlTitle} 
                 url={data.url} 
+                accountName={data.author} 
+                authorID={data.authorID}
                 imgUrl={data.urlImg} 
                 urlDesc={data.urlDescription} 
                 comments={data.comments} 
                 likedByAcc={data.likedByAcc} 
                 likes={data.likes} 
                 id={data._id} 
-                accountName={data.author} 
                 text={data.text} 
                 date={data.date}
                 image={data.image}/>
@@ -89,6 +91,7 @@ class NewsFeed extends React.Component{
               {/* <RoadAlert/> */}
               <JobsBar/>
             </div>
+            <NotificationBar invisible={true}/>
           
           </div>
         </div>

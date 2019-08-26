@@ -6,6 +6,13 @@ import socketIOClient from 'socket.io-client';
 import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 
+
+import InputBase from '@material-ui/core/InputBase';
+import IconButton from '@material-ui/core/IconButton';
+import Card from '@material-ui/core/Card';
+import SendIcon from '@material-ui/icons/Send';
+import Button from '@material-ui/core/Button';
+
 class Posts extends React.Component{
   constructor(props){
     super(props);
@@ -38,32 +45,6 @@ class Posts extends React.Component{
     this.setState({likedBy: this.props.likedByAcc});
 
     const socket = socketIOClient.connect(this.state.endpoint, {transports:['websocket']})
-    // socket.on('comment', (data)=>{
-    //   if(data.id === this.props.id){
-    //     const username = window.sessionStorage.getItem('auth_firstName')
-    //   var node = document.createElement("div");
-    //   node.style.marginTop = '1.5em';
-    //   var user = document.createElement('b');
-    //   user.textContent = username + ' : ';
-    //   user.style.display = 'inline';
-  
-    //   var comment = document.createElement('p');
-    //   comment.textContent = data.msg;
-    //   comment.style.display = 'inline';
-    //   comment.classList = 'commentBubble'
-  
-    //   node.appendChild(user);
-    //   node.appendChild(comment);
-  
-    //   var commentSection = document.getElementById(this.props.id + 'comments')
-    //   if(data.msg.comment !== ""){
-    //     commentSection.insertBefore(node, commentSection.firstChild);
-    //     this.setState({nbComments: this.state.nbComments + 1})
-    //   }
-    // }
-      
-    
-    // });
 
     socket.on('comment', (data) => {
       var body = {
@@ -111,26 +92,6 @@ class Posts extends React.Component{
       }
     }
     
-
-    
-
-    
-  //  if(this.state.didLike === false){
-  //    this.setState({didLike: true});
-  //   if (!this.props.likedByAcc.includes(body.user )){
-      
-  //     fetch('/api/posts/like', {
-  //       method: 'POST',
-  //       body: JSON.stringify(body),
-  //       headers: {
-  //           'Content-Type': 'application/json'
-  //       },
-  //     }).then(res => res.json)
-  //     this.setState({likes: this.state.likes + 1})
-
-  //   }
-
-  //  }
    
   }
 
@@ -141,24 +102,6 @@ class Posts extends React.Component{
       user: window.sessionStorage.getItem('auth_firstName')
     }
     socket.emit('send like', (body.id, body.user));
-    
-
-    // if(this.state.didDislike === false){
-    //   this.setState({didDislike: true})
-    //  if (this.props.likedByAcc.includes(body.user)){
-    //    fetch('/api/posts/like/cancel', {
-    //      method: 'POST',
-    //      body: JSON.stringify(body),
-    //      headers: {
-    //          'Content-Type': 'application/json'
-    //      },
-    //    }).then(res => res.json)
-   
-       
-    //    }
-    //    this.setState({likes: this.state.likes - 1})
- 
-    // }
     
     
   }
@@ -171,35 +114,13 @@ class Posts extends React.Component{
     if (this.state.clicked === false){
       this.setState({clicked: true})
      
-      node.className = 'row commentSection';
-
-      col1.className = 'col-10';
-      col2.className = 'col-2';
-
-      var input = document.createElement('input');
-      var btn = document.createElement('button');
-
-      input.className = 'form-control comment_input';
-      input.placeholder = "Write a comment...";
-      input.name = 'comment';
-      input.onchange = this.onTyped;
-      btn.className = 'btn btn-primary';
-      btn.textContent = 'Comment'
-      btn.onclick = this.onCommentSubmit;
-
-      col1.appendChild(input);
-      col2.appendChild(btn);
-
-      node.appendChild(col1)
-      node.appendChild(col2)
-
-   
-      document.getElementById(this.props.id).appendChild(node);
     }
 
+    
+
     if(this.state.clicked === true){
-      var commentSection = document.getElementById(this.props.id)
-      commentSection.removeChild(commentSection.childNodes[0])
+      // var commentSection = document.getElementById(this.props.id)
+      // commentSection.removeChild(commentSection.childNodes[0])
       this.setState({clicked: false})
     }
 
@@ -216,53 +137,7 @@ class Posts extends React.Component{
       "comment": this.state.comment
   }
 
-  // fetch("https://still-taiga-69176.herokuapp.com/api/posts/comment", {
-  //     method:"POST",
-  //     body: JSON.stringify(body),
-  //     headers: {
-  //         'Content-Type': 'application/json'
-  //     }
-  // }).then(res => res.json())
-
   socket.emit('send comment', body.comment, body.user, body.userID, body.id);
-
-
-    // var body = {
-    //   id: this.props.id,
-    //   user: username,
-    //   comment: this.state.comment
-    // }
-
-    // if(body.comment != ""){
-    //   fetch('/api/posts/comment', {
-    //     method: 'POST',
-    //     body: JSON.stringify(body),
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //   }).then(res => res.json);
-    // }
-    
-
-    // var node = document.createElement("div");
-    // node.style.marginTop = '1.5em';
-    // var user = document.createElement('b');
-    // user.textContent = body.user + ' : ';
-    // user.style.display = 'inline';
-
-    // var comment = document.createElement('p');
-    // comment.textContent = body.comment;
-    // comment.style.display = 'inline';
-    // comment.classList = 'commentBubble'
-
-    // node.appendChild(user);
-    // node.appendChild(comment);
-
-    // var commentSection = document.getElementById(this.props.id + 'comments')
-    // if(body.comment !== ""){
-    //   commentSection.insertBefore(node, commentSection.firstChild);
-    //   this.setState({nbComments: this.state.comments.length + 1})
-    // }
 
   }
 
@@ -337,14 +212,34 @@ class Posts extends React.Component{
     let UnhideBtn;
 
     if (this.state.comments.length > 5){
-      UnhideBtn = <button class='showMoreComments' onClick={this.UnhideComments}>Show more comments...</button>
+      UnhideBtn = <Button variant='contained' style={{marginTop: '2em'}} onClick={this.UnhideComments}>Show more comments...</Button>
     } else {
       UnhideBtn = null;
     }
 
     let visible_comments = document.getElementById(this.props.id + 'comments')
 
-
+    let commentInput;
+    if (this.state.clicked === true){
+      commentInput = 
+        <div style={{...{padding: '2px 4px'},
+                ...{display: 'flex'},
+                ...{border: '1px solid #E3E3E3'},
+                ...{borderRadius: '445px'},
+                ...{marginTop: '2em'}}}>
+          <InputBase
+            style={{...{flex: 1},...{marginLeft: '5px'},...{fontSize: '1em'}}}
+            placeholder="Write a comment!"
+            inputProps={{ 'aria-label': 'search google maps'}}
+            onChange={this.onTyped}
+          />
+          <IconButton onClick={this.onCommentSubmit} aria-label="search">
+            <SendIcon fontSize="small"/>
+          </IconButton>
+        </div>
+    } else if(this.state.clicked === false){
+      commentInput = null
+    }
 
     
     //Like/Unlike Buttons
@@ -358,16 +253,16 @@ class Posts extends React.Component{
 
     }
     //Styles 
-      const urlDescStyle = {
-        float: 'left',
-        textAlign: 'left',
-        fontSize: '1em'
-      }
-      const linkBox = {
-        backgroundColor: '',
-        padding: "10px",
-        cursor: 'pointer'
-      }
+    const urlDescStyle = {
+      float: 'left',
+      textAlign: 'left',
+      fontSize: '1em'
+    }
+    const linkBox = {
+      backgroundColor: '',
+      padding: "10px",
+      cursor: 'pointer'
+    }
     //Content depending on if it is a URL, text or image
     let content;
     if(this.props.url && !this.props.image){
@@ -395,13 +290,14 @@ class Posts extends React.Component{
                   <img src={this.props.image} class='centerImg' width="100%"/>
                 </div>
     }
+    
       return(
         <div id={"post#" + this.props.id}>
           <div className="posts">
             <div className="pl-4 pr-4 pt-3">
               <header>
                 <span className="post_acc_name">
-                  {this.props.accountName}
+                  <a style={{...{color: 'black'}}} href={`/userProfile/${this.props.authorID}`}>{this.props.accountName}</a>
                 </span>
                 <span className="post_date">
                   <span>
@@ -419,8 +315,6 @@ class Posts extends React.Component{
                       style={{...{position: 'relative'},...{display: 'inline-block'}}} 
                       id="dropdown-item-button" 
                       title="">
-                      
-                   
                       <Dropdown.Item onClick={this.onClickDeleteBtn} as="button">Delete Post</Dropdown.Item>
                       <Dropdown.Item as="button">Another action</Dropdown.Item>
                       <Dropdown.Item as="button">Something else</Dropdown.Item>
@@ -446,7 +340,7 @@ class Posts extends React.Component{
             </div>
   
             <div id={this.props.id} className='pl-4 pr-4'>
-  
+              {commentInput}
             </div>
             <div className='commentSection pl-4' id={this.props.id + 'comments'}>
               {comments}

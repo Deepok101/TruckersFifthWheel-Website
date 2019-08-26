@@ -23,7 +23,7 @@ class CurrentPos extends React.Component {
             Montreal, Quebec
           </p>
           <p className='bioPos' style={{display: 'inline-block'}} >
-            {this.props.currentPosJob} at  {this.props.currentPosCompany}
+            {this.props.currentPosJob} at {this.props.currentPosCompany}
           </p>
           
         </div>

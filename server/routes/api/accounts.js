@@ -104,12 +104,14 @@ router.post('/update', (req, res)=>{
     var currentPosition = req.body.currentPosition; //Object
     var highlights = req.body.highlights;
     var experience = req.body.experience;
+    var education = req.body.education;
     Accounts.updateOne({_id: id}, {$set: {'profile.bio': bio, 
-                                                'profile.picture': picture, 
-                                                'profile.currentPosition': currentPosition,
-                                                'profile.experience': experience,
-                                                'profile.highlights': highlights}}).then(acc => res.json(acc))
-})
+                                            'profile.picture': picture, 
+                                            'profile.currentPosition': currentPosition,
+                                            'profile.experience': experience,
+                                            'profile.education': education,
+                                            'profile.highlights': highlights}}).then(acc => res.json(acc))
+    })
 
 router.post('/', (req, res) => {
     const newAccount = new Accounts({

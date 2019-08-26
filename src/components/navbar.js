@@ -1,5 +1,4 @@
 import React from 'react';
-import Clock from './assets/clock'
 import {
   Link,
   withRouter
@@ -11,6 +10,10 @@ import PropTypes from 'prop-types';
 import './assets/feed.css'
 import Button from 'react-bootstrap/Button'
 import LoginModal from '../homepage/loginModal'
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import Badge from '@material-ui/core/Badge';
+import IconButton from '@material-ui/core/IconButton';
+import NotificationBar from './assets/notificationBar'
 
 class NavBar extends React.Component{
   constructor(props){
@@ -52,7 +55,9 @@ class NavBar extends React.Component{
 
 
     return(
-      <nav style={{...{backgroundColor: '#0082c8'},...{color: "white"}}} class="navbar navbar-expand-lg navbar-dark sticky-top">
+      <div class="sticky-top">
+
+      <nav style={{...{backgroundColor: '#0082c8'},...{color: "white"}}} class="navbar navbar-expand-lg navbar-dark">
         <Link class="navbar-brand" to="/home">{this.props.company}</Link>
         <LoginModal {...this.props} onHide={modalClose} show={this.state.modalShow}/>
 
@@ -80,14 +85,24 @@ class NavBar extends React.Component{
               <a class="nav-link disabled" href="#">{this.props.fourthSection}</a>
             </li>
           </ul>
-          
+
           <a class="nav-link disabled">
             {username}  
           </a>
+          <IconButton size='small' color='inherit'>
+            <Badge  badgeContent={5} color="secondary"> 
+              <NotificationsIcon/>
+            </Badge>
+          </IconButton>
+
+
           {log}
-          <Clock/>
         </div>
+
       </nav>
+      <NotificationBar invisible={false}/>
+
+      </div>
       );
   }
   

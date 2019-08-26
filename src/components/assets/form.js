@@ -15,6 +15,8 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
+
+
 class FormPost extends React.Component{
   
     constructor(props) {
@@ -308,8 +310,7 @@ class FormPost extends React.Component{
         document.body.appendChild(canvas);
         
         canvas.onclick = () => {
-          this.setState({clicked: false});
-          this.setState({rows: 1})
+          this.setState({clicked: false, rows: 1, urlBool: false});
           canvas.style.opacity = 0;
           setTimeout(() => canvas.remove(), 200)
           
@@ -332,7 +333,7 @@ class FormPost extends React.Component{
         var urlDisplay;
         if(this.state.urlBool){
           urlInput = 
-          <div>
+          <div style={{marginTop: '5px'}}>
             <textarea placeholder="Paste your URL" 
               onFocus={this.openOverlay} 
               rows={this.state.rows} 
@@ -436,9 +437,9 @@ class FormPost extends React.Component{
                       
                         <div className='pt-3 pb-3'>
                           <div  style={{display: 'inline-block'}}>
-                            <input name="file" type="file"
+                            {/* <input name="file" type="file"
                               class="file-upload" data-cloudinary-field="image_id" onChange={this.fileSelectedHandler}
-                              data-form-data="{ 'transformation': {'crop':'limit','tags':'samples','width':3000,'height':2000}}"/>                        
+                              data-form-data="{ 'transformation': {'crop':'limit','tags':'samples','width':3000,'height':2000}}"/>                         */}
                           </div>
                           <div className='' style={{...{display: 'inline-block'},...{float: 'right'}}}>
                             <button id='posting-btn' class='btn btn-primary' style={{width: "100px"}} onClick={this.handleSubmit}>Post</button>

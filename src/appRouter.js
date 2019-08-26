@@ -52,7 +52,8 @@ class AppRouter extends React.Component{
 
           {/* <PrivateRouter authed={this.props.auth} authed2={a} path='/home' component={Home}/> */}
           <PrivateRouter authed={this.props.auth} authed2={a} path='/job' component={Jobpage}/>
-          <PrivateRouter authed={this.props.auth} authed2={a} path='/profile' component={Profile}/>
+          <PrivateRouter authed={this.props.auth} authed2={a} path='/profile' component={(props) => <Profile {...props} editable={true}/>}/>
+          <PrivateRouter authed={this.props.auth} authed2={a} path='/userProfile/:id' component={(props)=> <Profile {...props} editable={false}/>}/>
           <PrivateRouter authed={this.props.auth} authed2={a} path='/newsfeed' component={App}/>
         </Router>
     
