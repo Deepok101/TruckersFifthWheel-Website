@@ -50,3 +50,8 @@ ul.experience{
 .profileImg{
     border-radius: 5%;
 }
+
+.editLabel{
+    position: static !important;
+    margin-bottom: 5px;
+}

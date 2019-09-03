@@ -333,7 +333,9 @@ class FormPost extends React.Component{
         console.log(this.state)
         var urlInput = null
         var urlDisplay;
-        if(this.state.urlBool){
+        var mediaBtns;
+        var postBtnDiv;
+        if(this.state.urlBool === true){
           urlInput = 
           <div style={{marginTop: '5px'}}>
             <textarea placeholder="Paste your URL" 
@@ -353,10 +355,11 @@ class FormPost extends React.Component{
           </div>
             
 
-        } else if(this.state.urlBool !== false){
+        } else if(this.state.urlBool === false){
           urlInput = false
           urlDisplay = null
         }
+
         if(this.state.urlBool && this.state.url){
           urlDisplay = 
             <div class="p-4">
@@ -371,6 +374,46 @@ class FormPost extends React.Component{
             </div>
         } else if(!this.state.urlBool && !this.state.url){
           urlDisplay = null
+        }
+
+        if(this.state.clicked === true){
+          postBtnDiv = 
+            <div className='pt-3 pb-3 row justify-content-md-center'>
+              <div className='' style={{...{display: 'inline-block'}}}>
+                <PostBtn variant="contained" color="secondary">
+                  Post
+                </PostBtn>
+              </div>
+            </div>
+
+          mediaBtns = 
+          <ButtonGroup      
+            size="large"
+            aria-label="large outlined secondary button group"
+            className="btnGroup"
+          >
+            <StyledFab color="primary" variant="round" aria-label="delete" size="small" className="btnForm">
+              <label for="file-input">
+                <PhotoIcon className="iconForm"/>
+                Photos
+              </label>
+              <input id="file-input" type="file"
+              class="file-upload" data-cloudinary-field="image_id" onChange={this.fileSelectedHandler}
+              data-form-data="{ 'transformation': {'crop':'limit','tags':'samples','width':3000,'height':2000}}"/>          
+            </StyledFab>
+            <StyledFab color="primary" variant="round" aria-label="delete" size="small" className="btnForm"> 
+              <PhotoIcon className="iconForm"/>
+              Videos
+            </StyledFab>
+            <StyledFab onClick={()=> this.setState({urlBool: true})} color="primary" variant="round" aria-label="delete" size="small" className="btnForm">
+              <PhotoIcon className="iconForm"/>
+              URL
+            </StyledFab>
+          </ButtonGroup>
+
+        } else if(this.state.clicked === false){
+          postBtnDiv = null;
+          mediaBtns = null;
         }
 
         
@@ -403,50 +446,11 @@ class FormPost extends React.Component{
                         </div>
                         <hr/>
                         <div className="postBtns row justify-content-md-center">
-                          
-                      
-                          <ButtonGroup
-                        
-                            size="large"
-                            aria-label="large outlined secondary button group"
-                            className="btnGroup"
-                          >
-                            <StyledFab color="primary" variant="round" aria-label="delete" size="small" className="btnForm">
-                              <label for="file-input">
-                                <PhotoIcon className="iconForm"/>
-                                Photos
-                              </label>
-                              <input id="file-input" type="file"
-                              class="file-upload" data-cloudinary-field="image_id" onChange={this.fileSelectedHandler}
-                              data-form-data="{ 'transformation': {'crop':'limit','tags':'samples','width':3000,'height':2000}}"/>          
-                            </StyledFab>
-                            <StyledFab color="primary" variant="round" aria-label="delete" size="small" className="btnForm"> 
-                              <PhotoIcon className="iconForm"/>
-                              Videos
-                            </StyledFab>
-                            <StyledFab onClick={()=> this.setState({urlBool: true})} color="primary" variant="round" aria-label="delete" size="small" className="btnForm">
-                              <PhotoIcon className="iconForm"/>
-                              URL
-                            </StyledFab>
-
-                          </ButtonGroup>
-
+                          {mediaBtns}
                         </div>
-
-                         
-
-
-                      
-                        <div className='pt-3 pb-3'>
-                          <div  style={{display: 'inline-block'}}>
-                            {/* <input name="file" type="file"
-                              class="file-upload" data-cloudinary-field="image_id" onChange={this.fileSelectedHandler}
-                              data-form-data="{ 'transformation': {'crop':'limit','tags':'samples','width':3000,'height':2000}}"/>                         */}
-                          </div>
-                          <div className='' style={{...{display: 'inline-block'},...{float: 'right'}}}>
-                            <button id='posting-btn' class='btn btn-primary' style={{width: "100px"}} onClick={this.handleSubmit}>Post</button>
-                          </div>
-                        </div>
+                    
+                        {/* <button id='posting-btn' class='btn btn-primary' style={{width: "100px"}} onClick={this.handleSubmit}>Post</button> */}
+                        {postBtnDiv}
                       </div>
                     </div>
                   </form>
@@ -468,7 +472,7 @@ const StyledFab = withStyles({
   root: {
     borderRadius: 3,
     border: 0,
-    width: '150px !important',
+    width: '168px !important',
     color: 'white',
     padding: '0 30px',
     boxShadow: 'none !important'
@@ -477,6 +481,32 @@ const StyledFab = withStyles({
     textTransform: 'capitalize',
   },
 })(Fab);
+
+const PostBtn = withStyles({
+  root: {
+    boxShadow: 'none',
+    textTransform: 'none',
+    fontSize: 16,
+    padding: '6px 12px',
+    border: '1px solid',
+    lineHeight: 1.5,
+    backgroundColor: '#007bff',
+    borderColor: '#007bff',
+    width: '504px',
+    '&:hover': {
+      backgroundColor: '#0069d9',
+      borderColor: '#0062cc',
+    },
+    '&:active': {
+      boxShadow: 'none',
+      backgroundColor: '#0062cc',
+      borderColor: '#005cbf',
+    },
+    '&:focus': {
+      boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
+    },
+  },
+})(Button2);
 
 
 

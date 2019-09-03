@@ -1,6 +1,8 @@
 import React from 'react';
 import CurrentPos from './currentPos'
-
+import Fab from '@material-ui/core/Fab';
+import EditIcon from '@material-ui/icons/Edit';
+import EditModal from './editProfile'
 import './style.css'
 
 class Bio extends React.Component {
@@ -8,7 +10,7 @@ class Bio extends React.Component {
     super(props);
 
     this.state = {
-      loaded: false
+      editMode: false
     }
 
    
@@ -28,17 +30,28 @@ class Bio extends React.Component {
     const lastName = window.sessionStorage.getItem('auth_lastName');
 
       return(
-        <div className=''>
-          <div className='profileName'>
-              <h1 className='profileName'>{firstName} {lastName}</h1>
+        <div className='card p-4'>
+          <Fab style={{...{position: "absolute"},...{left: '90%'}}} size="small" onClick={() => this.setState({editMode: true})}  aria-label="edit">
+            <EditIcon />
+          </Fab>
+          <div className='profileImage ml-2 mt-2'>
+            <img className='profileImg' width="200px" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"/>
           </div>
-          <div className='currentPosition'>
-              <CurrentPos currentPosCompany={this.props.currentPosCompany} currentPosJob={this.props.currentPosJob}/>
-          </div>
-          <div className='profileBio'>
-              {this.props.description}
-          </div> 
+          <div className='bottomimage m-2'>
+            <div className=''>
+              <div className='profileName'>
+                  <h1 className='profileName'>{firstName} {lastName}</h1>
+              </div>
+              <div className='currentPosition'>
+                  <CurrentPos currentPosCompany={this.props.currentPosCompany} currentPosJob={this.props.currentPosJob}/>
+              </div>
+              <div className='profileBio'>
+                  {this.props.description}
+              </div>
 
+            </div>
+          </div>
+          <EditModal userID={this.props.userID} show={this.state.editMode} bio={this.props.description} fname={firstName} lname={lastName} currentPosition={this.props.currentPosJob} company={this.props.currentPosCompany} onHide={() => this.setState({editMode: false})}/>
         </div>
       )
     

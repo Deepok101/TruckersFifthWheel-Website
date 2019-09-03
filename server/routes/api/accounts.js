@@ -111,7 +111,29 @@ router.post('/update', (req, res)=>{
                                             'profile.experience': experience,
                                             'profile.education': education,
                                             'profile.highlights': highlights}}).then(acc => res.json(acc))
-    })
+})
+
+router.post('/update/bio', (req, res)=>{
+    var id = req.body.id;
+    var bio = req.body.bio;
+    var currentPosition = req.body.currentPosition; //Object
+
+    Accounts.updateOne({_id: id}, {$set: {'profile.bio': bio, 
+                                            'profile.currentPosition': currentPosition}}).then(acc => res.json(acc))
+})
+
+router.post('/update/highlights', (req, res)=>{
+    var id = req.body.id;
+    var highlights = req.body.highlights;
+
+    Accounts.updateOne({_id: id}, {$set: {'profile.highlights': highlights}}).then(acc => res.json(acc))
+})
+router.post('/update/education', (req, res)=>{
+    var id = req.body.id;
+    var education = req.body.education;
+
+    Accounts.updateOne({_id: id}, {$set: {'profile.education': education}}).then(acc => res.json(acc))
+})
 
 router.post('/', (req, res) => {
     const newAccount = new Accounts({

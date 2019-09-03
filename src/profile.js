@@ -2,14 +2,14 @@ import React from 'react';
 import NavBar from "./components/navbar";
 import PastExperience from './profile/pastExp'
 import Bio from './profile/bio'
+import Highlights from './profile/highlights'
 import Nav from './profile/nav'
 import Posts from './components/assets/posts'
 import UserPosts from './profile/posts'
 import Button from 'react-bootstrap/Button'
 import ButtonMUI from '@material-ui/core/Button';
 
-import Fab from '@material-ui/core/Fab';
-import EditIcon from '@material-ui/icons/Edit';
+import Education from './profile/education'
 import AddIcon from '@material-ui/icons/Add';
 import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
@@ -23,7 +23,6 @@ import {
 import './profile/style.css'
 import ContentLoader, { Facebook } from 'react-content-loader'
 
-
 class Profile extends React.Component {
   constructor(props){
     super(props);
@@ -31,7 +30,10 @@ class Profile extends React.Component {
     this.state = {
       loaded: false,
       bio: null,
-      currentPos: "",
+      currentPos: {
+        company: "",
+        job: ""
+      },
       firstName: "",
       lastName: "",
       userID: null,
@@ -264,11 +266,7 @@ class Profile extends React.Component {
     if(this.state.editMode === false && this.props.editable === true){
       var bool = true
       var submitBtn = null
-      var highlight = this.state.highlights.map(value => 
-        <li>
-          {value}
-        </li>
-      )
+  
       var editTextArea = (value) => {
         return value
       }
@@ -278,12 +276,21 @@ class Profile extends React.Component {
       var button = (func) => {
         return null
       }
-      var experience = this.state.experience.map(experience => 
-        <PastExperience title={experience.title} year={experience.year} position={experience.position} description={experience.description}/>
-      )
-      var education = this.state.education.map((val) => {
-        return val
-      })
+      if(this.state.experience){
+        var experience = this.state.experience.map(experience => 
+          <PastExperience title={experience.title} year={experience.year} position={experience.position} description={experience.description}/>
+        )
+      } else {
+        experience = null;
+      }
+      if(this.state.education){
+        var education = this.state.education.map((val) => {
+          return val
+        })
+      } else {
+        education = null;
+      }
+
     }
     if(this.state.editMode === true && this.props.editable === true){
       var bool = false;
@@ -298,8 +305,8 @@ class Profile extends React.Component {
             <TextField
               id={index}   
               onChange={this.handleHighlightChange}                          
-              value={value}              
-              variant="filled"
+              value={value}      
+              style={{marginTop: '10px'}}        
               InputProps={{
                 endAdornment: (
                   <InputAdornment id={value} onClick={() => this.handleHighlightRemove(index)}
@@ -438,43 +445,13 @@ class Profile extends React.Component {
           <Nav clicked={this.handleNavClick}/>
 
             <div className=''>
-              <div className='card p-4'>
-              <Fab style={{...{position: "absolute"},...{left: '90%'}}} onClick={()=> this.setState({editMode: bool})} color="secondary" aria-label="edit">
-                <EditIcon />
-              </Fab>
-                <div className='profileImage ml-2 mt-2'>
-                  <img className='profileImg' width="200px" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"/>
-                </div>
-                <div className='bottomimage m-2'>
-                  <Bio currentPosCompany={editInput(this.state.currentPos.company, "company", this.handleCurrentPosChange)} currentPosJob={editInput(this.state.currentPos.job, "job", this.handleCurrentPosChange)} description={editTextArea(this.state.bio)}/>
-                </div>
-              </div>
-              
-              <div className='card p-4 mt-3'>
-                <div className='bottomImage ml-2 mr-2'>
-                  <div className='highlights'>
-                    <h2>Skills and Highlights</h2>
-                      <ul className='experience' style={{...{columns: 5},...{fontSize: '1.08em'},...{lineHeight: '1.6'}}}>
-                        {highlight}
-                      </ul>
-                  </div>
-                  <div className='p-2'>
-                    {button(this.handleHighlightAdd)}
-                  </div>
-                </div>
-              </div>
+      
+              <Bio userID={this.state.userID} currentPosCompany={editInput(this.state.currentPos.company, "company", this.handleCurrentPosChange)} currentPosJob={editInput(this.state.currentPos.job, "job", this.handleCurrentPosChange)} description={editTextArea(this.state.bio)}/>
 
-              <div className='card p-4 mt-3'>
-                <div className='bottomImage ml-2 mr-2'>
-                  <div className='education'>
-                    <h2>Education</h2>
-                    <p style={{fontSize: '1.05em'}}>
-                      {education}
-                    </p>
-                    {button(() => this.handleAdd(this.state.education, 'education'))}
-                  </div>
-                </div>
-              </div>
+              
+              <Highlights userID={this.state.userID} highlights={this.state.highlights} button={button(this.handleHighlightAdd)}/>
+
+              <Education userID={this.state.userID} education={this.state.education}/>
 
               <div className='card p-4 mt-3'>
                 <div className='bottomImage ml-2 mr-2'>
@@ -489,7 +466,6 @@ class Profile extends React.Component {
                   </div>
                 </div>
               </div>
-              
             {submitBtn}
             </div>
             <div ref={this.DivtoFocus} className='allposts pt-5'>
@@ -499,7 +475,6 @@ class Profile extends React.Component {
               {posts}
             </div>
           </div>
-      
         </div>
         
     

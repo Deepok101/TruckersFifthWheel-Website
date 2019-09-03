@@ -102,10 +102,19 @@ const AccountSchema = new Schema({
             type: Array,
             required: false
         },
-        education: {
-            type: Array,
-            required: false
-        },
+        education: [
+            {
+                institutionName: {
+                    type: String
+                },
+                institutionType: {
+                    type: String
+                },
+                years: {
+                    type: String
+                }
+            }
+        ],
         location: {
             type: String,
             required: false

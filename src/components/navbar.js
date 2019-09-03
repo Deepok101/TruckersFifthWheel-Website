@@ -51,7 +51,12 @@ class NavBar extends React.Component{
       headers: {
         'Content-Type': 'application/json'
       }
-    }).then(res => res.json()).then(data => this.setState({friends: data.profile.connections.friendList}))
+    }).then(res => res.json())
+      .then(data => {
+        let friends = data.profile.connections.friendList;
+        let friendReqs = friends.filter(friend => friend.statusNumber == 2); 
+        this.setState({friends: friends, friendReqs: friendReqs});
+      })
   }
 
   render(){
@@ -121,7 +126,7 @@ class NavBar extends React.Component{
             </Badge>
           </IconButton>
           <IconButton onClick={() => this.setState(prevState => ({friendToggle: !prevState.friendToggle}))} size='small' color='inherit' style={{margin: '0px 10px'}}>
-            <Badge badgeContent={this.state.friends.length} color="secondary"> 
+            <Badge badgeContent={this.state.friendReqs.length} color="secondary"> 
               <GroupAddIcon size='small'/>
             </Badge>
           </IconButton>
@@ -130,7 +135,7 @@ class NavBar extends React.Component{
         </div>
       </nav>
         <NotificationBar invisible={this.state.notificationToggle}/>
-        <FriendReqBar invisible={this.state.friendToggle} friendReqs={this.state.friends}/>
+        <FriendReqBar invisible={this.state.friendToggle} friendReqs={this.state.friendReqs}/>
       </div>
       );
   }

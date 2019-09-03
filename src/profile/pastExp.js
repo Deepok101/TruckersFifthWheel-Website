@@ -24,15 +24,11 @@ class CurrentPos extends React.Component {
             </b>
           </div>   
           <div style={{display: 'block'}} >
-            <b>
-             
-            </b>
+        
             {this.props.position}
           </div>          
           <div style={{display: 'block'}} >
-            <b>
-             
-            </b>
+      
             <div className="experienceDesc">
               {this.props.year}
             </div>
