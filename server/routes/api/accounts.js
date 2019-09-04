@@ -8,7 +8,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 
 //Item Model
-const Accounts = require('../../models/accounts')
+const Accounts = require('../../models/accounts');
+const Notifications = require('../../models/notifications');
 
 router.use(session({
 	secret: 'secret',
@@ -21,6 +22,28 @@ router.use(session({
 router.get('/', (req, res) => {
     Accounts.findOne({username: "deepok", password: "deepok"}).then(data => res.json(data))
 });
+
+router.post('/notifications/all', (req, res) => {
+    var receiverID = req.body.receiverID;
+    Notifications.find({receiver: receiverID}).then(data => res.json(data))
+})
+
+router.post('/notifications/head', (req, res) => {
+    var receiverID = req.body.receiverID;
+    Notifications.find({receiver: receiverID}).limit(5).then(data => res.json(data));
+})
+
+router.post('/', (req, res) => {
+    const newAccount = new Accounts({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        username: req.body.username,
+        password: req.body.password
+    });
+
+    newAccount.save().then(post => res.json(post))
+})
 
 router.post('/verify', (req, res)=>{
     var firstName = req.body.fname;
@@ -135,17 +158,14 @@ router.post('/update/education', (req, res)=>{
     Accounts.updateOne({_id: id}, {$set: {'profile.education': education}}).then(acc => res.json(acc))
 })
 
-router.post('/', (req, res) => {
-    const newAccount = new Accounts({
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        email: req.body.email,
-        username: req.body.username,
-        password: req.body.password
-    });
+router.post('/update/education', (req, res)=>{
+    var id = req.body.id;
+    var experience = req.body.experience;
 
-    newAccount.save().then(post => res.json(post))
+    Accounts.updateOne({_id: id}, {$set: {'profile.experience': experience}}).then(acc => res.json(acc))
 })
+
+
 var urlencodedParser = express.urlencoded({extended: false});
 
 router.post('/auth', urlencodedParser, (req, res1) => {

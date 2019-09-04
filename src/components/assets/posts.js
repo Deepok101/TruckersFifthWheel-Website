@@ -18,6 +18,7 @@ class Posts extends React.Component{
     super(props);
     this.state = {
       likes: this.props.likes,
+      authorID: this.props.authorID,
       clicked: false,
       likedBy: [],
       comment: "",
@@ -46,12 +47,15 @@ class Posts extends React.Component{
 
     const socket = socketIOClient.connect(this.state.endpoint, {transports:['websocket']})
 
+    
     socket.on('comment', (data) => {
       var body = {
         user: data.user,
         text: data.msg
       }
-      this.setState(prevState=>({comments: [body,...prevState.comments]}));
+      if(data.id == this.props.id){
+        this.setState(prevState=>({comments: [body,...prevState.comments]}));
+      }
       
 
     })
@@ -131,14 +135,15 @@ class Posts extends React.Component{
     const username = window.sessionStorage.getItem('auth_firstName')
 
     var body = {
-      "id": this.props.id,
+      "PostId": this.props.id,
       "user": username,
       "userID": this.userID,
+      "receiverID": this.state.authorID,
       "comment": this.state.comment
   }
 
-  socket.emit('send comment', body.comment, body.user, body.userID, body.id);
-
+    socket.emit('send comment', body.comment, body.user, body.userID, body.receiverID, body.PostId);
+    socket.emit('send notification', body.receiverID, body.userID, body.user, 'comment');
   }
 
   onTyped(e){

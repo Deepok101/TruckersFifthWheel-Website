@@ -15,7 +15,7 @@ import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import BackspaceIcon from '@material-ui/icons/Backspace';
-
+import Experience from './profile/experience'
 import {
   withRouter
 } from 'react-router-dom'
@@ -105,7 +105,7 @@ class Profile extends React.Component {
                                                             education: data.profile.education,
                                                             firstName: data.firstName,
                                                             lastName: data.lastName,
-                                                            userID: data._id,
+                                                            
                                                             loaded: true})).then(()=> callback())
     }
     
@@ -115,8 +115,6 @@ class Profile extends React.Component {
       .then(res => res.json())
       .then(data => this.setState({posts: data}))
   }
-
-
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -240,112 +238,12 @@ class Profile extends React.Component {
       boxSizing: "border-box",
     }
     if(this.props.editable === false){
-      var bool = true
       var submitBtn = null
-      var highlight = this.state.highlights.map(value => 
-        <li>
-          {value}
-        </li>
-      )
-      var editTextArea = (value) => {
-        return value
-      }
-      var editInput = (value) => {
-        return value
-      }
-      var button = (func) => {
-        return null
-      }
-      var experience = this.state.experience.map(experience => 
-        <PastExperience title={experience.title} year={experience.year} position={experience.position} description={experience.description}/>
-      )
-      var education = this.state.education.map((val) => {
-        return val
-      })
+     
     }
-    if(this.state.editMode === false && this.props.editable === true){
-      var bool = true
-      var submitBtn = null
   
-      var editTextArea = (value) => {
-        return value
-      }
-      var editInput = (value) => {
-        return value
-      }
-      var button = (func) => {
-        return null
-      }
-      if(this.state.experience){
-        var experience = this.state.experience.map(experience => 
-          <PastExperience title={experience.title} year={experience.year} position={experience.position} description={experience.description}/>
-        )
-      } else {
-        experience = null;
-      }
-      if(this.state.education){
-        var education = this.state.education.map((val) => {
-          return val
-        })
-      } else {
-        education = null;
-      }
-
-    }
     if(this.state.editMode === true && this.props.editable === true){
-      var bool = false;
-      var submitBtn = <Button variant="success" onClick={this.submitUpdate}>Submit</Button>
-      var highlight = this.state.highlights.map((value, index) => 
-
-      {
-        return(
-        <li>
-         
-            {/* <input onChange={this.handleHighlightChange} id={index} style={inputEditStyle} value={value}/> */}
-            <TextField
-              id={index}   
-              onChange={this.handleHighlightChange}                          
-              value={value}      
-              style={{marginTop: '10px'}}        
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment id={value} onClick={() => this.handleHighlightRemove(index)}
-                  position="end">
-                    <IconButton
-                      edge="end"
-                      aria-label="toggle password visibility"
-                  
-                    >
-                        <BackspaceIcon fontSize="small"/>
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
-         
-        </li>
-      )}
-      )
-      var editTextArea = (value) => {
-        return <textarea onChange={this.handleBioChange} ref={this.BioRef} style={inputEditStyle} rows='5' value={value}></textarea>
-      }
-
-      var editInput = (value, name, func, index, label, marginTop) => {
-        return <div><TextField label={label} fullWidth id="standard-full-width" variant='standard' onChange={func} value={value} style={{marginTop: marginTop}} id={index} name={name}/></div>
-      }
-    
-      var button = (func) => {
-        return <ButtonMUI onClick={func} variant='contained' color='primary'><AddIcon variant="primary"/></ButtonMUI>
-      }
-      var experience = this.state.experience.map((experience, index) => {
-        let func = this.handleExperienceChange
-        return <PastExperience title={editInput(experience.title, "title", func,  index, 'Job Title', '1em')} 
-                                year={editInput(experience.year, "year", func, index, 'Year', '1em')} 
-                                position={editInput(experience.position, "position", func, index, 'Position', '1em')} 
-                                description={editInput(experience.description, "description", func, index, 'Description', '1em')}/>
-        }
-      )
-      var education = this.state.education.map((education, index) => editInput(education, "education", (e) => this.handleChange(e, this.state.education, 'education'), index))
+     
     }
     
     if(this.state.loaded === false){
@@ -387,9 +285,6 @@ class Profile extends React.Component {
                         <rect x="210" y="30" rx="3" ry="3" width="60" height="5" />
                         <rect x="280" y="30" rx="3" ry="3" width="60" height="5" />
                       </ContentLoader>
-                  </div>
-                  <div className='p-2'>
-                    {button(this.handleHighlightAdd)}
                   </div>
                 </div>
               </div>
@@ -446,26 +341,14 @@ class Profile extends React.Component {
 
             <div className=''>
       
-              <Bio userID={this.state.userID} currentPosCompany={editInput(this.state.currentPos.company, "company", this.handleCurrentPosChange)} currentPosJob={editInput(this.state.currentPos.job, "job", this.handleCurrentPosChange)} description={editTextArea(this.state.bio)}/>
+              <Bio userID={this.state.userID} editable={this.props.editable} currentPosCompany={this.state.currentPos.company} currentPosJob={this.state.currentPos.job} description={this.state.bio}/>
 
-              
-              <Highlights userID={this.state.userID} highlights={this.state.highlights} button={button(this.handleHighlightAdd)}/>
+              <Highlights userID={this.state.userID} editable={this.props.editable} highlights={this.state.highlights} />
 
-              <Education userID={this.state.userID} education={this.state.education}/>
+              <Education userID={this.state.userID} editable={this.props.editable} education={this.state.education}/>
 
-              <div className='card p-4 mt-3'>
-                <div className='bottomImage ml-2 mr-2'>
-                  <div className='pastExperience'>
-                    <h2>Experience</h2>
-                    {experience}
-                    <div className='p-2'> 
-                      {button(this.handleExperienceAdd)}
+              <Experience experience={this.state.experience} editable={this.props.editable} userID={this.state.userID}/>
 
-                    </div>
-
-                  </div>
-                </div>
-              </div>
             {submitBtn}
             </div>
             <div ref={this.DivtoFocus} className='allposts pt-5'>

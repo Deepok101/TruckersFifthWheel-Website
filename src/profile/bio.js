@@ -28,12 +28,19 @@ class Bio extends React.Component {
   render(){
     const firstName = window.sessionStorage.getItem('auth_firstName');
     const lastName = window.sessionStorage.getItem('auth_lastName');
+    var editbtn;
+    if(this.props.editable === true){
+      editbtn = 
+      <Fab style={{...{position: "absolute"},...{left: '90%'}}} size="small" onClick={() => this.setState({editMode: true})}  aria-label="edit">
+        <EditIcon />
+      </Fab>
 
+    } else {
+      editbtn = null;
+    }
       return(
         <div className='card p-4'>
-          <Fab style={{...{position: "absolute"},...{left: '90%'}}} size="small" onClick={() => this.setState({editMode: true})}  aria-label="edit">
-            <EditIcon />
-          </Fab>
+          {editbtn}
           <div className='profileImage ml-2 mt-2'>
             <img className='profileImg' width="200px" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"/>
           </div>

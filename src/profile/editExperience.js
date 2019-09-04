@@ -20,14 +20,17 @@ class EditEducation extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            education: this.props.education,
-            institutionName: "",
-            institutionType: "",
-            years: ""
+            experience: this.props.experience || [],
+            title: "",
+            year: "",
+            position: "",
+            description: ""
+            
+           
         }
 
         this.handleInputChange = this.handleInputChange.bind(this)
-        this.handleEducationChange = this.handleEducationChange.bind(this)
+        this.handleExperienceChange = this.handleExperienceChange.bind(this)
         this.updateProfile = this.updateProfile.bind(this)
         this.handleEducationAdd = this.handleEducationAdd.bind(this)
     }
@@ -35,11 +38,11 @@ class EditEducation extends React.Component{
 
         let body = {
             "id": this.props.userID,
-            "education": this.state.education
+            "experience": this.state.experience
             }
             
           
-          fetch('api/accounts/update/education', {
+          fetch('api/accounts/update/experience', {
             method:"POST",
             body: JSON.stringify(body),
             headers: {
@@ -52,13 +55,14 @@ class EditEducation extends React.Component{
       
     }
 
-    handleEducationChange(e){
+    handleExperienceChange(e){
         this.setState({[e.target.name]: e.target.value});
-        let a = this.state.education;
+        let a = this.state.experience;
         var replace = {
-            "institutionName": this.state.institutionName,
-            "institutionType": this.state.institutionType,
-            "years": this.state.years
+            "title": this.state.title,
+            "year": this.state.year,
+            "position": this.state.position,
+            "description": this.state.description
         }
         a.splice(e.target.id, 1, replace)
         this.setState({education: a})
@@ -71,11 +75,12 @@ class EditEducation extends React.Component{
         this.setState({education: a})
     }
     handleEducationAdd(){
-        let a = this.state.education;
+        let a = this.state.experience;
         let add = {
-            "institutionName": "",
-            "institutionType": "",
-            "years": ""
+            "title": "",
+            "years": "",
+            "position": "",
+            "description": ""
         }
         a.push(add);
         this.setState({education: a})
@@ -85,33 +90,44 @@ class EditEducation extends React.Component{
 
     render(){
         const { classes } = this.props;
-        var education = this.state.education.map((index, education) => 
+        console.log(this.state.experience)
+        if(this.state.experience.length > 0){
+        var experience = this.state.experience.map((index, education) => 
             <form>
                 <IconButton className={classes.root} size="small" onClick={() => this.handleEducationRemove(index)}>
                     <CloseIcon  />
                 </IconButton>
                 <div class="form-group">
                     <div class='editLabel'>
-                        Institution Name
+                        Title
                     </div>
-                    <input type="email" name='institutionName' class="form-control" id={index} value={education.institutionName} onChange={this.handleEducationChange}/>
+                    <input type="email" name='title' class="form-control" id={index} value={education.title} onChange={this.handleExperienceChange}/>
                 </div>
                 <div class="form-group">
                     <div class='editLabel'>
-                        Institution Type
+                        Year
                     </div>
-                    <input type="email" name='institutionType' class="form-control" id={index} value={education.institutionType} onChange={this.handleEducationChange}/>
+                    <input type="email" name='year' class="form-control" id={index} value={education.years} onChange={this.handleExperienceChange}/>
                 </div>
                 <div class="form-group">
                     <div class='editLabel'>
-                        Years
+                        Position 
                     </div>
-                    <input type="email" name='years' value={this.state.currentPosition} id={index} onChange={this.handleEducationChange} class="form-control" value={education.years}/>
+                    <input type="email" name='position' id={index} onChange={this.handleExperienceChange} class="form-control" value={education.position}/>
                 </div>   
+                <div class="form-group">
+                    <div class='editLabel'>
+                        Description
+                    </div>
+                    <input type="email" name='description' id={index} onChange={this.handleExperienceChange} class="form-control" value={education.description}/>
+                </div>
                 <hr/>     
             </form>
             
             )
+        } else {
+            var experience = null;
+        }
         return(
             <Modal
                 {...this.props}
@@ -121,11 +137,11 @@ class EditEducation extends React.Component{
             >
                 <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Edit Bio
+                    Edit Experience
                 </Modal.Title>
                 </Modal.Header>
                 <Modal.Body >  
-                    {education}
+                    {experience}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={this.handleEducationAdd}>Add</Button>

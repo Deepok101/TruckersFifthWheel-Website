@@ -16,24 +16,82 @@ import IconButton from '@material-ui/core/IconButton';
 import NotificationBar from './assets/notificationBar'
 import FriendReqBar from './assets/friendsBar'
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
+import socketIOClient from 'socket.io-client';
+import Snackbar from '@material-ui/core/Snackbar';
+import CloseIcon from '@material-ui/icons/Close';
 
 class NavBar extends React.Component{
   constructor(props){
     super(props)
     this.handleLogout = this.handleLogout.bind(this)
     this.getFriendsReqData = this.getFriendsReqData.bind(this)
+    this.fetchUserNotifications = this.fetchUserNotifications.bind(this)
 
     this.state = {
       friends: [],
       friendReqs: [],
       modalShow: false,
+      notifications: [],
       notificationToggle: true,
-      friendToggle: true
+      friendToggle: true,
+      setNotifOpen: false,
+      notifContent: ""
     }
+
+    this.userID = window.sessionStorage.getItem('id');
+    this.endpoint = 'http://localhost:5000';
+    this.socket = socketIOClient.connect(this.endpoint, {transports:['websocket']});
+    this.notifSnackbar = null;
+
   }
   componentDidMount(){
-    this.getFriendsReqData()
+    if(this.userID){
+      this.getFriendsReqData();
+      this.fetchUserNotifications();
+    }
+    this.socket.on('notification', (data)=> {
+      console.log("TEST")
+      this.setState({notifContent: data.content, setNotifOpen: true})
+    })
+
   }
+
+  notificationSnackbar(content){
+    return (
+    <div>
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+          }}
+          open={this.state.setNotifOpen}
+          autoHideDuration={6000}
+          onClose={(event, reason)=> {
+            if (reason === 'clickaway') {
+              return;
+            }
+        
+            this.setState({setNotifOpen: false});
+          }}
+          ContentProps={{
+            'aria-describedby': 'message-id',
+          }}
+          message={<span id="message-id">{content}</span>}
+          action={[
+            <IconButton
+              key="close"
+              aria-label="close"
+              color="inherit"
+              onClick={() => this.setState({setNotifOpen: false})}
+            >
+              <CloseIcon />
+            </IconButton>,
+          ]}
+      />
+      </div>
+    )
+  }
+
   handleLogout(){
     this.props.logout();
     window.sessionStorage.clear();
@@ -41,8 +99,10 @@ class NavBar extends React.Component{
   }
 
   getFriendsReqData(){
+    console.log(this.userID)
+
     var body = {
-      "id": "5cede2fb0530b21d94733d27"
+      "id": this.userID
     }
 
     fetch('/api/accounts/profile', {
@@ -59,7 +119,26 @@ class NavBar extends React.Component{
       })
   }
 
+  fetchUserNotifications(){
+    var body = {
+      "receiverID": this.userID
+    }
+
+    fetch('/api/accounts/notifications/head', {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(res => res.json())
+      .then(data => {
+        this.setState({notifications: data})
+      }).then(() => console.log(this.state.notifications))
+  }
+
   render(){
+    console.log(this.state.setNotifOpen)
+
     const username = window.sessionStorage.getItem('auth_firstName')
 
     let log;
@@ -79,12 +158,15 @@ class NavBar extends React.Component{
             </a>
     }
 
+
     let modalClose = () => this.setState({modalShow: false})
 
     if(this.state.friends){
       var a = <FriendReqBar friendReqs={this.state.friends}/>
 
     }
+
+    let snackbar = this.notificationSnackbar(this.state.notifContent)
     return(
       <div class="sticky-top">
 
@@ -134,18 +216,17 @@ class NavBar extends React.Component{
           {log}
         </div>
       </nav>
-        <NotificationBar invisible={this.state.notificationToggle}/>
+        <NotificationBar invisible={this.state.notificationToggle} notifications={this.state.notifications}/>
         <FriendReqBar invisible={this.state.friendToggle} friendReqs={this.state.friendReqs}/>
+        {snackbar}
       </div>
       );
   }
   
 }
-NavBar.propTypes = {
-  username: PropTypes.string.isRequired
-}
+
 const mapStateToProps = state => ({
-  username: state.auth.name
+  userID: state.auth.userID,
 })
 
 export default  withRouter(connect(mapStateToProps, { logout })(NavBar));

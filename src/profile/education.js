@@ -34,12 +34,20 @@ export default class Education extends React.Component{
             </ul>
             )
 
+        var editbtn;
+        if(this.props.editable === true){
+            editbtn = 
+            <Fab style={{...{position: "absolute"},...{left: '90%'}}} size="small" onClick={() => this.setState({editMode: true})}  aria-label="edit">
+            <EditIcon />
+            </Fab>
+    
+        } else {
+            editbtn = null;
+        }           
         return(
             <div className='card p-4 mt-3'>
             <div className='bottomImage ml-2 mr-2'>
-            <Fab style={{...{position: "absolute"},...{left: '90%'}}} size="small" onClick={() => this.setState({editMode: true})}  aria-label="edit">
-                <EditIcon />
-            </Fab>
+            {editbtn}
               <div className='education'>
                 <h2>Education</h2>
                 <ul>
@@ -47,7 +55,7 @@ export default class Education extends React.Component{
                 </ul>
               </div>
             </div>
-            <EditEducation show={this.state.editMode} onHide={() => this.setState({editMode: false})}/>
+            <EditEducation education={this.props.education} show={this.state.editMode} onHide={() => this.setState({editMode: false})}/>
           </div>
         )
     }

@@ -61,9 +61,24 @@ app.get('/home', (req, res) => {
 //Socket.io Real Time Chat and Comment System
 const Chat = require('./models/Chat')
 const Posts = require('./models/Posts')
+const Notification = require('./models/notifications');
+
 io.set('transports', ['websocket']);
 
 io.on('connection', (socket)=>{
+  socket.on('send notification', (receiverID, senderID, senderName, type) => {
+    let content = `${senderName} has commented on your post`
+    const newCommentNotification = new Notification({
+      sender: senderID,
+      receiver: receiverID,
+      content: content,
+      type: type
+    })
+
+    newCommentNotification.save();
+    io.sockets.emit('notification', {receiverID, senderID, content});
+  })
+
   socket.on('send message', (sent_msg, user)=>{
     io.sockets.emit('message', `${sent_msg} by ${user}`);
     const newChat = new Chat({
@@ -73,19 +88,21 @@ io.on('connection', (socket)=>{
     newChat.save();
   })
 
-  socket.on('send comment', (comment, user, userID, id)=>{
-    io.sockets.emit('comment', {id: id, user: user, msg:`${comment}`});
+  socket.on('send comment', (comment, user, userID, authorID, PostId)=>{
+    io.sockets.emit('comment', {id: PostId, user: user, msg:`${comment}`});
 
     var comment = {
         user: user,
         userID: userID,
         text: comment
     }
-    Posts.updateOne({_id: id}, {$push: {comments: comment}} , (err, res)=>{
+
+    Posts.updateOne({_id: PostId}, {$push: {comments: comment}} , (err, res)=>{
         if (err){
             console.log(err)
         }
     })
+
   })
   socket.on('send like', (id, user)=>{
     io.sockets.emit('like', ({id:id, user:user}));
