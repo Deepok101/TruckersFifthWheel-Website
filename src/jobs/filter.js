@@ -23,8 +23,8 @@ class JobFilter extends React.Component{
 
     render(){
         return(
-          <div class='jobFilter'>
-            <div class='p-2 pl-3'>
+          <div class='jobFilter' style={{display: 'inline-block'}}>
+            <div class='p-2 pl-3' >
             <p>Filter By...</p>
               <div>
                 <ul class='salary pl-2'>

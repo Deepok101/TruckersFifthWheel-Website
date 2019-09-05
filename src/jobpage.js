@@ -103,15 +103,15 @@ class Jobpage extends React.Component {
           <JobForm handleSubmit={this.onSubmit}/>
           
           <div className='container-fluid'>
-            <div className='row' >
+            <div className='' style={{display: 'inline-block'}}>
               <JobFilter locationFilter={this.onLocationFilterClick} salaryFilter={this.onFilterClick}/>
-              <div className='row' style={{...{marginLeft: "20px"},...{marginRight: 'auto'}}}> 
-                <div className=''>
-                  <div className='jobContainer div-fadeIn' style={{marginTop: '20px'}}>
+              <div className='' style={{...{marginLeft: "20px"},...{marginRight: 'auto'},...{display: 'inline-block'}}}> 
+                <div className='' style={{display: 'inline-block'}}>
+                  <div className='jobContainer div-fadeIn' style={{marginTop: '0px'}}>
                     {jobposts}
                   </div>
                 </div>
-                <div className='' style={{marginTop: '20px'}}>
+                <div className='' style={{display: 'inline-block'}}>
                   {/* <Job jobDesc={this.state.jobDesc} show={this.state.clicked} jobName={this.state.jobName}/> */}
                   <Route path='/job/:id' render={(props) => <Job {...props} city={this.state.city} load={this.onLoad} jobCompany={this.state.company} jobDesc={this.state.jobDesc} show={this.state.clicked} jobName={this.state.jobName}/>}/>
 

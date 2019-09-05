@@ -41,9 +41,22 @@ class Bio extends React.Component {
       return(
         <div className='card p-4'>
           {editbtn}
-          <div className='profileImage ml-2 mt-2'>
+          <div className='d-flex profileImage ml-2 mt-2 row'>
             <img className='profileImg' width="200px" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"/>
+            <div className='rightImage ml-3 mr-auto row justify-content-center'>
+              <h5 style={{padding: 13}}>
+                Reputation: 100
+              </h5>
+              <h5 style={{padding: 13}}>
+                30 Connections
+              </h5>
+              <h5 style={{padding: 13}}> 
+                1000 Followers
+              </h5>
+            </div>
           </div>
+
+          
           <div className='bottomimage m-2'>
             <div className=''>
               <div className='profileName'>

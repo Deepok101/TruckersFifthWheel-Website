@@ -63,7 +63,6 @@ class FormPost extends React.Component{
 
     handleSubmit(e){
         e.preventDefault();
-  
         var text = this.props.value;
 
 
@@ -380,7 +379,7 @@ class FormPost extends React.Component{
           postBtnDiv = 
             <div className='pt-3 pb-3 row justify-content-md-center'>
               <div className='' style={{...{display: 'inline-block'}}}>
-                <PostBtn variant="contained" color="secondary">
+                <PostBtn type='submit' variant="contained" color="secondary">
                   Post
                 </PostBtn>
               </div>

@@ -140,7 +140,7 @@ class Jobpage extends React.Component{
     }
     
       return(
-        <div className="" style={{marginLeft: "5%"}}>
+        <div className="" style={{marginLeft: "15px"}}>
           <div className="jobbar p-2" id='jobpage'>
           <header className='pl-2'>
               <span className="job-page ">
