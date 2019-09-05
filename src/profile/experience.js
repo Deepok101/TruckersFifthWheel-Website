@@ -44,7 +44,7 @@ export default class Experience extends React.Component{
                 {editbtn}
                 <div className='bottomImage ml-2 mr-2'>
                   <div className='pastExperience'>
-                    <h2>Experience</h2>
+                    <h4 style={{fontWeight: 'normal'}}>Experience</h4>
                     {experience}
                     <div className='p-2'> 
                     </div>

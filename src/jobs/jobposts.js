@@ -40,15 +40,18 @@ class Jobposts extends React.Component{
 
     let modalClose = () => this.setState({modalShow: false})
     let wordcount = 20;
+    var count;
     let text = this.props.jobDesc.split(" ");
     for(var i=0; i<text.length - 1; i++){
       text[i] += " "
+      count = count + 1;
       if(i==wordcount){
-        break
+        break;
       }
+      
     }
   
-    text[wordcount+1] += "...";
+    text[count] += "...";
     
     return(
       <div className="jobposts ">

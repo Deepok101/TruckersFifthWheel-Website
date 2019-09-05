@@ -102,23 +102,28 @@ class Jobpage extends React.Component {
           <NavBar first='active' company="DeepEmploi" firstSection="Home" secondSection="NewsFeed" thirdSection="Chat" fourthSection="Contact Us"/>
           <JobForm handleSubmit={this.onSubmit}/>
           
-          <div className='container-fluid'>
-            <div className='' style={{display: 'inline-block'}}>
-              <JobFilter locationFilter={this.onLocationFilterClick} salaryFilter={this.onFilterClick}/>
-              <div className='' style={{...{marginLeft: "20px"},...{marginRight: 'auto'},...{display: 'inline-block'}}}> 
-                <div className='' style={{display: 'inline-block'}}>
-                  <div className='jobContainer div-fadeIn' style={{marginTop: '0px'}}>
-                    {jobposts}
-                  </div>
-                </div>
-                <div className='' style={{display: 'inline-block'}}>
-                  {/* <Job jobDesc={this.state.jobDesc} show={this.state.clicked} jobName={this.state.jobName}/> */}
-                  <Route path='/job/:id' render={(props) => <Job {...props} city={this.state.city} load={this.onLoad} jobCompany={this.state.company} jobDesc={this.state.jobDesc} show={this.state.clicked} jobName={this.state.jobName}/>}/>
+          <div>
+            <table>
+              <tbody>
+                <tr valign="top">
+                  <td className=''>
+                    <JobFilter locationFilter={this.onLocationFilterClick} salaryFilter={this.onFilterClick}/>
+                  </td>
+                  <td className='jobColumn'>
+                      <div className='jobContainer div-fadeIn' style={{marginTop: '0px'}}>
+                        {jobposts}
+                      </div>
+                  </td>
+                  <td className='jobColumn'>
+                      {/* <Job jobDesc={this.state.jobDesc} show={this.state.clicked} jobName={this.state.jobName}/> */}
+                      <Route path='/job/:id' render={(props) => <Job {...props} city={this.state.city} load={this.onLoad} jobCompany={this.state.company} jobDesc={this.state.jobDesc} show={this.state.clicked} jobName={this.state.jobName}/>}/>
 
-                </div>
-              </div>
-              
-            </div>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+
           </div>
           
         </div>

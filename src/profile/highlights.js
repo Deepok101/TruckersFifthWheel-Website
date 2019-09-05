@@ -48,7 +48,7 @@ export default class Highlights extends React.Component{
                 <div className='bottomImage mr-2'>
                     {editbtn}
                   <div className='highlights'>
-                    <h2>Skills and Highlights</h2>
+                    <h4 style={{fontWeight: 'normal'}}>Skills and Highlights</h4>
                       <ul className='experience' style={{...{columns: 5},...{fontSize: '1.08em'},...{lineHeight: '1.6'}}}>
                         {highlights}
                       </ul>

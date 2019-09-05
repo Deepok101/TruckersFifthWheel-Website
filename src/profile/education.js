@@ -38,7 +38,7 @@ export default class Education extends React.Component{
         if(this.props.editable === true){
             editbtn = 
             <Fab style={{...{position: "absolute"},...{left: '90%'}}} size="small" onClick={() => this.setState({editMode: true})}  aria-label="edit">
-            <EditIcon />
+                <EditIcon />
             </Fab>
     
         } else {
@@ -46,11 +46,11 @@ export default class Education extends React.Component{
         }           
         return(
             <div className='card p-4 mt-3'>
-            <div className='bottomImage ml-2 mr-2'>
+            <div className='bottomImage mr-2'>
             {editbtn}
               <div className='education'>
-                <h2>Education</h2>
-                <ul>
+                <h4 style={{fontWeight: 'normal'}}>Education</h4>
+                <ul className='ml-2'>
                     {education}
                 </ul>
               </div>
