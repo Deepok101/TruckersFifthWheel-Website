@@ -7,7 +7,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
 export default class LoadPost extends React.Component{
-    constructor(){
+    constructor(props){
+      super(props)
         this.state = {
 
         }
@@ -15,8 +16,8 @@ export default class LoadPost extends React.Component{
 
     render(){
         return(
-            <Paper className={classes.root}>
-            <Table className={classes.table}>
+            <Paper>
+            <Table>
               <TableHead>
                 <TableRow>
                   <TableCell>Dessert (100g serving)</TableCell>
@@ -26,19 +27,7 @@ export default class LoadPost extends React.Component{
                   <TableCell align="right">Protein&nbsp;(g)</TableCell>
                 </TableRow>
               </TableHead>
-              <TableBody>
-                {rows.map(row => (
-                  <TableRow key={row.name}>
-                    <TableCell component="th" scope="row">
-                      {row.name}
-                    </TableCell>
-                    <TableCell align="right">{row.calories}</TableCell>
-                    <TableCell align="right">{row.fat}</TableCell>
-                    <TableCell align="right">{row.carbs}</TableCell>
-                    <TableCell align="right">{row.protein}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
+
             </Table>
           </Paper>
         )

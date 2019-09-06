@@ -4,6 +4,7 @@ import Jobpost from './jobs/jobposts'
 import JobForm from './jobs/searchForm'
 import Job from './jobs/jobbar'
 import JobFilter from './jobs/filter'
+import LoadBoard from './jobs/loadPost'
 import {
   BrowserRouter as Router,
   Route,
@@ -26,7 +27,9 @@ class Jobpage extends React.Component {
       jobName: "",
       jobDesc: "",
       city: "",
-      id: 0
+      id: 0,
+      selectedOption: null,
+      selectedOptionVal: null
     }
 
     this.fetchJobs = this.fetchJobs.bind(this);
@@ -36,6 +39,11 @@ class Jobpage extends React.Component {
     this.onFilterClick = this.onFilterClick.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onLocationFilterClick = this.onLocationFilterClick.bind(this);
+    this.handleSelectOption = this.handleSelectOption.bind(this);
+
+
+
+
 
   }
   
@@ -73,6 +81,10 @@ class Jobpage extends React.Component {
 
   }
 
+  handleSelectOption(option){
+    this.setState({selectedOption: option, selectedOptionVal: option.value})
+  }
+
   componentWillMount(){
     this.setState({loaded: true})
     this.fetchJobs()
@@ -82,7 +94,12 @@ class Jobpage extends React.Component {
   render(){
     if(this.state.jobs !== undefined){
       var jobposts = this.state.jobs.map(job => { 
-        return <Jobpost city={job.city} active={this.isActive(job._id)} id={job._id} clicked={this.onClick} jobName={job.jobName} companyName={job.company} jobDesc={job.jobDescription} />
+        if(this.state.selectedOptionVal == "job"){
+          return <Jobpost city={job.city} active={this.isActive(job._id)} id={job._id} clicked={this.onClick} jobName={job.jobName} companyName={job.company} jobDesc={job.jobDescription} />
+        } 
+        if(this.state.selectedOptionVal == "load"){
+          return <LoadBoard/>
+        }
       })
     }
     if(this.state.jobs.length == 0){
@@ -94,13 +111,13 @@ class Jobpage extends React.Component {
     }
     
 
-    console.log(this.state.jobs)
+    console.log(this.state.selectedOption)
 
     if(this.state.loaded === true){
     return (
         <div>
           <NavBar first='active' company="DeepEmploi" firstSection="Home" secondSection="NewsFeed" thirdSection="Chat" fourthSection="Contact Us"/>
-          <JobForm handleSubmit={this.onSubmit}/>
+          <JobForm selectedOption={this.state.selectedOption} handleSelectChange={this.handleSelectOption} handleSubmit={this.onSubmit}/>
           
           <div>
             <table>

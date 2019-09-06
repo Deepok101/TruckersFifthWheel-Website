@@ -46,20 +46,20 @@ export default class Highlights extends React.Component{
 
         return(
             <div className='card p-4 mt-3'>
-                <div className='bottomImage mr-2'>
-                    {editbtn}
-                  <div className='highlights'>
-                    <h4 style={{fontWeight: 'normal'}}>Skills and Highlights</h4>
-                      <ul className='experience' style={{...{columns: 5},...{fontSize: '1.08em'},...{lineHeight: '1.6'}}}>
-                        {highlights}
-                      </ul>
-                  </div>
-                  <div className='p-2'>
-                    {this.props.button}
-                  </div>
+              <div className='bottomImage mr-2'>
+                {editbtn}
+                <div className='highlights'>
+                  <h4 style={{fontWeight: 'normal'}}>Skills and Highlights</h4>
+                    <ul className='experience' style={{...{columns: 5},...{fontSize: '1.08em'},...{lineHeight: '1.6'}}}>
+                      {highlights}
+                    </ul>
                 </div>
-                <EditHighlights userID={this.props.userID} highlights={this.props.highlights} show={this.state.editMode} onHide={() => this.setState({editMode: false})}/>
+                <div className='p-2'>
+                  {this.props.button}
+                </div>
               </div>
+              <EditHighlights userID={this.props.userID} highlights={this.props.highlights} show={this.state.editMode} onHide={() => this.setState({editMode: false})}/>
+            </div>
         )
     }
 }

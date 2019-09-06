@@ -30,7 +30,7 @@ class SearchJob extends React.Component{
     }
 
     handleSelectChange(selectedOption){
-      this.setState({ selectedOption });
+      this.props.handleSelectChange(selectedOption);
 
     }
 
@@ -39,7 +39,7 @@ class SearchJob extends React.Component{
     }
 
     render(){
-        console.log(this.state.selectedOption)
+        console.log(this.props.selectedOption)
         return(
             
               <div>
@@ -59,8 +59,7 @@ class SearchJob extends React.Component{
                         </div>
                         <div style={{...{width: 150},...{display: 'inline-block'}}}>
                           <Select
-                              defaultInputValue="Job"
-                              value={this.state.selectedOption}
+                              value={this.props.selectedOption}
                               onChange={this.handleSelectChange}
                               options={options}
                           />
