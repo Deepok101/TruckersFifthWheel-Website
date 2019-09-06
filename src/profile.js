@@ -8,6 +8,7 @@ import Posts from './components/assets/posts'
 import UserPosts from './profile/posts'
 import Button from 'react-bootstrap/Button'
 import ButtonMUI from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
 
 import Education from './profile/education'
 import AddIcon from '@material-ui/icons/Add';
@@ -337,26 +338,32 @@ class Profile extends React.Component {
         <div>
           <NavBar fifth='active' company="DeepEmploi" firstSection="Home" secondSection="NewsFeed" thirdSection="Chat" fourthSection="Contact Us"/>
           <div class='div-fadeIn container mt-4'>
+          
           <Nav clicked={this.handleNavClick}/>
 
             <div className=''>
-      
-              <Bio userID={this.state.userID} editable={this.props.editable} currentPosCompany={this.state.currentPos.company} currentPosJob={this.state.currentPos.job} description={this.state.bio}/>
 
-              <Highlights userID={this.state.userID} editable={this.props.editable} highlights={this.state.highlights} />
-
-              <Education userID={this.state.userID} editable={this.props.editable} education={this.state.education}/>
-
-              <Experience experience={this.state.experience} editable={this.props.editable} userID={this.state.userID}/>
+              <Paper>
+                <Bio userID={this.state.userID} editable={this.props.editable} currentPosCompany={this.state.currentPos.company} currentPosJob={this.state.currentPos.job} description={this.state.bio}/>
+              </Paper>
+              <Paper>
+                <Highlights userID={this.state.userID} editable={this.props.editable} highlights={this.state.highlights} />
+              </Paper>
+              <Paper>
+                <Education userID={this.state.userID} editable={this.props.editable} education={this.state.education}/>
+              </Paper>
+              <Paper>
+                <Experience experience={this.state.experience} editable={this.props.editable} userID={this.state.userID}/>
+              </Paper>
 
             {submitBtn}
             </div>
-            <div ref={this.DivtoFocus} className='allposts pt-5'>
+            {/* <div ref={this.DivtoFocus} className='allposts pt-5'>
               <div className='card ml-auto mr-auto' style={{...{backgroundColor: 'white'},...{textAlign: 'center'},...{padding: "25px 0"},...{width: '570px'}}}>
                 <h1>Your Feed</h1>
               </div>
               {posts}
-            </div>
+            </div> */}
           </div>
         </div>
         

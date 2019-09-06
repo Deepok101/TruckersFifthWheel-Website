@@ -39,7 +39,7 @@ class Bio extends React.Component {
       editbtn = null;
     }
       return(
-        <div className='card p-4'>
+        <div style={{position: 'relative'}} className='p-4'>
           {editbtn}
           <div className='d-flex profileImage mt-2'>
             <div className='col-3' style={{padding: 0}}>

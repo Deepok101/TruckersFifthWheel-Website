@@ -45,7 +45,7 @@ export default class Highlights extends React.Component{
         }
 
         return(
-            <div className='card p-4 mt-3'>
+            <div style={{position: 'relative'}}  className='p-4 mt-3'>
               <div className='bottomImage mr-2'>
                 {editbtn}
                 <div className='highlights'>

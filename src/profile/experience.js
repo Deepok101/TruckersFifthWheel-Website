@@ -40,7 +40,7 @@ export default class Experience extends React.Component{
           editbtn = null;
         }
         return(
-            <div className='card p-4 mt-3'>
+            <div style={{position: 'relative'}}  className='p-4 mt-3'>
                 {editbtn}
                 <div className='bottomImage ml-2 mr-2'>
                   <div className='pastExperience'>

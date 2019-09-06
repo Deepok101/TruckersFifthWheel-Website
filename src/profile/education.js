@@ -45,7 +45,7 @@ export default class Education extends React.Component{
             editbtn = null;
         }           
         return(
-            <div className='card p-4 mt-3'>
+            <div style={{position: 'relative'}}  className='p-4 mt-3'>
             <div className='bottomImage mr-2'>
             {editbtn}
               <div className='education'>
