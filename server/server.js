@@ -11,6 +11,7 @@ const jobs = require('./routes/api/jobs')
 const url = require('./routes/api/url')
 const weather = require('./routes/api/weather')
 const roadalert = require('./routes/api/roadalert')
+const truckLoads = require('./routes/api/truckload')
 
 const mongoURI = require('./MongoURI')
 
@@ -32,6 +33,7 @@ app.use('/api/jobs', jobs)
 app.use('/api/url', url)
 app.use('/api/weather', weather)
 app.use('/api/roadalert', roadalert)
+app.use('/api/truckload', truckLoads)
 
 
 var urlencodedParser = express.urlencoded({extended: false});

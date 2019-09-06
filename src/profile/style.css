@@ -55,3 +55,11 @@ ul.experience{
     position: static !important;
     margin-bottom: 5px;
 }
+
+.highlightChip{
+    border-radius: 20px;
+    background-color: #efefef;
+    text-align: center;
+    padding: 5px;
+    
+}

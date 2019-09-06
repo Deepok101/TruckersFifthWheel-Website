@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form'
 import Fab from '@material-ui/core/Fab';
 import EditIcon from '@material-ui/icons/Edit';
 import EditHighlights from './editHighlights'
+import Chip from '@material-ui/core/Chip';
 
 export default class Highlights extends React.Component{
     constructor(props){
@@ -26,7 +27,7 @@ export default class Highlights extends React.Component{
         }
         else {
             highlights = this.props.highlights.map(value => 
-                <li>
+                <li className='highlightChip'>
                   {value}
                 </li>
               )
