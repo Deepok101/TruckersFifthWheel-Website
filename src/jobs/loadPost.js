@@ -10,11 +10,25 @@ export default class LoadPost extends React.Component{
     constructor(props){
       super(props)
         this.state = {
-
+          data: null
         }
+        this.fetchLoadData = this.fetchLoadData.bind(this);
     }
 
+    componentDidMount(){
+      this.fetchLoadData();
+    }
+    
+    fetchLoadData(){
+      fetch('/api/truckload/all').then(data => this.setState({data}))
+    }
+
+    
+
     render(){
+      if(this.state.data){
+
+      
         return(
             <Paper>
             <Table>
@@ -27,9 +41,28 @@ export default class LoadPost extends React.Component{
                   <TableCell align="right">Protein&nbsp;(g)</TableCell>
                 </TableRow>
               </TableHead>
-
+              <TableBody>
+                {this.state.data.map(row => (
+                  <TableRow>
+                    <TableCell>
+                      {row.Origin}
+                    </TableCell>
+                    <TableCell>
+                      {row.OriginState}
+                    </TableCell>
+                    <TableCell>
+                      {row.Destination}
+                    </TableCell>
+                    <TableCell>
+                      {row.DestinationState}
+                    </TableCell>
+                  </TableRow>
+                  
+                ))}
+              </TableBody>
             </Table>
           </Paper>
         )
+      }
     }
 }

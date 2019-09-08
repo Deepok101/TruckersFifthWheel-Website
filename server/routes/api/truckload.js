@@ -27,5 +27,9 @@ router.post('/new', (req, res) => {
     newTruckLoad.save().then(data => res.json(data));
 })
 
+router.get('/all', (req, res) => {
+    TruckLoad.find().then((data) => res.json(data))
+})
+
 
 module.exports = router;
