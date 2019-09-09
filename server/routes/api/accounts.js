@@ -158,7 +158,7 @@ router.post('/update/education', (req, res)=>{
     Accounts.updateOne({_id: id}, {$set: {'profile.education': education}}).then(acc => res.json(acc))
 })
 
-router.post('/update/education', (req, res)=>{
+router.post('/update/experience', (req, res)=>{
     var id = req.body.id;
     var experience = req.body.experience;
 

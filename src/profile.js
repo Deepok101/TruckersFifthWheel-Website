@@ -3,26 +3,21 @@ import NavBar from "./components/navbar";
 import PastExperience from './profile/pastExp'
 import Bio from './profile/bio'
 import Highlights from './profile/highlights'
+import EditHighlights from './profile/editHighlights'
 import Nav from './profile/nav'
 import Posts from './components/assets/posts'
-import UserPosts from './profile/posts'
-import Button from 'react-bootstrap/Button'
-import ButtonMUI from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
-
 import Education from './profile/education'
-import AddIcon from '@material-ui/icons/Add';
-import TextField from '@material-ui/core/TextField';
-import IconButton from '@material-ui/core/IconButton';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import BackspaceIcon from '@material-ui/icons/Backspace';
+import EditEducation from './profile/editEducation'
 import Experience from './profile/experience'
+import EditExperience from './profile/editExperience'
 import {
   withRouter
 } from 'react-router-dom'
-
 import './profile/style.css'
 import ContentLoader, { Facebook } from 'react-content-loader'
+import ProfileSection from './profile/section'
+import SchoolSharpIcon from '@material-ui/icons/SchoolSharp';
 
 class Profile extends React.Component {
   constructor(props){
@@ -42,7 +37,8 @@ class Profile extends React.Component {
       highlights: [],
       experience: [],
       education: [],
-      editMode: false
+      editMode: false,
+      editSection: ""
     }
     this.getUserDataFromJWT = this.getUserDataFromJWT.bind(this)
     this.getUserData = this.getUserData.bind(this)
@@ -64,7 +60,7 @@ class Profile extends React.Component {
     this.BioRef = React.createRef();
     this.HighlightRef = React.createRef();
 
-
+    this.changeEditSection = this.changeEditSection.bind(this);
   }
 
   componentDidMount(){
@@ -213,37 +209,14 @@ class Profile extends React.Component {
       })
     }
   }
+
+  changeEditSection(section){
+    this.setState({editSection: section});
+  }
   
   render(){
-
-    let posts = this.state.posts.map((data)=>
-        <Posts  urlTitle={data.urlTitle} 
-                url={data.url} 
-                imgUrl={data.urlImg} 
-                urlDesc={data.urlDescription} 
-                comments={data.comments} 
-                likedByAcc={data.likedByAcc} 
-                likes={data.likes} 
-                id={data._id} 
-                accountName={data.author} 
-                text={data.text} 
-                date={data.date}
-                image={data.image}/>
-    );
-
-    
-    var inputEditStyle = {
-      width: '100%',
-      borderRadius: "5px",
-      border: "1px solid #8f8f8f",
-      boxSizing: "border-box",
-    }
     if(this.props.editable === false){
       var submitBtn = null
-     
-    }
-  
-    if(this.state.editMode === true && this.props.editable === true){
      
     }
     
@@ -333,7 +306,53 @@ class Profile extends React.Component {
       )
     }
     
+
+
+
     if(this.state.loaded === true){
+      //Get highlights
+      var highlights;
+      if(this.state.highlights == null){
+          highlights = null;
+      }
+      else {
+          highlights = this.state.highlights.map(value => 
+              <li className='highlightChip'>
+                {value}
+              </li>
+            )
+      } 
+
+      //Get education
+      let education = this.state.education.map(educ => 
+        <div className='row'>
+          <div className='col-1'  style={{paddingRight: 0}}>
+            <SchoolSharpIcon color='disabled' style={{...{width: 60},...{height: 60}}} fontSize="large"/>
+          </div>
+          <ul className='col-11' style={{paddingLeft: 7}}>
+            <li style={{...{fontSize: '1.2em'},...{fontWeight: 'bold'}}}>
+                {educ.institutionName}
+            </li>
+            <li style={{fontSize: '0.9em'}}>
+                {educ.institutionType}
+            </li>
+            <li style={{fontSize: '0.9em'}}>
+                {educ.years}
+            </li>
+          </ul>
+        </div>
+        
+      )
+
+      //Get Experience
+      if(this.state.experience !== null){
+        var experience = this.state.experience.map(experience => 
+            <PastExperience title={experience.title} year={experience.year} position={experience.position} description={experience.description}/>
+        )
+      } else {
+          var experience = null;
+      }
+
     return (
         <div>
           <NavBar fifth='active' company="DeepEmploi" firstSection="Home" secondSection="NewsFeed" thirdSection="Chat" fourthSection="Contact Us"/>
@@ -346,7 +365,7 @@ class Profile extends React.Component {
               <Paper>
                 <Bio userID={this.state.userID} editable={this.props.editable} currentPosCompany={this.state.currentPos.company} currentPosJob={this.state.currentPos.job} description={this.state.bio}/>
               </Paper>
-              <Paper>
+              {/* <Paper>
                 <Highlights userID={this.state.userID} editable={this.props.editable} highlights={this.state.highlights} />
               </Paper>
               <Paper>
@@ -354,7 +373,54 @@ class Profile extends React.Component {
               </Paper>
               <Paper>
                 <Experience experience={this.state.experience} editable={this.props.editable} userID={this.state.userID}/>
-              </Paper>
+              </Paper> */}
+
+              <ProfileSection title="Skills and Highlights" editable={this.props.editable}
+                sectionName="highlights"
+                content={
+                  <ul className='experience' style={{...{columns: 5},...{fontSize: '1.08em'},...{lineHeight: '1.6'}}}>
+                    {highlights}
+                  </ul>
+                }
+                editSection={this.changeEditSection} //Changes the editSection state to "highlight" which opens the modal
+
+                editModal={<EditHighlights userID={this.state.userID} highlights={this.state.highlights} 
+                                            show={(this.state.editSection == "highlights") ? true: false} 
+                                            onHide={() => this.setState({editSection: ""})}/>
+              }
+
+              />
+
+              <ProfileSection title="Education" editable={this.props.editable}
+                sectionName="education"
+                content={
+                  <ul className='ml-2'>
+                    {education}
+                  </ul>
+                }
+                editSection={this.changeEditSection} //Changes the editSection state to "highlight" which opens the modal
+
+                editModal={<EditEducation education={this.state.education}
+                                            userID={this.state.userID}
+                                            show={(this.state.editSection == "education") ? true: false} 
+                                            onHide={() => this.setState({editSection: ""})}/>
+              }
+
+              />
+
+              <ProfileSection title="Experience" editable={this.props.editable}
+                sectionName="experience"
+                content={experience}
+                
+                editSection={this.changeEditSection} //Changes the editSection state to "highlight" which opens the modal
+
+                editModal={<EditExperience  experience={this.state.experience}
+                                            userID={this.state.userID}
+                                            show={(this.state.editSection == "experience") ? true: false} 
+                                            onHide={() => this.setState({editSection: ""})}/>
+              }
+
+              />
 
             {submitBtn}
             </div>

@@ -8,6 +8,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import BackspaceIcon from '@material-ui/icons/Backspace';
 import { withStyles } from '@material-ui/styles';
 import CloseIcon from '@material-ui/icons/Close';
+import LocationCityIcon from '@material-ui/icons/LocationCity';
 
 const styles = theme => ({
     root: {
@@ -28,11 +29,10 @@ class EditEducation extends React.Component{
             
            
         }
-
-        this.handleInputChange = this.handleInputChange.bind(this)
+        this.handleExperienceRemove = this.handleExperienceRemove.bind(this)
         this.handleExperienceChange = this.handleExperienceChange.bind(this)
         this.updateProfile = this.updateProfile.bind(this)
-        this.handleEducationAdd = this.handleEducationAdd.bind(this)
+        this.handleExperienceAdd = this.handleExperienceAdd.bind(this)
     }
     updateProfile(){
 
@@ -51,30 +51,27 @@ class EditEducation extends React.Component{
           }).then(res => res.json()).then((res)=> console.log(res)).then(()=> window.location.reload())
     }
 
-    handleInputChange(e){
-      
-    }
 
     handleExperienceChange(e){
         this.setState({[e.target.name]: e.target.value});
         let a = this.state.experience;
         var replace = {
-            "title": this.state.title,
-            "year": this.state.year,
-            "position": this.state.position,
-            "description": this.state.description
+            "title": (e.target.name == "title") ? e.target.value: this.state.experience[e.target.id].title,
+            "year": (e.target.name == "year") ? e.target.value: this.state.experience[e.target.id].year,
+            "position": (e.target.name == "position") ? e.target.value: this.state.experience[e.target.id].position,
+            "description": (e.target.name == "description") ? e.target.value: this.state.experience[e.target.id].description
+
         }
         a.splice(e.target.id, 1, replace)
-        this.setState({education: a})
-        console.log(this.state)
+        this.setState({experience: a})
     }
-    handleEducationRemove(index){
-        var a = this.state.education
+    handleExperienceRemove(index){
+        var a = this.state.experience
        
         a.splice(index, 1)
         this.setState({education: a})
     }
-    handleEducationAdd(){
+    handleExperienceAdd(){
         let a = this.state.experience;
         let add = {
             "title": "",
@@ -90,36 +87,35 @@ class EditEducation extends React.Component{
 
     render(){
         const { classes } = this.props;
-        console.log(this.state.experience)
         if(this.state.experience.length > 0){
-        var experience = this.state.experience.map((index, education) => 
+        var experience = this.state.experience.map((experience, index) => 
             <form>
-                <IconButton className={classes.root} size="small" onClick={() => this.handleEducationRemove(index)}>
+                <IconButton className={classes.root} size="small" onClick={() => this.handleExperienceRemove(index)}>
                     <CloseIcon  />
                 </IconButton>
                 <div class="form-group">
                     <div class='editLabel'>
                         Title
                     </div>
-                    <input type="email" name='title' class="form-control" id={index} value={education.title} onChange={this.handleExperienceChange}/>
+                    <input  name='title' class="form-control" id={index} value={experience.title} onChange={this.handleExperienceChange}/>
                 </div>
                 <div class="form-group">
                     <div class='editLabel'>
                         Year
                     </div>
-                    <input type="email" name='year' class="form-control" id={index} value={education.years} onChange={this.handleExperienceChange}/>
+                    <input  name='year' class="form-control" id={index} value={experience.year} onChange={this.handleExperienceChange}/>
                 </div>
                 <div class="form-group">
                     <div class='editLabel'>
                         Position 
                     </div>
-                    <input type="email" name='position' id={index} onChange={this.handleExperienceChange} class="form-control" value={education.position}/>
+                    <input  name='position' id={index} onChange={this.handleExperienceChange} class="form-control" value={experience.position}/>
                 </div>   
                 <div class="form-group">
                     <div class='editLabel'>
                         Description
                     </div>
-                    <input type="email" name='description' id={index} onChange={this.handleExperienceChange} class="form-control" value={education.description}/>
+                    <input  name='description' id={index} onChange={this.handleExperienceChange} class="form-control" value={experience.description}/>
                 </div>
                 <hr/>     
             </form>
@@ -144,7 +140,7 @@ class EditEducation extends React.Component{
                     {experience}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={this.handleEducationAdd}>Add</Button>
+                    <Button onClick={this.handleExperienceAdd}>Add</Button>
                     <Button onClick={this.updateProfile}>Submit</Button>
                     <Button onClick={this.props.onHide}>Close</Button>
                 </Modal.Footer>

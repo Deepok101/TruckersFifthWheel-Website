@@ -66,7 +66,6 @@ class EditHighlights extends React.Component{
     }
 
     render(){
-        console.log(this.state.input)
         const { classes } = this.props;
         if(this.state.highlights !== null){
 

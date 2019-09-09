@@ -20,7 +20,7 @@ export default class LoadPost extends React.Component{
     }
     
     fetchLoadData(){
-      fetch('/api/truckload/all').then(data => this.setState({data}))
+      fetch('/api/truckload/all').then(res => res.json()).then(data => this.setState({data: data}))
     }
 
     
@@ -34,28 +34,35 @@ export default class LoadPost extends React.Component{
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Dessert (100g serving)</TableCell>
-                  <TableCell align="right">Calories</TableCell>
-                  <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                  <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                  <TableCell align="right">Protein&nbsp;(g)</TableCell>
+                  <TableCell>Origin</TableCell>
+                  <TableCell align="right">ST</TableCell>
+                  <TableCell align="right">Destination</TableCell>
+                  <TableCell align="right">ST</TableCell>
+                  <TableCell align="right">Trailer Type</TableCell>
+                  <TableCell align="right">Load Size</TableCell>
+                  <TableCell align="right">Weight</TableCell>
+                  <TableCell align="right">Miles</TableCell>
+                  <TableCell align="right">Payrate</TableCell>
+                  <TableCell align="right">Credit Report</TableCell>
+                  <TableCell align="right">Company</TableCell>
+                  <TableCell align="right">Date Posted</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {this.state.data.map(row => (
                   <TableRow>
-                    <TableCell>
-                      {row.Origin}
-                    </TableCell>
-                    <TableCell>
-                      {row.OriginState}
-                    </TableCell>
-                    <TableCell>
-                      {row.Destination}
-                    </TableCell>
-                    <TableCell>
-                      {row.DestinationState}
-                    </TableCell>
+                    <TableCell>{row.Origin}</TableCell>
+                    <TableCell>{row.OriginState} </TableCell>
+                    <TableCell>{row.Destination}</TableCell>
+                    <TableCell>{row.DestinationState}</TableCell>
+                    <TableCell>{row.TrailerType}</TableCell>
+                    <TableCell>{row.LoadSize}</TableCell>
+                    <TableCell>{row.Weight}</TableCell>
+                    <TableCell>{row.Miles}</TableCell>
+                    <TableCell>{row.Payrate}</TableCell>
+                    <TableCell>{row.CreditReport}</TableCell>
+                    <TableCell>{row.Company}</TableCell>
+                    <TableCell>{row.DatePosted}</TableCell>
                   </TableRow>
                   
                 ))}
@@ -63,6 +70,8 @@ export default class LoadPost extends React.Component{
             </Table>
           </Paper>
         )
+      } else {
+        return null;
       }
     }
 }

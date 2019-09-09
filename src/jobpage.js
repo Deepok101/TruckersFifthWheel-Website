@@ -93,14 +93,17 @@ class Jobpage extends React.Component {
 
   render(){
     if(this.state.jobs !== undefined){
+      if(this.state.selectedOptionVal == "job"){
+
       var jobposts = this.state.jobs.map(job => { 
-        if(this.state.selectedOptionVal == "job"){
           return <Jobpost city={job.city} active={this.isActive(job._id)} id={job._id} clicked={this.onClick} jobName={job.jobName} companyName={job.company} jobDesc={job.jobDescription} />
-        } 
-        if(this.state.selectedOptionVal == "load"){
-          return <LoadBoard/>
-        }
+      
       })
+    }
+
+    if(this.state.selectedOptionVal == "load"){
+      var jobposts = <LoadBoard/>
+    }
     }
     if(this.state.jobs.length == 0){
       var jobposts =  <div className='jobposts p-2'>

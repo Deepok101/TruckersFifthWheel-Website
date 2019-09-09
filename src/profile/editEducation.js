@@ -26,7 +26,6 @@ class EditEducation extends React.Component{
             years: ""
         }
 
-        this.handleInputChange = this.handleInputChange.bind(this)
         this.handleEducationChange = this.handleEducationChange.bind(this)
         this.updateProfile = this.updateProfile.bind(this)
         this.handleEducationAdd = this.handleEducationAdd.bind(this)
@@ -48,21 +47,17 @@ class EditEducation extends React.Component{
           }).then(res => res.json()).then((res)=> console.log(res)).then(()=> window.location.reload())
     }
 
-    handleInputChange(e){
-      
-    }
 
     handleEducationChange(e){
         this.setState({[e.target.name]: e.target.value});
         let a = this.state.education;
         var replace = {
-            "institutionName": this.state.institutionName,
-            "institutionType": this.state.institutionType,
-            "years": this.state.years
+            "institutionName": (e.target.name == "institutionName") ? e.target.value: this.state.education[e.target.id].institutionName,
+            "institutionType": (e.target.name == "institutionType") ? e.target.value: this.state.education[e.target.id].institutionType,
+            "years": (e.target.name == "years") ? e.target.value: this.state.education[e.target.id].years
         }
         a.splice(e.target.id, 1, replace)
         this.setState({education: a})
-        console.log(this.state)
     }
     handleEducationRemove(index){
         var a = this.state.education
@@ -85,7 +80,7 @@ class EditEducation extends React.Component{
 
     render(){
         const { classes } = this.props;
-        var education = this.state.education.map((index, education) => 
+        var education = this.state.education.map((education, index) => 
             <form>
                 <IconButton className={classes.root} size="small" onClick={() => this.handleEducationRemove(index)}>
                     <CloseIcon  />
@@ -94,19 +89,19 @@ class EditEducation extends React.Component{
                     <div class='editLabel'>
                         Institution Name
                     </div>
-                    <input type="email" name='institutionName' class="form-control" id={index} value={education.institutionName} onChange={this.handleEducationChange}/>
+                    <input name='institutionName' class="form-control" id={index} value={education.institutionName} onChange={this.handleEducationChange}/>
                 </div>
                 <div class="form-group">
                     <div class='editLabel'>
                         Institution Type
                     </div>
-                    <input type="email" name='institutionType' class="form-control" id={index} value={education.institutionType} onChange={this.handleEducationChange}/>
+                    <input name='institutionType' class="form-control" id={index} value={education.institutionType} onChange={this.handleEducationChange}/>
                 </div>
                 <div class="form-group">
                     <div class='editLabel'>
                         Years
                     </div>
-                    <input type="email" name='years' value={this.state.currentPosition} id={index} onChange={this.handleEducationChange} class="form-control" value={education.years}/>
+                    <input name='years' id={index} onChange={this.handleEducationChange} class="form-control" value={education.years}/>
                 </div>   
                 <hr/>     
             </form>
