@@ -2,6 +2,9 @@
 
 This is the front-end and back-end code to a project I worked on during the summer of 2019. 
 
+
+[Deployed URL](https://still-taiga-69176.herokuapp.com/) (Currently Offline)
+
 The project used to be deployed for a few years but is now offline. I closed it for security reasons but I will soon relaunch it! I have posted a few screenshots to show how the website used to look like when deployed.
 
 ## Built Features
