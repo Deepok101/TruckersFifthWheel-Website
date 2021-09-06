@@ -1,11 +1,10 @@
 # TruckersFifthWheel
 
-This is the front-end and back-end code to a project I worked on during the summer of 2019. 
-
+TruckersFifthWheel is a website I worked on a side-project during the summer of 2019. The purpose of this web application was to allow individuals in the transportation industry to better connect. Being part of the transportation industry since I was 18, I noticed that there was a big disconnect between truck drivers and employers. Thus, I decided to work on TruckersFifthWheel as a personal project. 
 
 [Deployed URL](https://still-taiga-69176.herokuapp.com/) (Currently Offline)
 
-The project used to be deployed for a few years but is now offline. I closed it for security reasons but I will soon relaunch it! I have posted a few screenshots to show how the website used to look like when deployed.
+The project used to be deployed for a few years but is now offline. I closed it for security reasons but I will soon relaunch it! I have posted a few screenshots to show how the website used to look like when deployed. Additionally, I would consider the code quality as weak to my standards today. However, I like to still showcase this project to show my progress as a developer!
 
 ## Built Features
 
