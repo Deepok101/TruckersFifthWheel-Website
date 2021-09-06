@@ -19,6 +19,9 @@ These are the features that were built for this project
 
 ## Screenshots
 
+Main Page
+![Screen Shot 2021-09-06 at 1 56 05 AM](https://user-images.githubusercontent.com/46658013/132167550-7c883e87-2d08-4562-a0ca-f95db37149f3.png)
+
 News Feed
 ![Screen Shot 2021-09-06 at 1 51 18 AM](https://user-images.githubusercontent.com/46658013/132167136-8cf78fcb-3ef0-4e85-8708-32b9270849bb.png)
 
