@@ -20,6 +20,7 @@ These are the features that were built for this project
 * Creating and viewing jobs
 * Chat
 * Notifications
+* Real-time weather
 
 ## Screenshots
 
