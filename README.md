@@ -19,6 +19,7 @@ These are the features that were built for this project
 * Liking posts
 * Creating and viewing jobs
 * Chat
+* Notifications
 
 ## Screenshots
 
